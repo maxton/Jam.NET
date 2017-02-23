@@ -16,6 +16,8 @@ namespace Jammit.Controls
     public long PositionSamples { get; set; } = 0;
     public sbyte[] WaveData;
 
+    private readonly Pen _nowPen = new Pen(Color.FromArgb(0x80, 0xFF, 0xFF, 0xFF), 2.0f);
+
     public Waveform()
     {
       DoubleBuffered = true;
@@ -25,17 +27,31 @@ namespace Jammit.Controls
     {
       if (WaveData != null)
       {
-        var offset = (int)(PositionSamples/2048) * 2;
         pe.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
         var pen = new Pen(ForeColor);
-        var ratio = Height/256.0f;
-        var i = 0;
-        for (var x = offset; x < offset + 2*Width && x < WaveData.Length; x++)
+        var ratio = Height / 256.0f;
+        var halfWidth = Width/2;
+        var halfHeight = Height/2;
+
+        // This is the center point.
+        // 1 pixel = 1 waveform entry
+        var currentSampleIdx = (int)(PositionSamples/2048);
+
+        // Start drawing at 0, unless the current sample is less than halfWidth
+        var waveStart = Math.Max(0, halfWidth - currentSampleIdx);
+        var waveEnd = Math.Min(Width, WaveData.Length/2 - currentSampleIdx + halfWidth);
+        
+        // Draw zero line
+        pe.Graphics.DrawLine(pen, waveStart, halfHeight, waveEnd, halfHeight);
+        for (var x = waveStart; x < waveEnd; x++)
         {
-          pe.Graphics.DrawLine(pen, i, (128+WaveData[x])*ratio, i, (128+WaveData[++x])*ratio);
-          i++;
+          var sample = 2*(currentSampleIdx - halfWidth + x);
+          pe.Graphics.DrawLine(pen, x, (128+WaveData[sample])*ratio, x, (128+WaveData[sample + 1])*ratio);
         }
       }
+
+      // Draw cursor
+      pe.Graphics.DrawLine(_nowPen, Width/2.0f, 0, Width/2.0f, Height);
       base.OnPaint(pe);
     }
   }
