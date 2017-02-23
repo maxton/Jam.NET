@@ -56,10 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox.cs">
+    <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox.Designer.cs">
+    <Compile Include="Forms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Fader.cs">
@@ -78,42 +78,42 @@
     <Compile Include="Audio\JammitZipSongPlayer.cs" />
     <Compile Include="Audio\Ima4Decoder.cs" />
     <Compile Include="Audio\ImaWaveStream.cs" />
-    <Compile Include="LibraryWindow.cs">
+    <Compile Include="Forms\LibraryWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryWindow.Designer.cs">
+    <Compile Include="Forms\LibraryWindow.Designer.cs">
       <DependentUpon>LibraryWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Song.cs" />
     <Compile Include="Model\SongMeta.cs" />
     <Compile Include="Model\Library.cs" />
     <Compile Include="Model\Track.cs" />
-    <Compile Include="OptionsWindow.cs">
+    <Compile Include="Forms\OptionsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OptionsWindow.Designer.cs">
+    <Compile Include="Forms\OptionsWindow.Designer.cs">
       <DependentUpon>OptionsWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SongWindow.cs">
+    <Compile Include="Forms\SongWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SongWindow.Designer.cs">
+    <Compile Include="Forms\SongWindow.Designer.cs">
       <DependentUpon>SongWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="StreamExtensions.cs" />
-    <Compile Include="UnionArray.cs" />
-    <EmbeddedResource Include="AboutBox.resx">
+    <Compile Include="Util\StreamExtensions.cs" />
+    <Compile Include="Util\UnionArray.cs" />
+    <EmbeddedResource Include="Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Fader.resx">
       <DependentUpon>Fader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LibraryWindow.resx">
+    <EmbeddedResource Include="Forms\LibraryWindow.resx">
       <DependentUpon>LibraryWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OptionsWindow.resx">
+    <EmbeddedResource Include="Forms\OptionsWindow.resx">
       <DependentUpon>OptionsWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -126,7 +126,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SongWindow.resx">
+    <EmbeddedResource Include="Forms\SongWindow.resx">
       <DependentUpon>SongWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
