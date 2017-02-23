@@ -298,14 +298,14 @@ namespace Jammit
       s.Read(bytes, 0, 10);
       double f;
       int expon = ((bytes[0] & 0x7F) << 8) | (bytes[1] & 0xFF);
-      ulong hiMant = ((ulong)(bytes[2] & 0xFF) << 24)
-            | ((ulong)(bytes[3] & 0xFF) << 16)
-            | ((ulong)(bytes[4] & 0xFF) << 8)
-            | ((ulong)(bytes[5] & 0xFF));
-      ulong loMant = ((ulong)(bytes[6] & 0xFF) << 24)
-            | ((ulong)(bytes[7] & 0xFF) << 16)
-            | ((ulong)(bytes[8] & 0xFF) << 8)
-            | ((ulong)(bytes[9] & 0xFF));
+      ulong hiMant = ((bytes[2] & 0xFFul) << 24)
+            | ((bytes[3] & 0xFFul) << 16)
+            | ((bytes[4] & 0xFFul) << 8)
+            | ((bytes[5] & 0xFFul));
+      ulong loMant = ((bytes[6] & 0xFFul) << 24)
+            | ((bytes[7] & 0xFFul) << 16)
+            | ((bytes[8] & 0xFFul) << 8)
+            | ((bytes[9] & 0xFFul));
 
       if (expon == 0 && hiMant == 0 && loMant == 0)
       {

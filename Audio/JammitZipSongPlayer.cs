@@ -42,8 +42,7 @@ namespace Jammit.Audio
           }
         }
       }
-
-      int i = 1;
+      
       foreach (var d in channels)
       {
         mixer.AddInputStream(d);
