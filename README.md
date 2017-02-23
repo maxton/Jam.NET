@@ -6,6 +6,12 @@ For bleeding-edge testing, you can download builds from [Appveyor](https://ci.ap
 
 More stable builds will be released periodically in [the releases tab](https://github.com/maxton/Jam.NET/releases).
 
+## Contributing
+
+Contributions are welcome.
+For code style, please note that this project uses the default C# code style, but with 2 spaces instead of tabs.
+PRs not adhering to the style will not be merged.
+
 ## Screenshot
 
 ![Current state of the application](https://i.imgur.com/C9FPcKz.png)

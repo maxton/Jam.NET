@@ -53,15 +53,10 @@ namespace Jammit.Model
       var ret = new List<Image>();
       if (!t.HasNotation) return null;
       using (var arc = OpenZip())
-      {
         for (var i = 0; i < t.NotationPages; i++)
-        {
           using (var img = arc.GetEntry($"{Metadata.GuidString}.jcf/{t.Id}_jcfn_{i:D2}").Open())
-          {
             ret.Add(Image.FromStream(img));
-          }
-        }
-      }
+
       return ret;
     }
 
@@ -70,15 +65,10 @@ namespace Jammit.Model
       var ret = new List<Image>();
       if (!t.HasTablature) return null;
       using (var arc = OpenZip())
-      {
         for (var i = 0; i < t.NotationPages; i++)
-        {
           using (var img = arc.GetEntry($"{Metadata.GuidString}.jcf/{t.Id}_jcft_{i:D2}").Open())
-          {
             ret.Add(Image.FromStream(img));
-          }
-        }
-      }
+
       return ret;
     }
 
