@@ -1,0 +1,5 @@
+artifacts:
+ - path: bin\Release\Jam.NET.exe
+ - path: bin\Release\Jam.NET.exe.config
+ - path: bin\Release\NAudio.dll
+ - path: bin\Release\plist-cil.dll
