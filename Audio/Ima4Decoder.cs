@@ -91,14 +91,17 @@ namespace Jammit.Audio
       }
 
       _stream.Position = _bitstreamOffset;
+      Seek(0);
     }
 
     public void Seek(long sample)
     {
       var packet = sample/64;
-      if (packet > 0 && packet < _numPackets)
+      if (packet >= 0 && packet < _numPackets)
       {
         _currentPacket = packet;
+        _sampleData[126] = 0;
+        _sampleData[127] = 0;
         ReadTwoPackets(_currentPacket);
         _frameOffset = (int)(sample % 64);
       }
@@ -110,9 +113,9 @@ namespace Jammit.Audio
     {
       for (int k = 0; k < 64; k++)
       {
-        short step = ima_step_size[index];
+        int step = ima_step_size[index];
 
-        int bytecode = k%2 == 0 ? bitstream[k/2] & 0xF : bitstream[k/2] >> 4;
+        int bytecode = k%2 == 0 ? bitstream[k/2] & 0xF : (bitstream[k/2] >> 4) & 0xF;
 
         index += ima_indx_adjust[bytecode];
         index = ClampStepIdx(index);
@@ -141,19 +144,21 @@ namespace Jammit.Audio
     {
       _stream.Position = _bitstreamOffset + 68*packetFrame;
 
-      short leftPredictor, rightPredictor;
+      int leftPredictor, rightPredictor;
       byte leftIndex, rightIndex;
       var left = new byte[32];
       var right = new byte[32];
 
       leftPredictor = _stream.ReadInt16BE();
       leftIndex = (byte)(leftPredictor & 0x7f);
-      leftPredictor = (short)(leftPredictor & -128);
+      leftPredictor &= (short)(leftPredictor & -0x80);
+      leftPredictor |= _sampleData[126] & 0x7f;
       _stream.Read(left, 0, 32);
 
       rightPredictor = _stream.ReadInt16BE();
       rightIndex = (byte)(rightPredictor & 0x7f);
       rightPredictor = (short)(rightPredictor & -128);
+      rightPredictor |= _sampleData[127] & 0x7f;
       _stream.Read(right, 0, 32);
 
       DecodePacket(leftPredictor, leftIndex, left, 0, _sampleData);
