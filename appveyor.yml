@@ -11,8 +11,17 @@ build:
 before_build:
  - nuget restore
 
+after_build:
+ - >
+   7z a Jam.NET-%APPVEYOR_BUILD_VERSION%.zip 
+   %APPVEYOR_BUILD_FOLDER%\bin\Release\Jam.NET.exe 
+   %APPVEYOR_BUILD_FOLDER%\bin\Release\Jam.NET.exe.config
+   %APPVEYOR_BUILD_FOLDER%\bin\Release\NAudio.dll
+   %APPVEYOR_BUILD_FOLDER%\bin\Release\plist-cil.dll
+   %APPVEYOR_BUILD_FOLDER%\README.md
+   %APPVEYOR_BUILD_FOLDER%\COPYING
+
+
+
 artifacts:
- - path: bin\Release\Jam.NET.exe
- - path: bin\Release\Jam.NET.exe.config
- - path: bin\Release\NAudio.dll
- - path: bin\Release\plist-cil.dll
+ - path: Jam.NET-%APPVEYOR_BUILD_VERSION%.zip
