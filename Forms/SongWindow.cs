@@ -11,91 +11,81 @@ namespace Jammit
   
   public partial class SongWindow : Form
   {
-    private Song s;
-    private ISongPlayer player;
-    private Timer updateTimer;
+    private ISong _song;
+    private ISongPlayer _player;
+    private Timer _timer;
 
     public SongWindow(SongMeta t)
     {
-      s = new Song(t);
+      _song = new ZipSong(t);
       InitializeComponent();
       Text = $"Score: {t.Artist} - {t.Name} [{t.Instrument}]";
-
-      using (var x = s.OpenZip())
+      albumArtwork.Image = _song.GetCover();
+      if (_song.Tracks[0].HasNotation)
       {
-        using (var stream = x.GetEntry($"{s.Metadata.GuidString}.jcf/cover.jpg").Open())
-        using (var ms = new MemoryStream())
-        {
-          stream.CopyTo(ms);
-          albumArtwork.Image = Image.FromStream(ms);
-        }
-
-        if (s.Tracks[0].HasNotation)
-        {
-          using (var stream = x.GetEntry($"{s.Metadata.GuidString}.jcf/{s.Tracks[0].Id}_jcfn_00").Open())
-          using (var ms = new MemoryStream())
-          {
-            stream.CopyTo(ms);
-            score1.Image = Image.FromStream(ms);
-          }
-        }
+        score1.SetImages(_song.GetNotation(_song.Tracks[0]));
       }
 
-      player = new JammitZipSongPlayer(s);
-      for (int x = 0; x < player.Channels; x++)
+      _player = _song.GetSongPlayer();
+      for (int x = 0; x < _player.Channels; x++)
         AddFader(x);
       
-      seekBar.Maximum = (int)(player.Length.TotalSeconds + 1);
-      updateTimer = new Timer();
-      updateTimer.Interval = 30;
-      updateTimer.Tick += UpdateTimer_Tick;
-      waveform1.WaveData = s.GetWaveform();
+      seekBar.Maximum = (int)(_player.Length.TotalSeconds + 1);
+      _timer = new Timer();
+      _timer.Interval = 30;
+      _timer.Tick += TimerTick;
+      waveform1.WaveData = _song.GetWaveform();
     }
 
     private void AddFader(int channel)
     {
       var fader = new Fader();
-      fader.Text = player.GetChannelName(channel);
-      fader.OnFaderChange += value => player.SetChannelVolume(channel, value / 100.0f);
+      fader.Text = _player.GetChannelName(channel);
+      fader.OnFaderChange += value => _player.SetChannelVolume(channel, value / 100.0f);
       mixerFlowPanel.Controls.Add(fader);
     }
 
-    private void UpdateTimer_Tick(object sender, EventArgs e)
+    private void TimerTick(object sender, EventArgs e)
     {
-      timePos.Text = player.Position.ToString("mm\\:ss");
-      timeRemain.Text = "-" + player.Length.Subtract(player.Position).ToString("mm\\:ss");
-      seekBar.Value = (int)player.Position.TotalSeconds;
-      waveform1.PositionSamples = player.PositionSamples;
+      timePos.Text = _player.Position.ToString("mm\\:ss");
+      timeRemain.Text = "-" + _player.Length.Subtract(_player.Position).ToString("mm\\:ss");
+      seekBar.Value = (int)_player.Position.TotalSeconds;
+      waveform1.PositionSamples = _player.PositionSamples;
       waveform1.Invalidate();
-      score1.TimeSeconds = player.Position.TotalSeconds;
+      score1.TimeSeconds = _player.Position.TotalSeconds;
     }
 
     private void SongWindow_FormClosing(object sender, FormClosingEventArgs e)
     {
-      updateTimer.Stop();
-      updateTimer.Dispose();
-      player.Stop();
+      _timer.Stop();
+      _timer.Dispose();
+      _player.Stop();
     }
 
     private void seekBar_MouseUp(object sender, MouseEventArgs e)
     {
-      player.Position = TimeSpan.FromSeconds(seekBar.Value);
+      _player.Position = TimeSpan.FromSeconds(seekBar.Value);
     }
 
     private void playPauseButton_Click(object sender, EventArgs e)
     {
-      if (player.State == NAudio.Wave.PlaybackState.Playing)
+      if (_player.State == NAudio.Wave.PlaybackState.Playing)
       {
-        player.Pause();
-        updateTimer.Stop();
+        _player.Pause();
+        _timer.Stop();
         button1.Text = "Play";
       }
       else
       {
-        player.Play();
-        updateTimer.Start();
+        _player.Play();
+        _timer.Start();
         button1.Text = "Pause";
       }
+    }
+
+    private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Close();
     }
   }
 }

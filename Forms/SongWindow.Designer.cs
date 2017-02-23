@@ -37,10 +37,14 @@
       this.albumArtwork = new System.Windows.Forms.PictureBox();
       this.waveform1 = new Jammit.Controls.Waveform();
       this.score1 = new Jammit.Controls.Score();
+      this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+      this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.groupBox1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.seekBar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.albumArtwork)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.score1)).BeginInit();
+      this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
       // button1
@@ -145,11 +149,37 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.score1.BackColor = System.Drawing.Color.White;
-      this.score1.Location = new System.Drawing.Point(12, 12);
+      this.score1.Location = new System.Drawing.Point(12, 42);
       this.score1.Name = "score1";
-      this.score1.Size = new System.Drawing.Size(876, 378);
+      this.score1.Size = new System.Drawing.Size(876, 348);
       this.score1.TabIndex = 17;
       this.score1.TabStop = false;
+      this.score1.TimeSeconds = 0D;
+      // 
+      // menuStrip1
+      // 
+      this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+      this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+      this.menuStrip1.Name = "menuStrip1";
+      this.menuStrip1.Size = new System.Drawing.Size(900, 24);
+      this.menuStrip1.TabIndex = 19;
+      this.menuStrip1.Text = "menuStrip1";
+      // 
+      // fileToolStripMenuItem
+      // 
+      this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeToolStripMenuItem});
+      this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+      this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+      this.fileToolStripMenuItem.Text = "File";
+      // 
+      // closeToolStripMenuItem
+      // 
+      this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+      this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.closeToolStripMenuItem.Text = "Close song";
+      this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
       // 
       // SongWindow
       // 
@@ -165,7 +195,9 @@
       this.Controls.Add(this.timePos);
       this.Controls.Add(this.button1);
       this.Controls.Add(this.groupBox1);
+      this.Controls.Add(this.menuStrip1);
       this.DoubleBuffered = true;
+      this.MainMenuStrip = this.menuStrip1;
       this.MinimumSize = new System.Drawing.Size(916, 600);
       this.Name = "SongWindow";
       this.ShowIcon = false;
@@ -175,6 +207,8 @@
       ((System.ComponentModel.ISupportInitialize)(this.seekBar)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.albumArtwork)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.score1)).EndInit();
+      this.menuStrip1.ResumeLayout(false);
+      this.menuStrip1.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -190,5 +224,8 @@
     private Controls.Score score1;
     private System.Windows.Forms.FlowLayoutPanel mixerFlowPanel;
     private Controls.Waveform waveform1;
+    private System.Windows.Forms.MenuStrip menuStrip1;
+    private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
   }
 }

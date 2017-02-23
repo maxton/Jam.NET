@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Jammit.Model
 {
-  class Track
+  public class Track
   {
     public string Title;
     public string ClassName;

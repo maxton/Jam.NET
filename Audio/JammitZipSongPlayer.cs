@@ -19,8 +19,8 @@ namespace Jammit.Audio
     /// <summary>
     /// Creates a song player for the given song.
     /// </summary>
-    /// <param name="s">Song to play.</param>
-    internal JammitZipSongPlayer(Song s)
+    /// <param name="s">ZipSong to play.</param>
+    internal JammitZipSongPlayer(ZipSong s)
     {
       waveOut = new WaveOutEvent();
       mixer = new WaveMixerStream32();

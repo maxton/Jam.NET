@@ -84,7 +84,8 @@
     <Compile Include="Forms\LibraryWindow.Designer.cs">
       <DependentUpon>LibraryWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Song.cs" />
+    <Compile Include="Model\ISong.cs" />
+    <Compile Include="Model\ZipSong.cs" />
     <Compile Include="Model\SongMeta.cs" />
     <Compile Include="Model\Library.cs" />
     <Compile Include="Model\Track.cs" />

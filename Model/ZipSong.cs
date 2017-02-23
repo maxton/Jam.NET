@@ -1,27 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using Claunia.PropertyList;
+using Jammit.Audio;
 
 namespace Jammit.Model
 {
   /// <summary>
-  /// Represents a song (backed by a content file).
+  /// Represents a song backed with a standard .zip content file.
   /// </summary>
-  class Song
+  class ZipSong : ISong
   {
-    public readonly SongMeta Metadata;
+    public SongMeta Metadata { get; }
 
-    public readonly IReadOnlyList<Track> Tracks;
+    public IReadOnlyList<Track> Tracks { get; }
 
-    public Song(SongMeta metadata)
+    public ZipSong(SongMeta metadata)
     {
       Metadata = metadata;
       var tracks = new List<Track>();
       InitTracks(tracks);
       Tracks = tracks;
+    }
+
+    public sbyte[] GetWaveform()
+    {
+      using (var a = OpenZip())
+      using (var s = a.GetEntry($"{Metadata.GuidString}.jcf/music.waveform").Open())
+      using (var ms = new MemoryStream())
+      {
+        s.CopyTo(ms);
+        return new UnionArray { Bytes = ms.ToArray() }.Sbytes;
+      }
+    }
+
+    public Image GetCover()
+    {
+      using (var x = OpenZip())
+      using (var stream = x.GetEntry($"{Metadata.GuidString}.jcf/cover.jpg").Open())
+      using (var ms = new MemoryStream())
+      {
+        stream.CopyTo(ms);
+        return Image.FromStream(ms);
+      }
+    }
+
+    public List<Image> GetNotation(Track t)
+    {
+      var ret = new List<Image>();
+      if (!t.HasNotation) return null;
+      using (var arc = OpenZip())
+      {
+        for (var i = 0; i < t.NotationPages; i++)
+        {
+          using (var img = arc.GetEntry($"{Metadata.GuidString}.jcf/{t.Id}_jcfn_{i:D2}").Open())
+          {
+            ret.Add(Image.FromStream(img));
+          }
+        }
+      }
+      return ret;
+    }
+
+    public List<Image> GetTablature(Track t)
+    {
+      var ret = new List<Image>();
+      if (!t.HasTablature) return null;
+      using (var arc = OpenZip())
+      {
+        for (var i = 0; i < t.NotationPages; i++)
+        {
+          using (var img = arc.GetEntry($"{Metadata.GuidString}.jcf/{t.Id}_jcft_{i:D2}").Open())
+          {
+            ret.Add(Image.FromStream(img));
+          }
+        }
+      }
+      return ret;
+    }
+
+    public ISongPlayer GetSongPlayer()
+    {
+      return new JammitZipSongPlayer(this);
     }
 
     private void InitTracks(List<Track> tracks)
@@ -61,17 +124,6 @@ namespace Jammit.Model
             tracks.Add(t);
           }
         }
-      }
-    }
-
-    public sbyte[] GetWaveform()
-    {
-      using (var a = OpenZip())
-      using (var s = a.GetEntry($"{Metadata.GuidString}.jcf/music.waveform").Open())
-      using (var ms = new MemoryStream())
-      {
-        s.CopyTo(ms);
-        return new UnionArray { Bytes = ms.ToArray() }.Sbytes;
       }
     }
 
