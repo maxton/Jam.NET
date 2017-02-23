@@ -9,6 +9,8 @@ namespace Jammit.Model
     SongMeta Metadata { get; }
 
     IReadOnlyList<Track> Tracks { get; }
+    IReadOnlyList<Beat> Beats { get; }
+    IReadOnlyList<Section> Sections { get; }
 
     sbyte[] GetWaveform();
     Image GetCover();

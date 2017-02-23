@@ -17,13 +17,15 @@ namespace Jammit.Model
     public SongMeta Metadata { get; }
 
     public IReadOnlyList<Track> Tracks { get; }
+    public IReadOnlyList<Beat> Beats { get; }
+    public IReadOnlyList<Section> Sections { get; }
 
     public ZipSong(SongMeta metadata)
     {
       Metadata = metadata;
-      var tracks = new List<Track>();
-      InitTracks(tracks);
-      Tracks = tracks;
+      Tracks = InitTracks();
+      Beats = InitBeats();
+      Sections = InitSections();
     }
 
     public sbyte[] GetWaveform()
@@ -77,8 +79,9 @@ namespace Jammit.Model
       return new JammitZipSongPlayer(this);
     }
 
-    private void InitTracks(List<Track> tracks)
+    private List<Track> InitTracks()
     {
+      var tracks = new List<Track>();
       using (var x = OpenZip())
       {
         using (var s = x.GetEntry(Metadata.GuidString + ".jcf/tracks.plist").Open())
@@ -90,14 +93,14 @@ namespace Jammit.Model
             if (dict == null) continue;
             var t = new Track
             {
-              ClassName = dict["class"].ToString(),
-              Title = dict.ContainsKey("title") ? dict["title"].ToString() : "",
-              Id = dict["identifier"].ToString()
+              ClassName = dict.String("class"),
+              Title = dict.String("title") ?? "",
+              Id = dict.String("identifier") ?? ""
             };
             if (t.ClassName == "JMFileTrack")
             {
-              t.ScoreSystemHeight = dict["scoreSystemHeight"].ToObject() as int? ?? 0;
-              t.ScoreSystemInterval = dict["scoreSystemInterval"].ToObject() as int? ?? 0;
+              t.ScoreSystemHeight = dict.Int("scoreSystemHeight") ?? 0;
+              t.ScoreSystemInterval = dict.Int("scoreSystemInterval") ?? 0;
               if (x.GetEntry($"{Metadata.GuidString}.jcf/{t.Id}_jcfn_00") != null)
               {
                 t.HasNotation = true;
@@ -115,6 +118,45 @@ namespace Jammit.Model
           }
         }
       }
+      return tracks;
+    }
+
+    private List<Beat> InitBeats()
+    {
+      NSArray beatArray, ghostArray;
+      using (var arc = OpenZip())
+      {
+        using (var stream = arc.GetEntry($"{Metadata.GuidString}.jcf/beats.plist").Open())
+          beatArray = (NSArray)PropertyListParser.Parse(stream);
+        using (var stream = arc.GetEntry($"{Metadata.GuidString}.jcf/ghost.plist").Open())
+          ghostArray = (NSArray) PropertyListParser.Parse(stream);
+      }
+      var beats = new List<Beat>();
+      for (var i = 0; i < beatArray.Count; i++)
+      {
+        var dict = beatArray.GetArray()[i] as NSDictionary;
+        beats.Add(new Beat
+        {
+          Time = dict.Double("position") ?? 0,
+          IsDownBeat = dict.Bool("isDownbeat") ?? false,
+          IsGhostBeat = (ghostArray.GetArray()[i] as NSDictionary).Bool("isGhostBeat") ?? false
+        });
+      }
+      return beats;
+    }
+
+    private List<Section> InitSections()
+    {
+      NSArray sectionArray;
+      using (var arc = OpenZip())
+      using (var stream = arc.GetEntry($"{Metadata.GuidString}.jcf/sections.plist").Open())
+        sectionArray = (NSArray)PropertyListParser.Parse(stream);
+      return sectionArray.GetArray().OfType<NSDictionary>().Select(dict => new Section
+      {
+        Beat = dict.Int("beat") ?? 0,
+        Number = dict.Int("number") ?? 0,
+        Type = dict.Int("type") ?? 0
+      }).ToList();
     }
 
     public ZipArchive OpenZip() => ZipFile.OpenRead(Metadata.ZipFileName);

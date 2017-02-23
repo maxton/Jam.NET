@@ -84,7 +84,9 @@
     <Compile Include="Forms\LibraryWindow.Designer.cs">
       <DependentUpon>LibraryWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Beat.cs" />
     <Compile Include="Model\ISong.cs" />
+    <Compile Include="Model\Section.cs" />
     <Compile Include="Model\ZipSong.cs" />
     <Compile Include="Model\SongMeta.cs" />
     <Compile Include="Model\Library.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="Forms\SongWindow.Designer.cs">
       <DependentUpon>SongWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\PlistExtensions.cs" />
     <Compile Include="Util\StreamExtensions.cs" />
     <Compile Include="Util\UnionArray.cs" />
     <EmbeddedResource Include="Forms\AboutBox.resx">
