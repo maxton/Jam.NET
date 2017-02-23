@@ -12,6 +12,10 @@ Contributions are welcome.
 For code style, please note that this project uses the default C# code style, but with 2 spaces instead of tabs.
 PRs not adhering to the style will not be merged.
 
+When VS2017 is released we will use the .editorconfig file to automatically configure code style.
+
+Please note that if you contribute to this project, you agree that you are licensing your contribution under the
+[3-Clause "Revised" BSD License](https://github.com/maxton/Jam.NET/blob/master/COPYING).
 ## Screenshot
 
 ![Current state of the application](https://i.imgur.com/C9FPcKz.png)
