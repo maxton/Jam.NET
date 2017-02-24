@@ -31,13 +31,20 @@ namespace Jammit.Audio
       {
         foreach (var t in s.Tracks)
         {
-          if (t.ClassName != "JMFileTrack") continue;
-          var e = x.GetEntry($"{s.Metadata.GuidString}.jcf/{t.Id}_jcfx");
-          using (var st = e.Open())
+          if (t.ClassName == "JMFileTrack")
           {
-            var ms = new MemoryStream();
-            st.CopyTo(ms);
-            channels.Add(new WaveChannel32(new ImaWaveStream(ms)));
+            var e = x.GetEntry($"{s.Metadata.GuidString}.jcf/{t.Id}_jcfx");
+            using (var st = e.Open())
+            {
+              var ms = new MemoryStream();
+              st.CopyTo(ms);
+              channels.Add(new WaveChannel32(new ImaWaveStream(ms)));
+              chanNames.Add(t.Title);
+            }
+          }
+          else if (t.ClassName == "JMClickTrack")
+          {
+            channels.Add(new WaveChannel32(new ClickTrackStream(s.Beats)));
             chanNames.Add(t.Title);
           }
         }
@@ -84,7 +91,8 @@ namespace Jammit.Audio
       set { mixer.CurrentTime = value; }
     }
 
-    public long PositionSamples => mixer.Position/4;
+    // 32-bit samples, 2 channels = 8 bytes per sample frame
+    public long PositionSamples => mixer.Position/8;
 
     public TimeSpan Length => mixer.TotalTime;
     public int Channels => channels.Count;

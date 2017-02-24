@@ -30,7 +30,7 @@ namespace Jammit.Controls
 
       // This is the center point.
       // 1 pixel = 1 waveform entry
-      var currentSampleIdx = (int)(PositionSamples / 2048);
+      var currentSampleIdx = (int)(PositionSamples / 1024);
 
       // Draw Wave Data
       if (WaveData != null)
