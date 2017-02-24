@@ -16,6 +16,7 @@ When VS2017 is released we will use the .editorconfig file to automatically conf
 
 Please note that if you contribute to this project, you agree that you are licensing your contribution under the
 [3-Clause "Revised" BSD License](https://github.com/maxton/Jam.NET/blob/master/COPYING).
+
 ## Screenshot
 
-![Current state of the application](https://i.imgur.com/C9FPcKz.png)
+![Current state of the application](https://i.imgur.com/02lWV9h.png)
