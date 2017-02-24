@@ -2,7 +2,8 @@
 {
   public class Section
   {
-    public int Beat;
+    public int BeatIdx;
+    public Beat Beat;
     public int Number;
     public int Type;
     public string Name => TypeToString(Type) + (Number > 0 ? " " + Number : "");

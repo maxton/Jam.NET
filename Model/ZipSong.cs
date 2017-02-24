@@ -153,7 +153,8 @@ namespace Jammit.Model
         sectionArray = (NSArray)PropertyListParser.Parse(stream);
       return sectionArray.GetArray().OfType<NSDictionary>().Select(dict => new Section
       {
-        Beat = dict.Int("beat") ?? 0,
+        BeatIdx = dict.Int("beat") ?? 0,
+        Beat = Beats[dict.Int("beat") ?? 0],
         Number = dict.Int("number") ?? 0,
         Type = dict.Int("type") ?? 0
       }).ToList();

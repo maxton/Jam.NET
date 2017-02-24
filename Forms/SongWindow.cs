@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using Jammit.Audio;
 using Jammit.Controls;
@@ -35,6 +33,7 @@ namespace Jammit
       _timer.Interval = 30;
       _timer.Tick += TimerTick;
       waveform1.WaveData = _song.GetWaveform();
+      waveform1.Sections = _song.Sections;
     }
 
     private void AddFader(int channel)
