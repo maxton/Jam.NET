@@ -94,28 +94,27 @@ namespace Jammit.Model
         }
       }
 
-      //TODO: Uncomment once JammitFolderSongPlayer has been implemented.
       // Search for JCF directories.
-      //var dirs = Directory.GetDirectories(Properties.Settings.Default.TrackPath, "*.jcf");
-      //foreach(var dir in dirs)
-      //{
-      //  try
-      //  {
-      //    var guid = Guid.Parse(Path.GetFileName(dir).Replace(".jcf", ""));
-      //    if (foundTracks.ContainsKey(guid)) continue;
-      //    using (var reader = new StreamReader(new FileStream(String.Format("{0}/info.plist", dir), FileMode.Open)))
-      //    {
-      //      var newTrack = SongMeta.FromPlist(XDocument.Parse(reader.ReadToEnd()), guid);
-      //      foundTracks[newTrack.ContentGuid] = newTrack;
-      //      tracksEl.Add(newTrack.ToXml());
-      //    }
-      //  }
-      //  catch (Exception e)
-      //  {
-      //    Console.WriteLine(dirs);
-      //    Console.WriteLine(e.Message);
-      //  }
-      //}
+      var dirs = Directory.GetDirectories(Properties.Settings.Default.TrackPath, "*.jcf");
+      foreach (var dir in dirs)
+      {
+        try
+        {
+          var guid = Guid.Parse(Path.GetFileName(dir).Replace(".jcf", ""));
+          if (foundTracks.ContainsKey(guid)) continue;
+          using (var reader = new StreamReader(new FileStream(String.Format("{0}/info.plist", dir), FileMode.Open)))
+          {
+            var newTrack = SongMeta.FromPlist(XDocument.Parse(reader.ReadToEnd()), guid);
+            foundTracks[newTrack.ContentGuid] = newTrack;
+            tracksEl.Add(newTrack.ToXml());
+          }
+        }
+        catch (Exception e)
+        {
+          Console.WriteLine(dirs);
+          Console.WriteLine(e.Message);
+        }
+      }
 
       using (var s = File.OpenWrite(CacheFileName))
       {
