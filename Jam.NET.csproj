@@ -154,7 +154,7 @@
     <None Include="Resources\Licenses.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Metronome\stick.raw" />
+    <Content Include="Resources\stick.raw" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
