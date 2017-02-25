@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\ClickTrackStream.cs" />
+    <Compile Include="Audio\JammitFolderSongPlayer.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>

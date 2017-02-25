@@ -73,7 +73,7 @@ namespace Jammit.Model
 
     public ISongPlayer GetSongPlayer()
     {
-      return null;//TODO: Implement FolderSongPlayer
+      return new JammitFolderSongPlayer(this);
     }
 
     private List<Track> InitTracks()

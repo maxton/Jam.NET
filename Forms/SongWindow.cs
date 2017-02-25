@@ -15,7 +15,10 @@ namespace Jammit
 
     public SongWindow(SongMeta t)
     {
-      _song = new ZipSong(t);
+      if (System.IO.Directory.Exists(t.DirName))
+        _song = new FolderSong(t);
+      else
+        _song = new ZipSong(t);
       InitializeComponent();
       Text = $"Score: {t.Artist} - {t.Name} [{t.Instrument}]";
       albumArtwork.Image = _song.GetCover();

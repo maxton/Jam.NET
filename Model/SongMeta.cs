@@ -18,6 +18,7 @@ namespace Jammit.Model
     public Guid ContentGuid;
     public string GuidString => ContentGuid.ToString().ToUpper();
     public string ZipFileName => Path.Combine(Properties.Settings.Default.TrackPath, GuidString + ".zip");
+    public string DirName => Path.Combine(Properties.Settings.Default.TrackPath, GuidString + ".jcf");
 
     private static string InstrumentCode(string code)
     {
