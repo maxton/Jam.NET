@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using System.Xml.Linq;
 
 namespace Jammit.Model
 {
   public static class Library
   {
-    private static string _cacheFileName = Path.Combine(
+    private static readonly string CacheFileName = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "contentCache");
 
@@ -18,11 +17,11 @@ namespace Jammit.Model
     private static void InitCache()
     {
       _cache = new Dictionary<Guid, SongMeta>();
-      if (!File.Exists(_cacheFileName)) return;
+      if (!File.Exists(CacheFileName)) return;
 
       try
       {
-        using (var stream = File.OpenRead(_cacheFileName))
+        using (var stream = File.OpenRead(CacheFileName))
         {
           var doc = XDocument.Load(stream);
           foreach (var t in doc.Element("songs").Elements())
@@ -96,7 +95,7 @@ namespace Jammit.Model
         }
       }
 
-      using (var s = File.OpenWrite(_cacheFileName))
+      using (var s = File.OpenWrite(CacheFileName))
       {
         cacheDoc.Save(s);
       }

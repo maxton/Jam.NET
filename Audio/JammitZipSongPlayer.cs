@@ -11,10 +11,10 @@ namespace Jammit.Audio
   /// </summary>
   public class JammitZipSongPlayer : ISongPlayer
   {
-    private List<WaveChannel32> channels;
-    private WaveMixerStream32 mixer;
-    private WaveOutEvent waveOut;
-    private List<string> chanNames;
+    private readonly List<WaveChannel32> _channels;
+    private readonly WaveMixerStream32 _mixer;
+    private readonly WaveOutEvent _waveOut;
+    private readonly List<string> _chanNames;
 
     /// <summary>
     /// Creates a song player for the given song.
@@ -22,10 +22,10 @@ namespace Jammit.Audio
     /// <param name="s">ZipSong to play.</param>
     internal JammitZipSongPlayer(ZipSong s)
     {
-      waveOut = new WaveOutEvent();
-      mixer = new WaveMixerStream32();
-      channels = new List<WaveChannel32>();
-      chanNames = new List<string>();
+      _waveOut = new WaveOutEvent();
+      _mixer = new WaveMixerStream32();
+      _channels = new List<WaveChannel32>();
+      _chanNames = new List<string>();
 
       using (var x = s.OpenZip())
       {
@@ -38,71 +38,71 @@ namespace Jammit.Audio
             {
               var ms = new MemoryStream();
               st.CopyTo(ms);
-              channels.Add(new WaveChannel32(new ImaWaveStream(ms)));
-              chanNames.Add(t.Title);
+              _channels.Add(new WaveChannel32(new ImaWaveStream(ms)));
+              _chanNames.Add(t.Title);
             }
           }
           else if (t.ClassName == "JMClickTrack")
           {
-            channels.Add(new WaveChannel32(new ClickTrackStream(s.Beats)));
-            chanNames.Add(t.Title);
+            _channels.Add(new WaveChannel32(new ClickTrackStream(s.Beats)));
+            _chanNames.Add(t.Title);
           }
         }
       }
       
-      foreach (var d in channels)
+      foreach (var d in _channels)
       {
-        mixer.AddInputStream(d);
+        _mixer.AddInputStream(d);
         d.Volume = 0.75f;
       }
-      waveOut.PlaybackStopped += (sender, args) => {Position = TimeSpan.Zero;};
-      waveOut.DesiredLatency = 60;
-      waveOut.NumberOfBuffers = 2;
-      waveOut.Init(mixer);
+      _waveOut.PlaybackStopped += (sender, args) => {Position = TimeSpan.Zero;};
+      _waveOut.DesiredLatency = 60;
+      _waveOut.NumberOfBuffers = 2;
+      _waveOut.Init(_mixer);
     }
 
     ~JammitZipSongPlayer()
     {
-      if(waveOut.PlaybackState == PlaybackState.Playing)
-        waveOut.Stop();
-      waveOut.Dispose();
+      if(_waveOut.PlaybackState == PlaybackState.Playing)
+        _waveOut.Stop();
+      _waveOut.Dispose();
     }
 
     public void Play()
     {
-      waveOut.Play();
+      _waveOut.Play();
     }
 
     public void Stop()
     {
-      waveOut.Stop();
+      _waveOut.Stop();
     }
 
     public void Pause()
     {
-      waveOut.Pause();
+      _waveOut.Pause();
     }
 
-    public PlaybackState State => waveOut.PlaybackState;
+    public PlaybackState State => _waveOut.PlaybackState;
 
     public TimeSpan Position
     {
-      get { return mixer.CurrentTime; }
-      set { mixer.CurrentTime = value; }
+      get { return _mixer.CurrentTime; }
+      set { _mixer.CurrentTime = value; }
     }
 
     // 32-bit samples, 2 channels = 8 bytes per sample frame
-    public long PositionSamples => mixer.Position/8;
+    public long PositionSamples => _mixer.Position/8;
 
-    public TimeSpan Length => mixer.TotalTime;
-    public int Channels => channels.Count;
-    public string GetChannelName(int channel) => chanNames[channel];
+    public TimeSpan Length => _mixer.TotalTime;
+    public int Channels => _channels.Count;
+    public string GetChannelName(int channel) => _chanNames[channel];
 
     public void SetChannelVolume(int channel, float volume)
     {
-      channels[channel].Volume = volume;
+      _channels[channel].Volume = volume;
     }
 
-    public float GetChannelVolume(int channel) => channels[channel].Volume;
+    public float GetChannelVolume(int channel) => _channels[channel].Volume;
   }
 }

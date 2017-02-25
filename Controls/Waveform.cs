@@ -54,7 +54,7 @@ namespace Jammit.Controls
       // Draw section markers
       if (Sections != null)
       {
-        var secondsPerPixel = 1024 / 44100.0;
+        const double secondsPerPixel = 1024 / 44100.0;
         var minTime = (currentSampleIdx - Width) * secondsPerPixel;
         var maxTime = (currentSampleIdx + halfWidth) * secondsPerPixel;
         foreach (var section in Sections)

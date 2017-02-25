@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using NAudio;
 using NAudio.Wave;
 
 namespace Jammit.Audio

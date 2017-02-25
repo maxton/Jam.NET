@@ -4,11 +4,9 @@ using System.IO;
 
 namespace Jammit.Audio
 {
-  // TODO: Figure out minor decoder differences (low rumbling sound)
   class Ima4Decoder
   {
     // File variables
-    private readonly long _aifSize;
     private readonly Stream _stream;
     private readonly long _bitstreamOffset;
     private readonly uint _sampleFrames;
@@ -38,6 +36,9 @@ namespace Jammit.Audio
     /// </summary>
     public uint Samples => _sampleFrames;
 
+    /// <summary>
+    /// The maximum sample value in the last decoded buffer.
+    /// </summary>
     public short MaximumValue { get; private set; }
 
     public Ima4Decoder(Stream inputStream)
@@ -48,15 +49,15 @@ namespace Jammit.Audio
       if (inputStream.ReadASCIINullTerminated(4) != "FORM")
         throw new Exception("Unrecognized filetype.");
 
-      _aifSize = inputStream.ReadUInt32BE();
+      long aifSize = inputStream.ReadUInt32BE();
 
-      if (_aifSize > inputStream.Length)
+      if (aifSize > inputStream.Length)
         throw new Exception("File is cut off");
       if (inputStream.ReadASCIINullTerminated(4) != "AIFC")
         throw new Exception("Input file is not AIFC");
       _stream = inputStream;
 
-      while (_stream.Position < _aifSize + 8)
+      while (_stream.Position < aifSize + 8)
       {
         var chunkType = _stream.ReadASCIINullTerminated(4);
         var chunkLength = _stream.ReadUInt32BE();
@@ -113,11 +114,11 @@ namespace Jammit.Audio
     {
       for (int k = 0; k < 64; k++)
       {
-        int step = ima_step_size[index];
+        int step = ImaStepSize[index];
 
         int bytecode = k%2 == 0 ? bitstream[k/2] & 0xF : (bitstream[k/2] >> 4) & 0xF;
 
-        index += ima_indx_adjust[bytecode];
+        index += ImaIndxAdjust[bytecode];
         index = ClampStepIdx(index);
 
         int diff = step >> 3;
@@ -208,14 +209,14 @@ namespace Jammit.Audio
       return framesRead;
     }
 
-    static readonly short[] ima_indx_adjust =
-    { -1, -1, -1, -1,		/* +0 - +3, decrease the step size */
-	    +2, +4, +6, +8,		/* +4 - +7, increase the step size */
-	    -1, -1, -1, -1,		/* -0 - -3, decrease the step size */
-	    +2, +4, +6, +8,		/* -4 - -7, increase the step size */
+    static readonly short[] ImaIndxAdjust =
+    { -1, -1, -1, -1,
+	    +2, +4, +6, +8,
+	    -1, -1, -1, -1,
+	    +2, +4, +6, +8
     };
 
-    static readonly short[] ima_step_size =
+    static readonly short[] ImaStepSize =
     { 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 19, 21, 23, 25, 28, 31, 34, 37, 41, 45,
       50, 55, 60, 66, 73, 80, 88, 97, 107, 118, 130, 143, 157, 173, 190, 209, 230,
       253, 279, 307, 337, 371, 408, 449, 494, 544, 598, 658, 724, 796, 876, 963,
