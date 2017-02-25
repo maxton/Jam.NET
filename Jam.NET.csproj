@@ -86,6 +86,7 @@
       <DependentUpon>LibraryWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Beat.cs" />
+    <Compile Include="Model\FolderSong.cs" />
     <Compile Include="Model\ISong.cs" />
     <Compile Include="Model\Section.cs" />
     <Compile Include="Model\ZipSong.cs" />

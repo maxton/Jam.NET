@@ -74,11 +74,10 @@ namespace Jammit.Model
         }
       }
 
-      var files = Directory.GetFiles(Properties.Settings.Default.TrackPath);
-      
+      // Search for ZIP files.
+      var files = Directory.GetFiles(Properties.Settings.Default.TrackPath, "*.zip");
       foreach (var file in files)
       {
-        if (!file.EndsWith(".zip")) continue;
         if (Path.GetFileName(file).Length != 40) continue;
         try
         {
@@ -94,6 +93,29 @@ namespace Jammit.Model
           Console.WriteLine(e.Message);
         }
       }
+
+      //TODO: Uncomment once JammitFolderSongPlayer has been implemented.
+      // Search for JCF directories.
+      //var dirs = Directory.GetDirectories(Properties.Settings.Default.TrackPath, "*.jcf");
+      //foreach(var dir in dirs)
+      //{
+      //  try
+      //  {
+      //    var guid = Guid.Parse(Path.GetFileName(dir).Replace(".jcf", ""));
+      //    if (foundTracks.ContainsKey(guid)) continue;
+      //    using (var reader = new StreamReader(new FileStream(String.Format("{0}/info.plist", dir), FileMode.Open)))
+      //    {
+      //      var newTrack = SongMeta.FromPlist(XDocument.Parse(reader.ReadToEnd()), guid);
+      //      foundTracks[newTrack.ContentGuid] = newTrack;
+      //      tracksEl.Add(newTrack.ToXml());
+      //    }
+      //  }
+      //  catch (Exception e)
+      //  {
+      //    Console.WriteLine(dirs);
+      //    Console.WriteLine(e.Message);
+      //  }
+      //}
 
       using (var s = File.OpenWrite(CacheFileName))
       {
