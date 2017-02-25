@@ -80,44 +80,12 @@ namespace Jammit.Model
 
     private List<Track> InitTracks()
     {
-      var tracks = new List<Track>();
       using (var x = OpenZip())
+      using (var s = x.GetEntry(Metadata.GuidString + ".jcf/tracks.plist").Open())
       {
-        using (var s = x.GetEntry(Metadata.GuidString + ".jcf/tracks.plist").Open())
-        {
-          var tracksArray = (NSArray)PropertyListParser.Parse(s);
-          foreach (var track in tracksArray.GetArray())
-          {
-            var dict = track as NSDictionary;
-            if (dict == null) continue;
-            var t = new Track
-            {
-              ClassName = dict.String("class"),
-              Title = dict.String("title") ?? "",
-              Id = dict.String("identifier") ?? ""
-            };
-            if (t.ClassName == "JMFileTrack")
-            {
-              t.ScoreSystemHeight = dict.Int("scoreSystemHeight") ?? 0;
-              t.ScoreSystemInterval = dict.Int("scoreSystemInterval") ?? 0;
-              if (x.GetEntry($"{Metadata.GuidString}.jcf/{t.Id}_jcfn_00") != null)
-              {
-                t.HasNotation = true;
-                t.NotationPages = 1;
-                while (x.GetEntry($"{Metadata.GuidString}.jcf/{t.Id}_jcfn_{t.NotationPages:D2}") != null) t.NotationPages++;
-              }
-              if (x.GetEntry($"{Metadata.GuidString}.jcf/{t.Id}_jcft_00") != null)
-              {
-                t.HasTablature = true;
-                t.TablaturePages = 1;
-                while (x.GetEntry($"{Metadata.GuidString}.jcf/{t.Id}_jcft_{t.TablaturePages:D2}") != null) t.TablaturePages++;
-              }
-            }
-            tracks.Add(t);
-          }
-        }
+        var tracksArray = (NSArray)PropertyListParser.Parse(s);
+        return Track.FromNSArray(tracksArray, path => x.GetEntry($"{Metadata.GuidString}.jcf/" + path) != null);
       }
-      return tracks;
     }
 
     private List<Beat> InitBeats()
@@ -130,18 +98,7 @@ namespace Jammit.Model
         using (var stream = arc.GetEntry($"{Metadata.GuidString}.jcf/ghost.plist").Open())
           ghostArray = (NSArray) PropertyListParser.Parse(stream);
       }
-      var beats = new List<Beat>();
-      for (var i = 0; i < beatArray.Count; i++)
-      {
-        var dict = beatArray.GetArray()[i] as NSDictionary;
-        beats.Add(new Beat
-        {
-          Time = dict.Double("position") ?? 0,
-          IsDownBeat = dict.Bool("isDownbeat") ?? false,
-          IsGhostBeat = (ghostArray.GetArray()[i] as NSDictionary).Bool("isGhostBeat") ?? false
-        });
-      }
-      return beats;
+      return Beat.FromNSArrays(beatArray, ghostArray);
     }
 
     private List<Section> InitSections()
