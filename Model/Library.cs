@@ -12,12 +12,12 @@ namespace Jammit.Model
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "contentCache");
 
-    private static Dictionary<Guid, SongMeta> _cache = null;
+    private static Dictionary<Guid, SongMeta> _cache;
 
-    private static void InitCache()
+    private static Dictionary<Guid, SongMeta> InitCache()
     {
-      _cache = new Dictionary<Guid, SongMeta>();
-      if (!File.Exists(CacheFileName)) return;
+      var cache = new Dictionary<Guid, SongMeta>();
+      if (!File.Exists(CacheFileName)) return cache;
 
       try
       {
@@ -27,7 +27,7 @@ namespace Jammit.Model
           foreach (var t in doc.Element("songs").Elements())
           {
             var track = SongMeta.FromXml(t);
-            _cache[track.ContentGuid] = track;
+            cache[track.ContentGuid] = track;
           }
         }
       }
@@ -37,6 +37,7 @@ namespace Jammit.Model
         Console.WriteLine(e.Message);
         Console.WriteLine(e.StackTrace);
       }
+      return cache;
     }
 
     public static void ResetCache()
@@ -51,7 +52,7 @@ namespace Jammit.Model
     /// </summary>
     public static void UpdateCache()
     {
-      if(_cache == null) InitCache();
+      if (_cache == null) _cache = InitCache();
 
 
       if (!Directory.Exists(Properties.Settings.Default.TrackPath))
@@ -67,18 +68,21 @@ namespace Jammit.Model
 
       foreach (var t in _cache)
       {
-        if (File.Exists(Path.Combine(Properties.Settings.Default.TrackPath, t.Key.ToString("D").ToUpper() + ".zip")))
-        {
-          foundTracks[t.Key] = t.Value;
-          tracksEl.Add(t.Value.ToXml());
-        }
+        var exists = t.Value.SongPath.StartsWith(Properties.Settings.Default.TrackPath)
+          && ((t.Value.Type == "Zip" && File.Exists(t.Value.SongPath))
+                     || (t.Value.Type == "Folder" && Directory.Exists(t.Value.SongPath)));
+        if (!exists) continue;
+
+        foundTracks[t.Key] = t.Value;
+        tracksEl.Add(t.Value.ToXml());
       }
 
       // Search for ZIP files.
       var files = Directory.GetFiles(Properties.Settings.Default.TrackPath, "*.zip");
       foreach (var file in files)
       {
-        if (Path.GetFileName(file).Length != 40) continue;
+        // Ensure filename is a GUID string
+        if (Path.GetFileName(file)?.Length != 40) continue;
         try
         {
           var guid = Guid.Parse(Path.GetFileName(file).Substring(0, 36));
@@ -95,16 +99,19 @@ namespace Jammit.Model
       }
 
       // Search for JCF directories.
-      var dirs = Directory.GetDirectories(Properties.Settings.Default.TrackPath, "*.jcf");
+      var dirs = Directory.GetDirectories(Properties.Settings.Default.TrackPath, "*-*-*-*-*");
       foreach (var dir in dirs)
       {
+
+        if (Path.GetFileName(dir)?.Length < 36) continue;
         try
         {
-          var guid = Guid.Parse(Path.GetFileName(dir).Replace(".jcf", ""));
+          var guid = Guid.Parse(Path.GetFileName(dir).Substring(0, 36));
           if (foundTracks.ContainsKey(guid)) continue;
-          using (var reader = new StreamReader(new FileStream(String.Format("{0}/info.plist", dir), FileMode.Open)))
+          if (!File.Exists(Path.Combine(dir, "info.plist"))) continue;
+          using (var reader = new StreamReader(new FileStream(Path.Combine(dir, "info.plist"), FileMode.Open)))
           {
-            var newTrack = SongMeta.FromPlist(XDocument.Parse(reader.ReadToEnd()), guid);
+            var newTrack = SongMeta.FromPlist(XDocument.Parse(reader.ReadToEnd()), guid, "Folder", dir);
             foundTracks[newTrack.ContentGuid] = newTrack;
             tracksEl.Add(newTrack.ToXml());
           }
@@ -129,7 +136,7 @@ namespace Jammit.Model
     /// <returns></returns>
     public static List<SongMeta> GetSongs()
     {
-      if(_cache == null) InitCache();
+      if (_cache == null) _cache = InitCache();
 
       return _cache.Values.ToList();
     }

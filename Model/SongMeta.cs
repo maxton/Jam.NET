@@ -16,6 +16,15 @@ namespace Jammit.Model
     public string Album;
     public string Instrument;
     public Guid ContentGuid;
+
+    /// <summary>
+    /// One of: Zip, Folder
+    /// </summary>
+    public string Type;
+    /// <summary>
+    /// Full path to Zip or Folder
+    /// </summary>
+    public string SongPath;
     public string GuidString => ContentGuid.ToString().ToUpper();
     public string ZipFileName => Path.Combine(Properties.Settings.Default.TrackPath, GuidString + ".zip");
     public string DirName => Path.Combine(Properties.Settings.Default.TrackPath, GuidString + ".jcf");
@@ -38,7 +47,7 @@ namespace Jammit.Model
       return "Unknown";
     }
 
-    public static SongMeta FromPlist(XDocument plist, Guid id)
+    public static SongMeta FromPlist(XDocument plist, Guid id, string type, string path)
     {
 
       return new SongMeta
@@ -47,7 +56,9 @@ namespace Jammit.Model
         Artist = plist.XPathSelectElement("/plist/dict/key[.=\'artist\']/following-sibling::string[1]").Value,
         Album = plist.XPathSelectElement("/plist/dict/key[.=\'album\']/following-sibling::string[1]").Value,
         Instrument = InstrumentCode(plist.XPathSelectElement("/plist/dict/key[.=\'instrument\']/following-sibling::integer[1]").Value),
-        ContentGuid = id
+        ContentGuid = id,
+        Type = type,
+        SongPath = path
       };
     }
 
@@ -64,10 +75,11 @@ namespace Jammit.Model
           }
         using (var reader = new StreamReader(a.GetEntry(id.ToString("D").ToUpper() + ".jcf/info.plist").Open()))
         {
-          return FromPlist(XDocument.Parse(reader.ReadToEnd()), id);
+          return FromPlist(XDocument.Parse(reader.ReadToEnd()), id, "Zip", zipFileName);
         }
       }
     }
+
     public static SongMeta FromXml(XElement n)
     {
       return new SongMeta
@@ -76,7 +88,9 @@ namespace Jammit.Model
         Name = n.Element("name").Value,
         Artist = n.Element("artist").Value,
         Album = n.Element("album").Value,
-        Instrument = n.Element("instrument").Value
+        Instrument = n.Element("instrument").Value,
+        Type = n.Attribute("type").Value,
+        SongPath = n.Element("path").Value
       };
     }
 
@@ -84,10 +98,12 @@ namespace Jammit.Model
     {
       return new XElement("song",
         new XAttribute("id", ContentGuid.ToString()),
+        new XAttribute("type", Type),
         new XElement("name", Name),
         new XElement("artist", Artist),
         new XElement("album", Album),
-        new XElement("instrument", Instrument));
+        new XElement("instrument", Instrument),
+        new XElement("path", SongPath));
     }
   }
 }

@@ -75,7 +75,18 @@ namespace Jammit.Model
 
     public ISongPlayer GetSongPlayer()
     {
-      return new JammitZipSongPlayer(this);
+      return new JammitNAudioSongPlayer(this);
+    }
+
+    public Stream GetSeekableContentStream(string s)
+    {
+      using (var x = OpenZip())
+      using (var file = x.GetEntry(Metadata.GuidString + ".jcf/" + s).Open())
+      {
+        var ms = new MemoryStream();
+        file.CopyTo(ms);
+        return ms;
+      }
     }
 
     private List<Track> InitTracks()
@@ -116,6 +127,6 @@ namespace Jammit.Model
       }).ToList();
     }
 
-    public ZipArchive OpenZip() => ZipFile.OpenRead(Metadata.ZipFileName);
+    public ZipArchive OpenZip() => ZipFile.OpenRead(Metadata.SongPath);
   }
 }

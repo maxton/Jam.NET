@@ -31,7 +31,7 @@ namespace Jammit.Model
 
     public sbyte[] GetWaveform()
     {
-      var path = string.Format("{0}/{1}.jcf/music.waveform", Properties.Settings.Default.TrackPath, Metadata.GuidString);
+      var path = Path.Combine(Metadata.SongPath, "music.waveform");
       using (var fs = new FileStream(path, FileMode.Open))
       using (var ms = new MemoryStream())
       {
@@ -42,7 +42,7 @@ namespace Jammit.Model
 
     public Image GetCover()
     {
-      var path = string.Format("{0}/{1}.jcf/cover.jpg", Properties.Settings.Default.TrackPath, Metadata.GuidString);
+      var path = Path.Combine(Metadata.SongPath, "cover.jpg");
       using (var fs = new FileStream(path, FileMode.Open))
       using (var ms = new MemoryStream())
       {
@@ -56,7 +56,7 @@ namespace Jammit.Model
       if (!t.HasNotation) return null;
       var ret = new List<Image>();
       for (var i = 0; i < t.NotationPages; i++)
-        ret.Add(Image.FromFile($"{Properties.Settings.Default.TrackPath}/{Metadata.GuidString}.jcf/{t.Id}_jcfn_{i:D2}"));
+        ret.Add(Image.FromFile(Path.Combine(Metadata.SongPath, $"{t.Id}_jcfn_{i:D2}")));
 
       return ret;
     }
@@ -66,32 +66,43 @@ namespace Jammit.Model
       if (!t.HasTablature) return null;
       var ret = new List<Image>();
       for (var i = 0; i < t.NotationPages; i++)
-        ret.Add(Image.FromFile($"{Properties.Settings.Default.TrackPath}/{Metadata.GuidString}.jcf/{t.Id}_jcft_{i:D2}"));
+        ret.Add(Image.FromFile(Path.Combine(Metadata.SongPath, $"{t.Id}_jcft_{i:D2}")));
 
       return ret;
     }
 
     public ISongPlayer GetSongPlayer()
     {
-      return new JammitFolderSongPlayer(this);
+      return new JammitNAudioSongPlayer(this);
+    }
+
+    public Stream GetSeekableContentStream(string s)
+    {
+      // TODO: Maybe don't copy this into memory since we don't have to...
+      using (var file = File.OpenRead(Path.Combine(Metadata.SongPath, s)))
+      {
+        var ms = new MemoryStream();
+        file.CopyTo(ms);
+        return ms;
+      }
     }
 
     private List<Track> InitTracks()
     {
-      var tracksArray = (NSArray)PropertyListParser.Parse($"{Properties.Settings.Default.TrackPath}/{Metadata.GuidString}.jcf/tracks.plist");
-      return Track.FromNSArray(tracksArray, path => File.Exists($"{Properties.Settings.Default.TrackPath}/{Metadata.GuidString}.jcf/{path}"));
+      var tracksArray = (NSArray)PropertyListParser.Parse(Path.Combine(Metadata.SongPath, "tracks.plist"));
+      return Track.FromNSArray(tracksArray, path => File.Exists(Path.Combine(Metadata.SongPath, path)));
     }
 
     private List<Beat> InitBeats()
     {
-      var beatArray = (NSArray)PropertyListParser.Parse($"{Properties.Settings.Default.TrackPath}/{Metadata.GuidString}.jcf/beats.plist");
-      var ghostArray = (NSArray)PropertyListParser.Parse($"{Properties.Settings.Default.TrackPath}/{Metadata.GuidString}.jcf/ghost.plist");
+      var beatArray = (NSArray)PropertyListParser.Parse(Path.Combine(Metadata.SongPath, "beats.plist"));
+      var ghostArray = (NSArray)PropertyListParser.Parse(Path.Combine(Metadata.SongPath, "ghost.plist"));
       return Beat.FromNSArrays(beatArray, ghostArray);
     }
 
     private List<Section> InitSections()
     {
-      var sectionArray = (NSArray)PropertyListParser.Parse($"{Properties.Settings.Default.TrackPath}/{Metadata.GuidString}.jcf/sections.plist");
+      var sectionArray = (NSArray)PropertyListParser.Parse(Path.Combine(Metadata.SongPath, "sections.plist"));
       return sectionArray.GetArray().OfType<NSDictionary>().Select(dict => new Section
       {
         BeatIdx = dict.Int("beat") ?? 0,

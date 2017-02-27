@@ -7,9 +7,9 @@ using NAudio.Wave;
 namespace Jammit.Audio
 {
   /// <summary>
-  /// Handles playing the audio for a track.
+  /// Handles playing the audio for a track using the NAudio backend.
   /// </summary>
-  public class JammitZipSongPlayer : ISongPlayer
+  public class JammitNAudioSongPlayer : ISongPlayer
   {
     private readonly List<WaveChannel32> _channels;
     private readonly WaveMixerStream32 _mixer;
@@ -17,36 +17,28 @@ namespace Jammit.Audio
     private readonly List<string> _chanNames;
 
     /// <summary>
-    /// Creates a song player for the given song.
+    /// Creates a song player for the given song using the NAudio backend.
     /// </summary>
-    /// <param name="s">ZipSong to play.</param>
-    internal JammitZipSongPlayer(ZipSong s)
+    /// <param name="s">ISong to play.</param>
+    internal JammitNAudioSongPlayer(ISong s)
     {
       _waveOut = new WaveOutEvent();
       _mixer = new WaveMixerStream32();
       _channels = new List<WaveChannel32>();
       _chanNames = new List<string>();
-
-      using (var x = s.OpenZip())
+      
+      foreach (var t in s.Tracks)
       {
-        foreach (var t in s.Tracks)
+        if (t.ClassName == "JMFileTrack")
         {
-          if (t.ClassName == "JMFileTrack")
-          {
-            var e = x.GetEntry($"{s.Metadata.GuidString}.jcf/{t.Id}_jcfx");
-            using (var st = e.Open())
-            {
-              var ms = new MemoryStream();
-              st.CopyTo(ms);
-              _channels.Add(new WaveChannel32(new ImaWaveStream(ms)));
-              _chanNames.Add(t.Title);
-            }
-          }
-          else if (t.ClassName == "JMClickTrack")
-          {
-            _channels.Add(new WaveChannel32(new ClickTrackStream(s.Beats)));
-            _chanNames.Add(t.Title);
-          }
+          var stream = s.GetSeekableContentStream($"{t.Id}_jcfx");
+          _channels.Add(new WaveChannel32(new ImaWaveStream(stream)));
+          _chanNames.Add(t.Title);
+        }
+        else if (t.ClassName == "JMClickTrack")
+        {
+          _channels.Add(new WaveChannel32(new ClickTrackStream(s.Beats)));
+          _chanNames.Add(t.Title);
         }
       }
       
@@ -61,7 +53,7 @@ namespace Jammit.Audio
       _waveOut.Init(_mixer);
     }
 
-    ~JammitZipSongPlayer()
+    ~JammitNAudioSongPlayer()
     {
       if(_waveOut.PlaybackState == PlaybackState.Playing)
         _waveOut.Stop();

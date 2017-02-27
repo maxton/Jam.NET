@@ -57,7 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\ClickTrackStream.cs" />
-    <Compile Include="Audio\JammitFolderSongPlayer.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,7 +76,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Audio\ISongPlayer.cs" />
-    <Compile Include="Audio\JammitZipSongPlayer.cs" />
+    <Compile Include="Audio\JammitNAudioSongPlayer.cs" />
     <Compile Include="Audio\Ima4Decoder.cs" />
     <Compile Include="Audio\ImaWaveStream.cs" />
     <Compile Include="Forms\LibraryWindow.cs">
@@ -90,6 +89,7 @@
     <Compile Include="Model\FolderSong.cs" />
     <Compile Include="Model\ISong.cs" />
     <Compile Include="Model\Section.cs" />
+    <Compile Include="Model\SongLoader.cs" />
     <Compile Include="Model\ZipSong.cs" />
     <Compile Include="Model\SongMeta.cs" />
     <Compile Include="Model\Library.cs" />
