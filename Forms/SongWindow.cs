@@ -13,15 +13,16 @@ namespace Jammit
     private ISongPlayer _player;
     private Timer _timer;
 
-    public SongWindow(SongMeta t)
+    public SongWindow(SongMeta meta)
     {
-      _song = SongLoader.Load(t);
+      _song = SongLoader.Load(meta);
       InitializeComponent();
-      Text = $"Score: {t.Artist} - {t.Name} [{t.Instrument}]";
+      Text = $"Score: {meta.Artist} - {meta.Name} [{meta.Instrument}]";
       albumArtwork.Image = _song.GetCover();
       if (_song.Tracks[0].HasNotation)
       {
-        score1.SetImages(_song.GetNotation(_song.Tracks[0]));
+        var t = _song.Tracks[0];
+        score1.SetNotation(_song.GetNotation(t), _song.GetNotationData(t.Title, "Score"), _song.Beats, t);
       }
 
       _player = _song.GetSongPlayer();
@@ -49,9 +50,10 @@ namespace Jammit
       timePos.Text = _player.Position.ToString("mm\\:ss");
       timeRemain.Text = "-" + _player.Length.Subtract(_player.Position).ToString("mm\\:ss");
       seekBar.Value = (int)_player.Position.TotalSeconds;
-      waveform1.PositionSamples = _player.PositionSamples;
+      waveform1.SamplePosition = _player.PositionSamples;
       waveform1.Invalidate();
-      score1.TimeSeconds = _player.Position.TotalSeconds;
+      score1.SamplePosition = _player.PositionSamples;
+      score1.Invalidate();
     }
 
     private void SongWindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -85,6 +87,11 @@ namespace Jammit
     private void closeToolStripMenuItem_Click(object sender, EventArgs e)
     {
       Close();
+    }
+
+    private void score1_Click(object sender, EventArgs e)
+    {
+
     }
   }
 }

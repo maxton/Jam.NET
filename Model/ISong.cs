@@ -49,6 +49,15 @@ namespace Jammit.Model
     /// <param name="t">Track to get tablature for.</param>
     List<Image> GetTablature(Track t);
 
+    ScoreNodes GetNotationData(string trackName, string notationType);
+
+    /// <summary>
+    /// Returns a stream to the file at the given path in this song's content folder.
+    /// The returned stream is readable, but not necessarily writable or seekable.
+    /// </summary>
+    /// <param name="path">Path within the content file. i.e.: info.plist</param>
+    Stream GetContentStream(string path);
+
     /// <summary>
     /// Returns a stream to the file at the given path in this song's content folder.
     /// The returned stream is seekable and readable, but not necessarily writable.

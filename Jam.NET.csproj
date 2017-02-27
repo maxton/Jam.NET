@@ -70,7 +70,7 @@
       <DependentUpon>Fader.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Score.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\Waveform.cs">
       <SubType>UserControl</SubType>
@@ -88,6 +88,8 @@
     <Compile Include="Model\Beat.cs" />
     <Compile Include="Model\FolderSong.cs" />
     <Compile Include="Model\ISong.cs" />
+    <Compile Include="Model\ISynchronizable.cs" />
+    <Compile Include="Model\ScoreNodes.cs" />
     <Compile Include="Model\Section.cs" />
     <Compile Include="Model\SongLoader.cs" />
     <Compile Include="Model\ZipSong.cs" />
@@ -108,11 +110,13 @@
     <Compile Include="Forms\SongWindow.Designer.cs">
       <DependentUpon>SongWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\OnDisposeStream.cs" />
     <Compile Include="Util\PlistExtensions.cs" />
     <Compile Include="Util\StreamExtensions.cs" />
     <Compile Include="Util\UnionArray.cs" />
     <EmbeddedResource Include="Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Fader.resx">
       <DependentUpon>Fader.cs</DependentUpon>

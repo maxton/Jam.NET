@@ -21,12 +21,15 @@ namespace Jammit.Model
 
     public IReadOnlyList<Section> Sections { get; }
 
+    private List<ScoreNodes> _notationData;
+
     public FolderSong(SongMeta metadata)
     {
       Metadata = metadata;
       Tracks = InitTracks();
       Beats = InitBeats();
       Sections = InitSections();
+      _notationData = InitScoreNodes();
     }
 
     public sbyte[] GetWaveform()
@@ -71,20 +74,20 @@ namespace Jammit.Model
       return ret;
     }
 
+    public ScoreNodes GetNotationData(string trackName, string notationType)
+    {
+      return _notationData.FirstOrDefault(score => trackName == score.Title && notationType == score.Type);
+    }
+
     public ISongPlayer GetSongPlayer()
     {
       return new JammitNAudioSongPlayer(this);
     }
 
+    public Stream GetContentStream(string s) => GetSeekableContentStream(s);
     public Stream GetSeekableContentStream(string s)
     {
-      // TODO: Maybe don't copy this into memory since we don't have to...
-      using (var file = File.OpenRead(Path.Combine(Metadata.SongPath, s)))
-      {
-        var ms = new MemoryStream();
-        file.CopyTo(ms);
-        return ms;
-      }
+      return File.OpenRead(Path.Combine(Metadata.SongPath, s));
     }
 
     private List<Track> InitTracks()
@@ -110,6 +113,14 @@ namespace Jammit.Model
         Number = dict.Int("number") ?? 0,
         Type = dict.Int("type") ?? 0
       }).ToList();
+    }
+
+    private List<ScoreNodes> InitScoreNodes()
+    {
+      using (var nodes = GetContentStream("nowline.nodes"))
+      {
+        return ScoreNodes.FromStream(nodes);
+      }
     }
   }
 }

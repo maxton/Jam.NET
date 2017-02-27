@@ -7,10 +7,11 @@ using Jammit.Model;
 
 namespace Jammit.Controls
 {
-  class Waveform : UserControl
+  class Waveform : UserControl, ISynchronizable
   {
-    public double TimeSeconds { get; set; } = 0.0;
-    public long PositionSamples { get; set; } = 0;
+    public long SamplePosition { get; set; } = 0;
+    public long Samples { get; set; }
+
     public sbyte[] WaveData;
     public IReadOnlyList<Section> Sections;
 
@@ -30,7 +31,7 @@ namespace Jammit.Controls
 
       // This is the center point.
       // 1 pixel = 1 waveform entry
-      var currentSampleIdx = (int)(PositionSamples / 1024);
+      var currentSampleIdx = (int)(SamplePosition / 1024);
 
       // Draw Wave Data
       if (WaveData != null)

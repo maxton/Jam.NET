@@ -19,12 +19,15 @@ namespace Jammit.Model
     public IReadOnlyList<Beat> Beats { get; }
     public IReadOnlyList<Section> Sections { get; }
 
+    private List<ScoreNodes> _notationData;
+
     public ZipSong(SongMeta metadata)
     {
       Metadata = metadata;
       Tracks = InitTracks();
       Beats = InitBeats();
       Sections = InitSections();
+      _notationData = InitScoreNodes();
     }
 
     public sbyte[] GetWaveform()
@@ -42,10 +45,8 @@ namespace Jammit.Model
     {
       using (var x = OpenZip())
       using (var stream = x.GetEntry($"{Metadata.GuidString}.jcf/cover.jpg").Open())
-      using (var ms = new MemoryStream())
       {
-        stream.CopyTo(ms);
-        return Image.FromStream(ms);
+        return Image.FromStream(stream);
       }
     }
 
@@ -78,6 +79,14 @@ namespace Jammit.Model
       return new JammitNAudioSongPlayer(this);
     }
 
+    public Stream GetContentStream(string s)
+    {
+      var zip = OpenZip();
+      var stream = new OnDisposeStream(zip.GetEntry(Metadata.GuidString + ".jcf/" + s).Open());
+      stream.OnDispose += () => zip.Dispose();
+      return stream;
+    }
+
     public Stream GetSeekableContentStream(string s)
     {
       using (var x = OpenZip())
@@ -87,6 +96,10 @@ namespace Jammit.Model
         file.CopyTo(ms);
         return ms;
       }
+    }
+    public ScoreNodes GetNotationData(string trackName, string notationType)
+    {
+      return _notationData.FirstOrDefault(score => trackName == score.Title && notationType == score.Type);
     }
 
     private List<Track> InitTracks()
@@ -125,6 +138,14 @@ namespace Jammit.Model
         Number = dict.Int("number") ?? 0,
         Type = dict.Int("type") ?? 0
       }).ToList();
+    }
+
+    private List<ScoreNodes> InitScoreNodes()
+    {
+      using (var nodes = GetContentStream("nowline.nodes"))
+      {
+        return ScoreNodes.FromStream(nodes);
+      }
     }
 
     public ZipArchive OpenZip() => ZipFile.OpenRead(Metadata.SongPath);

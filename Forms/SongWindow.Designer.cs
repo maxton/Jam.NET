@@ -36,14 +36,13 @@
       this.seekBar = new System.Windows.Forms.TrackBar();
       this.albumArtwork = new System.Windows.Forms.PictureBox();
       this.waveform1 = new Jammit.Controls.Waveform();
-      this.score1 = new Jammit.Controls.Score();
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
       this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.score1 = new Jammit.Controls.Score();
       this.groupBox1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.seekBar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.albumArtwork)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.score1)).BeginInit();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -137,24 +136,11 @@
       this.waveform1.ForeColor = System.Drawing.Color.Green;
       this.waveform1.Location = new System.Drawing.Point(503, 424);
       this.waveform1.Name = "waveform1";
-      this.waveform1.PositionSamples = ((long)(0));
+      this.waveform1.SamplePosition = ((long)(0));
+      this.waveform1.Samples = ((long)(0));
       this.waveform1.Size = new System.Drawing.Size(385, 94);
       this.waveform1.TabIndex = 18;
       this.waveform1.TabStop = false;
-      this.waveform1.TimeSeconds = 0D;
-      // 
-      // score1
-      // 
-      this.score1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.score1.BackColor = System.Drawing.Color.White;
-      this.score1.Location = new System.Drawing.Point(12, 42);
-      this.score1.Name = "score1";
-      this.score1.Size = new System.Drawing.Size(876, 348);
-      this.score1.TabIndex = 17;
-      this.score1.TabStop = false;
-      this.score1.TimeSeconds = 0D;
       // 
       // menuStrip1
       // 
@@ -177,9 +163,21 @@
       // closeToolStripMenuItem
       // 
       this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-      this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.closeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
       this.closeToolStripMenuItem.Text = "Close song";
       this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+      // 
+      // score1
+      // 
+      this.score1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.score1.Location = new System.Drawing.Point(9, 36);
+      this.score1.Name = "score1";
+      this.score1.SamplePosition = ((long)(0));
+      this.score1.Samples = ((long)(0));
+      this.score1.Size = new System.Drawing.Size(879, 354);
+      this.score1.TabIndex = 20;
       // 
       // SongWindow
       // 
@@ -187,8 +185,8 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
       this.ClientSize = new System.Drawing.Size(900, 561);
-      this.Controls.Add(this.waveform1);
       this.Controls.Add(this.score1);
+      this.Controls.Add(this.waveform1);
       this.Controls.Add(this.seekBar);
       this.Controls.Add(this.albumArtwork);
       this.Controls.Add(this.timeRemain);
@@ -206,7 +204,6 @@
       this.groupBox1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.seekBar)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.albumArtwork)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.score1)).EndInit();
       this.menuStrip1.ResumeLayout(false);
       this.menuStrip1.PerformLayout();
       this.ResumeLayout(false);
@@ -221,11 +218,11 @@
     private System.Windows.Forms.PictureBox albumArtwork;
     private System.Windows.Forms.GroupBox groupBox1;
     private System.Windows.Forms.TrackBar seekBar;
-    private Controls.Score score1;
     private System.Windows.Forms.FlowLayoutPanel mixerFlowPanel;
     private Controls.Waveform waveform1;
     private System.Windows.Forms.MenuStrip menuStrip1;
     private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+    private Controls.Score score1;
   }
 }
