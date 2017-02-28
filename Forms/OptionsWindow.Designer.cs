@@ -87,9 +87,9 @@
       this.label2.AutoSize = true;
       this.label2.Location = new System.Drawing.Point(94, 35);
       this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(233, 13);
+      this.label2.Size = new System.Drawing.Size(263, 13);
       this.label2.TabIndex = 5;
-      this.label2.Text = "This folder should contain your .zip content files.";
+      this.label2.Text = "This folder should contain your content folders or .zips.";
       // 
       // OptionsWindow
       // 

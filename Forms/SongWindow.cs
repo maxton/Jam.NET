@@ -28,11 +28,13 @@ namespace Jammit
       _player = _song.GetSongPlayer();
       for (int x = 0; x < _player.Channels; x++)
         AddFader(x);
-      
-      seekBar.Maximum = (int)(_player.Length.TotalSeconds + 1);
+
+      seekBar1.Samples = (long) (_player.Length.TotalSeconds*44100.0 + 0.5);
+      seekBar1.OnSliderDrop += (i) => _player.Position = TimeSpan.FromSeconds(i);
       _timer = new Timer();
       _timer.Interval = 30;
       _timer.Tick += TimerTick;
+      _timer.Start();
       waveform1.WaveData = _song.GetWaveform();
       waveform1.Sections = _song.Sections;
     }
@@ -47,10 +49,8 @@ namespace Jammit
 
     private void TimerTick(object sender, EventArgs e)
     {
-      timePos.Text = _player.Position.ToString("mm\\:ss");
-      timeRemain.Text = "-" + _player.Length.Subtract(_player.Position).ToString("mm\\:ss");
-      seekBar.Value = (int)_player.Position.TotalSeconds;
-      waveform1.SamplePosition = _player.PositionSamples;
+      seekBar1.SamplePosition = _player.PositionSamples;
+      waveform1.SamplePosition = seekBar1.Moving ? seekBar1.Value * 44100 : _player.PositionSamples;
       waveform1.Invalidate();
       score1.SamplePosition = _player.PositionSamples;
       score1.Invalidate();
@@ -63,23 +63,16 @@ namespace Jammit
       _player.Stop();
     }
 
-    private void seekBar_MouseUp(object sender, MouseEventArgs e)
-    {
-      _player.Position = TimeSpan.FromSeconds(seekBar.Value);
-    }
-
     private void playPauseButton_Click(object sender, EventArgs e)
     {
       if (_player.State == NAudio.Wave.PlaybackState.Playing)
       {
         _player.Pause();
-        _timer.Stop();
         button1.Text = "Play";
       }
       else
       {
         _player.Play();
-        _timer.Start();
         button1.Text = "Pause";
       }
     }
@@ -89,9 +82,30 @@ namespace Jammit
       Close();
     }
 
-    private void score1_Click(object sender, EventArgs e)
+    private void leftSeekBtn_Click(object sender, EventArgs e)
     {
+      var seekTime = 0.0;
+      foreach (var s in _song.Sections)
+      {
+        if (s.Beat.Time > _player.Position.TotalSeconds - 1)
+          break;
+        seekTime = s.Beat.Time;
+      }
+      _player.Position = TimeSpan.FromSeconds(seekTime);
+    }
 
+    private void rightSeekBtn_Click(object sender, EventArgs e)
+    {
+      var seekTime = _player.Length.TotalSeconds;
+      foreach (var s in _song.Sections)
+      {
+        if (s.Beat.Time > _player.Position.TotalSeconds + 0.1)
+        {
+          seekTime = s.Beat.Time;
+          break;
+        }
+      }
+      _player.Position = TimeSpan.FromSeconds(seekTime);
     }
   }
 }

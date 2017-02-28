@@ -29,19 +29,18 @@
     private void InitializeComponent()
     {
       this.button1 = new System.Windows.Forms.Button();
-      this.timePos = new System.Windows.Forms.Label();
-      this.timeRemain = new System.Windows.Forms.Label();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.mixerFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-      this.seekBar = new System.Windows.Forms.TrackBar();
       this.albumArtwork = new System.Windows.Forms.PictureBox();
-      this.waveform1 = new Jammit.Controls.Waveform();
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
       this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.score1 = new Jammit.Controls.Score();
+      this.waveform1 = new Jammit.Controls.Waveform();
+      this.seekBar1 = new Jammit.Controls.SeekBar();
+      this.leftSeekBtn = new System.Windows.Forms.Button();
+      this.rightSeekBtn = new System.Windows.Forms.Button();
       this.groupBox1.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.seekBar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.albumArtwork)).BeginInit();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
@@ -54,7 +53,7 @@
       this.button1.FlatAppearance.BorderSize = 0;
       this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.button1.ForeColor = System.Drawing.Color.White;
-      this.button1.Location = new System.Drawing.Point(503, 521);
+      this.button1.Location = new System.Drawing.Point(537, 521);
       this.button1.Margin = new System.Windows.Forms.Padding(0);
       this.button1.Name = "button1";
       this.button1.Size = new System.Drawing.Size(58, 28);
@@ -62,30 +61,6 @@
       this.button1.Text = "Play";
       this.button1.UseVisualStyleBackColor = false;
       this.button1.Click += new System.EventHandler(this.playPauseButton_Click);
-      // 
-      // timePos
-      // 
-      this.timePos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.timePos.AutoSize = true;
-      this.timePos.BackColor = System.Drawing.Color.Transparent;
-      this.timePos.ForeColor = System.Drawing.Color.White;
-      this.timePos.Location = new System.Drawing.Point(500, 401);
-      this.timePos.Name = "timePos";
-      this.timePos.Size = new System.Drawing.Size(34, 13);
-      this.timePos.TabIndex = 6;
-      this.timePos.Text = "00:00";
-      // 
-      // timeRemain
-      // 
-      this.timeRemain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.timeRemain.AutoSize = true;
-      this.timeRemain.BackColor = System.Drawing.Color.Transparent;
-      this.timeRemain.ForeColor = System.Drawing.Color.White;
-      this.timeRemain.Location = new System.Drawing.Point(851, 401);
-      this.timeRemain.Name = "timeRemain";
-      this.timeRemain.Size = new System.Drawing.Size(37, 13);
-      this.timeRemain.TabIndex = 7;
-      this.timeRemain.Text = "-00:00";
       // 
       // groupBox1
       // 
@@ -107,17 +82,6 @@
       this.mixerFlowPanel.Size = new System.Drawing.Size(316, 134);
       this.mixerFlowPanel.TabIndex = 0;
       // 
-      // seekBar
-      // 
-      this.seekBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.seekBar.Location = new System.Drawing.Point(540, 398);
-      this.seekBar.Name = "seekBar";
-      this.seekBar.Size = new System.Drawing.Size(305, 45);
-      this.seekBar.TabIndex = 15;
-      this.seekBar.TickStyle = System.Windows.Forms.TickStyle.None;
-      this.seekBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseUp);
-      // 
       // albumArtwork
       // 
       this.albumArtwork.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -127,20 +91,6 @@
       this.albumArtwork.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
       this.albumArtwork.TabIndex = 8;
       this.albumArtwork.TabStop = false;
-      // 
-      // waveform1
-      // 
-      this.waveform1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.waveform1.BackColor = System.Drawing.Color.Black;
-      this.waveform1.ForeColor = System.Drawing.Color.Green;
-      this.waveform1.Location = new System.Drawing.Point(503, 424);
-      this.waveform1.Name = "waveform1";
-      this.waveform1.SamplePosition = ((long)(0));
-      this.waveform1.Samples = ((long)(0));
-      this.waveform1.Size = new System.Drawing.Size(385, 94);
-      this.waveform1.TabIndex = 18;
-      this.waveform1.TabStop = false;
       // 
       // menuStrip1
       // 
@@ -172,6 +122,7 @@
       this.score1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+      this.score1.BackColor = System.Drawing.Color.White;
       this.score1.Location = new System.Drawing.Point(9, 36);
       this.score1.Name = "score1";
       this.score1.SamplePosition = ((long)(0));
@@ -179,21 +130,80 @@
       this.score1.Size = new System.Drawing.Size(879, 354);
       this.score1.TabIndex = 20;
       // 
+      // waveform1
+      // 
+      this.waveform1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.waveform1.BackColor = System.Drawing.Color.Black;
+      this.waveform1.ForeColor = System.Drawing.Color.Green;
+      this.waveform1.Location = new System.Drawing.Point(503, 424);
+      this.waveform1.Name = "waveform1";
+      this.waveform1.SamplePosition = ((long)(0));
+      this.waveform1.Samples = ((long)(0));
+      this.waveform1.Size = new System.Drawing.Size(385, 94);
+      this.waveform1.TabIndex = 18;
+      this.waveform1.TabStop = false;
+      // 
+      // seekBar1
+      // 
+      this.seekBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.seekBar1.Location = new System.Drawing.Point(503, 398);
+      this.seekBar1.Name = "seekBar1";
+      this.seekBar1.SamplePosition = ((long)(0));
+      this.seekBar1.Samples = ((long)(0));
+      this.seekBar1.Size = new System.Drawing.Size(385, 27);
+      this.seekBar1.TabIndex = 21;
+      // 
+      // leftSeekBtn
+      // 
+      this.leftSeekBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.leftSeekBtn.BackColor = System.Drawing.Color.Transparent;
+      this.leftSeekBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+      this.leftSeekBtn.FlatAppearance.BorderSize = 0;
+      this.leftSeekBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.leftSeekBtn.ForeColor = System.Drawing.Color.White;
+      this.leftSeekBtn.Location = new System.Drawing.Point(503, 521);
+      this.leftSeekBtn.Margin = new System.Windows.Forms.Padding(0);
+      this.leftSeekBtn.Name = "leftSeekBtn";
+      this.leftSeekBtn.Size = new System.Drawing.Size(34, 28);
+      this.leftSeekBtn.TabIndex = 22;
+      this.leftSeekBtn.Text = "<<";
+      this.leftSeekBtn.UseVisualStyleBackColor = false;
+      this.leftSeekBtn.Click += new System.EventHandler(this.leftSeekBtn_Click);
+      // 
+      // rightSeekBtn
+      // 
+      this.rightSeekBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.rightSeekBtn.BackColor = System.Drawing.Color.Transparent;
+      this.rightSeekBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+      this.rightSeekBtn.FlatAppearance.BorderSize = 0;
+      this.rightSeekBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.rightSeekBtn.ForeColor = System.Drawing.Color.White;
+      this.rightSeekBtn.Location = new System.Drawing.Point(595, 521);
+      this.rightSeekBtn.Margin = new System.Windows.Forms.Padding(0);
+      this.rightSeekBtn.Name = "rightSeekBtn";
+      this.rightSeekBtn.Size = new System.Drawing.Size(34, 28);
+      this.rightSeekBtn.TabIndex = 23;
+      this.rightSeekBtn.Text = ">>";
+      this.rightSeekBtn.UseVisualStyleBackColor = false;
+      this.rightSeekBtn.Click += new System.EventHandler(this.rightSeekBtn_Click);
+      // 
       // SongWindow
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
       this.ClientSize = new System.Drawing.Size(900, 561);
+      this.Controls.Add(this.rightSeekBtn);
+      this.Controls.Add(this.leftSeekBtn);
       this.Controls.Add(this.score1);
       this.Controls.Add(this.waveform1);
-      this.Controls.Add(this.seekBar);
       this.Controls.Add(this.albumArtwork);
-      this.Controls.Add(this.timeRemain);
-      this.Controls.Add(this.timePos);
       this.Controls.Add(this.button1);
       this.Controls.Add(this.groupBox1);
       this.Controls.Add(this.menuStrip1);
+      this.Controls.Add(this.seekBar1);
       this.DoubleBuffered = true;
       this.MainMenuStrip = this.menuStrip1;
       this.MinimumSize = new System.Drawing.Size(916, 600);
@@ -202,7 +212,6 @@
       this.Text = "Score";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SongWindow_FormClosing);
       this.groupBox1.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)(this.seekBar)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.albumArtwork)).EndInit();
       this.menuStrip1.ResumeLayout(false);
       this.menuStrip1.PerformLayout();
@@ -213,16 +222,16 @@
 
     #endregion
     private System.Windows.Forms.Button button1;
-    private System.Windows.Forms.Label timePos;
-    private System.Windows.Forms.Label timeRemain;
     private System.Windows.Forms.PictureBox albumArtwork;
     private System.Windows.Forms.GroupBox groupBox1;
-    private System.Windows.Forms.TrackBar seekBar;
     private System.Windows.Forms.FlowLayoutPanel mixerFlowPanel;
     private Controls.Waveform waveform1;
     private System.Windows.Forms.MenuStrip menuStrip1;
     private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     private Controls.Score score1;
+    private Controls.SeekBar seekBar1;
+    private System.Windows.Forms.Button leftSeekBtn;
+    private System.Windows.Forms.Button rightSeekBtn;
   }
 }
