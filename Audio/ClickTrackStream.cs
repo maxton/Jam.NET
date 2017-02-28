@@ -17,7 +17,7 @@ namespace Jammit.Audio
       WaveFormat = new WaveFormat(44100, 16, 2);
       Length = (long)(_beats[_beats.Count - 1].Time*44100*4);
       var stick = Properties.Resources.stick;
-      _click = new short[stick.Length];
+      _click = new short[stick.Length/2];
       Buffer.BlockCopy(stick, 0, _click, 0, stick.Length);
     }
 
@@ -58,14 +58,15 @@ namespace Jammit.Audio
         // empty space before click
         while (sampleOffset < 0 && count > 0)
         {
+          buffer[offset++] = 0;buffer[offset++] = 0;
+          buffer[offset++] = 0;buffer[offset++] = 0;
           _samplePos++;
           sampleOffset++;
-          offset += 4;
           count -= 4;
           bytesRead += 4;
         }
         // click
-        while (sampleOffset < _click.Length && count > 0)
+        while (sampleOffset >= 0 && sampleOffset < _click.Length && count > 0)
         {
           buffer[offset++] = (byte)(_click[sampleOffset] & 0xFF);
           buffer[offset++] = (byte)((_click[sampleOffset] >> 8) & 0xFF);
