@@ -35,12 +35,12 @@
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
       this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.score1 = new Jammit.Controls.Score();
-      this.waveform1 = new Jammit.Controls.Waveform();
-      this.seekBar1 = new Jammit.Controls.SeekBar();
       this.leftSeekBtn = new System.Windows.Forms.Button();
       this.rightSeekBtn = new System.Windows.Forms.Button();
       this.button2 = new System.Windows.Forms.Button();
+      this.score1 = new Jammit.Controls.Score();
+      this.waveform1 = new Jammit.Controls.Waveform();
+      this.seekBar1 = new Jammit.Controls.SeekBar();
       this.groupBox1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.albumArtwork)).BeginInit();
       this.menuStrip1.SuspendLayout();
@@ -54,7 +54,7 @@
       this.button1.FlatAppearance.BorderSize = 0;
       this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.button1.ForeColor = System.Drawing.Color.White;
-      this.button1.Location = new System.Drawing.Point(638, 524);
+      this.button1.Location = new System.Drawing.Point(667, 524);
       this.button1.Margin = new System.Windows.Forms.Padding(0);
       this.button1.Name = "button1";
       this.button1.Size = new System.Drawing.Size(58, 28);
@@ -118,17 +118,68 @@
       this.closeToolStripMenuItem.Text = "Close song";
       this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
       // 
+      // leftSeekBtn
+      // 
+      this.leftSeekBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+      this.leftSeekBtn.BackColor = System.Drawing.Color.Transparent;
+      this.leftSeekBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+      this.leftSeekBtn.FlatAppearance.BorderSize = 0;
+      this.leftSeekBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.leftSeekBtn.ForeColor = System.Drawing.Color.White;
+      this.leftSeekBtn.Location = new System.Drawing.Point(633, 524);
+      this.leftSeekBtn.Margin = new System.Windows.Forms.Padding(0);
+      this.leftSeekBtn.Name = "leftSeekBtn";
+      this.leftSeekBtn.Size = new System.Drawing.Size(34, 28);
+      this.leftSeekBtn.TabIndex = 22;
+      this.leftSeekBtn.Text = "<<";
+      this.leftSeekBtn.UseVisualStyleBackColor = false;
+      this.leftSeekBtn.Click += new System.EventHandler(this.leftSeekBtn_Click);
+      // 
+      // rightSeekBtn
+      // 
+      this.rightSeekBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+      this.rightSeekBtn.BackColor = System.Drawing.Color.Transparent;
+      this.rightSeekBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+      this.rightSeekBtn.FlatAppearance.BorderSize = 0;
+      this.rightSeekBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.rightSeekBtn.ForeColor = System.Drawing.Color.White;
+      this.rightSeekBtn.Location = new System.Drawing.Point(725, 524);
+      this.rightSeekBtn.Margin = new System.Windows.Forms.Padding(0);
+      this.rightSeekBtn.Name = "rightSeekBtn";
+      this.rightSeekBtn.Size = new System.Drawing.Size(34, 28);
+      this.rightSeekBtn.TabIndex = 23;
+      this.rightSeekBtn.Text = ">>";
+      this.rightSeekBtn.UseVisualStyleBackColor = false;
+      this.rightSeekBtn.Click += new System.EventHandler(this.rightSeekBtn_Click);
+      // 
+      // button2
+      // 
+      this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.button2.BackColor = System.Drawing.Color.Transparent;
+      this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+      this.button2.FlatAppearance.BorderSize = 0;
+      this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.button2.ForeColor = System.Drawing.Color.White;
+      this.button2.Location = new System.Drawing.Point(503, 524);
+      this.button2.Margin = new System.Windows.Forms.Padding(0);
+      this.button2.Name = "button2";
+      this.button2.Size = new System.Drawing.Size(75, 28);
+      this.button2.TabIndex = 24;
+      this.button2.Text = "Loop";
+      this.button2.UseVisualStyleBackColor = false;
+      this.button2.Click += new System.EventHandler(this.button2_Click);
+      // 
       // score1
       // 
       this.score1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.score1.BackColor = System.Drawing.Color.White;
-      this.score1.Location = new System.Drawing.Point(9, 36);
+      this.score1.BackColor = System.Drawing.Color.Transparent;
+      this.score1.Location = new System.Drawing.Point(0, 27);
       this.score1.Name = "score1";
       this.score1.SamplePosition = ((long)(0));
       this.score1.Samples = ((long)(0));
-      this.score1.Size = new System.Drawing.Size(879, 354);
+      this.score1.Size = new System.Drawing.Size(900, 363);
       this.score1.TabIndex = 20;
       // 
       // waveform1
@@ -155,57 +206,6 @@
       this.seekBar1.Samples = ((long)(0));
       this.seekBar1.Size = new System.Drawing.Size(385, 27);
       this.seekBar1.TabIndex = 21;
-      // 
-      // leftSeekBtn
-      // 
-      this.leftSeekBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-      this.leftSeekBtn.BackColor = System.Drawing.Color.Transparent;
-      this.leftSeekBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-      this.leftSeekBtn.FlatAppearance.BorderSize = 0;
-      this.leftSeekBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.leftSeekBtn.ForeColor = System.Drawing.Color.White;
-      this.leftSeekBtn.Location = new System.Drawing.Point(604, 524);
-      this.leftSeekBtn.Margin = new System.Windows.Forms.Padding(0);
-      this.leftSeekBtn.Name = "leftSeekBtn";
-      this.leftSeekBtn.Size = new System.Drawing.Size(34, 28);
-      this.leftSeekBtn.TabIndex = 22;
-      this.leftSeekBtn.Text = "<<";
-      this.leftSeekBtn.UseVisualStyleBackColor = false;
-      this.leftSeekBtn.Click += new System.EventHandler(this.leftSeekBtn_Click);
-      // 
-      // rightSeekBtn
-      // 
-      this.rightSeekBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-      this.rightSeekBtn.BackColor = System.Drawing.Color.Transparent;
-      this.rightSeekBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-      this.rightSeekBtn.FlatAppearance.BorderSize = 0;
-      this.rightSeekBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.rightSeekBtn.ForeColor = System.Drawing.Color.White;
-      this.rightSeekBtn.Location = new System.Drawing.Point(696, 524);
-      this.rightSeekBtn.Margin = new System.Windows.Forms.Padding(0);
-      this.rightSeekBtn.Name = "rightSeekBtn";
-      this.rightSeekBtn.Size = new System.Drawing.Size(34, 28);
-      this.rightSeekBtn.TabIndex = 23;
-      this.rightSeekBtn.Text = ">>";
-      this.rightSeekBtn.UseVisualStyleBackColor = false;
-      this.rightSeekBtn.Click += new System.EventHandler(this.rightSeekBtn_Click);
-      // 
-      // button2
-      // 
-      this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-      this.button2.BackColor = System.Drawing.Color.Transparent;
-      this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-      this.button2.FlatAppearance.BorderSize = 0;
-      this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.button2.ForeColor = System.Drawing.Color.White;
-      this.button2.Location = new System.Drawing.Point(730, 524);
-      this.button2.Margin = new System.Windows.Forms.Padding(0);
-      this.button2.Name = "button2";
-      this.button2.Size = new System.Drawing.Size(75, 28);
-      this.button2.TabIndex = 24;
-      this.button2.Text = "Loop";
-      this.button2.UseVisualStyleBackColor = false;
-      this.button2.Click += new System.EventHandler(this.button2_Click);
       // 
       // SongWindow
       // 

@@ -19,11 +19,7 @@ namespace Jammit
       InitializeComponent();
       Text = $"Score: {meta.Artist} - {meta.Name} [{meta.Instrument}]";
       albumArtwork.Image = _song.GetCover();
-      if (_song.Tracks[0].HasNotation)
-      {
-        var t = _song.Tracks[0];
-        score1.SetNotation(_song.GetNotation(t), _song.GetNotationData(t.Title, "Score"), _song.Beats, t);
-      }
+      score1.SetSong(_song);
 
       _player = _song.GetSongPlayer();
       for (int x = 0; x < _player.Channels; x++)
@@ -56,7 +52,6 @@ namespace Jammit
       waveform1.SamplePosition = seekBar1.Moving ? seekBar1.Value * 44100 : _player.PositionSamples;
       waveform1.Invalidate();
       score1.SamplePosition = _player.PositionSamples;
-      score1.Invalidate();
     }
 
     private void SongWindow_FormClosing(object sender, FormClosingEventArgs e)

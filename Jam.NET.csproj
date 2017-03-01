@@ -121,6 +121,9 @@
     <Compile Include="Util\PlistExtensions.cs" />
     <Compile Include="Util\StreamExtensions.cs" />
     <Compile Include="Util\UnionArray.cs" />
+    <EmbeddedResource Include="Controls\Score.resx">
+      <DependentUpon>Score.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SeekBar.resx">
       <DependentUpon>SeekBar.cs</DependentUpon>
     </EmbeddedResource>
