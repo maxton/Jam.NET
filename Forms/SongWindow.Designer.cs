@@ -40,6 +40,7 @@
       this.seekBar1 = new Jammit.Controls.SeekBar();
       this.leftSeekBtn = new System.Windows.Forms.Button();
       this.rightSeekBtn = new System.Windows.Forms.Button();
+      this.button2 = new System.Windows.Forms.Button();
       this.groupBox1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.albumArtwork)).BeginInit();
       this.menuStrip1.SuspendLayout();
@@ -127,7 +128,7 @@
       this.score1.Name = "score1";
       this.score1.SamplePosition = ((long)(0));
       this.score1.Samples = ((long)(0));
-      this.score1.Size = new System.Drawing.Size(879, 354);
+      this.score1.Size = new System.Drawing.Size(879, 303);
       this.score1.TabIndex = 20;
       // 
       // waveform1
@@ -189,12 +190,30 @@
       this.rightSeekBtn.UseVisualStyleBackColor = false;
       this.rightSeekBtn.Click += new System.EventHandler(this.rightSeekBtn_Click);
       // 
+      // button2
+      // 
+      this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.button2.BackColor = System.Drawing.Color.Transparent;
+      this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+      this.button2.FlatAppearance.BorderSize = 0;
+      this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.button2.ForeColor = System.Drawing.Color.White;
+      this.button2.Location = new System.Drawing.Point(813, 524);
+      this.button2.Margin = new System.Windows.Forms.Padding(0);
+      this.button2.Name = "button2";
+      this.button2.Size = new System.Drawing.Size(75, 28);
+      this.button2.TabIndex = 24;
+      this.button2.Text = "Loop";
+      this.button2.UseVisualStyleBackColor = false;
+      this.button2.Click += new System.EventHandler(this.button2_Click);
+      // 
       // SongWindow
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
       this.ClientSize = new System.Drawing.Size(900, 561);
+      this.Controls.Add(this.button2);
       this.Controls.Add(this.rightSeekBtn);
       this.Controls.Add(this.leftSeekBtn);
       this.Controls.Add(this.score1);
@@ -233,5 +252,6 @@
     private Controls.SeekBar seekBar1;
     private System.Windows.Forms.Button leftSeekBtn;
     private System.Windows.Forms.Button rightSeekBtn;
+    private System.Windows.Forms.Button button2;
   }
 }

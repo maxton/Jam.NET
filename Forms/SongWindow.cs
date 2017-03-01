@@ -29,14 +29,17 @@ namespace Jammit
       for (int x = 0; x < _player.Channels; x++)
         AddFader(x);
 
+      
       seekBar1.Samples = (long) (_player.Length.TotalSeconds*44100.0 + 0.5);
-      seekBar1.OnSliderDrop += (i) => _player.Position = TimeSpan.FromSeconds(i);
+      seekBar1.OnSliderDrop += i => _player.Position = TimeSpan.FromSeconds(i);
       _timer = new Timer();
       _timer.Interval = 30;
       _timer.Tick += TimerTick;
       _timer.Start();
       waveform1.WaveData = _song.GetWaveform();
       waveform1.Sections = _song.Sections;
+      waveform1.Beats = _song.Beats;
+      waveform1.Looper.OnLoop += d => _player.Position = TimeSpan.FromSeconds(d);
     }
 
     private void AddFader(int channel)
@@ -106,6 +109,19 @@ namespace Jammit
         }
       }
       _player.Position = TimeSpan.FromSeconds(seekTime);
+    }
+
+    private void button2_Click(object sender, EventArgs e)
+    {
+      int i;
+      for (i = 0; i <_song.Beats.Count; i++)
+      {
+        if (_song.Beats[i].Time >= _player.Position.TotalSeconds)
+          break;
+      }
+      waveform1.Looper.LoopStart = _song.Beats[i].Time;
+      waveform1.Looper.LoopEnd = _song.Beats[i+4].Time;
+      waveform1.Looper.Enabled = !waveform1.Looper.Enabled;
     }
   }
 }
