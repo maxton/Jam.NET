@@ -20,20 +20,31 @@ namespace Jammit.Model
     public IReadOnlyList<Section> Sections { get; }
 
     private List<ScoreNodes> _notationData;
+    private string _basePath;
 
     public ZipSong(SongMeta metadata)
     {
       Metadata = metadata;
+      // Determine internal base path.
+      using (var a = OpenZip())
+      {
+        _basePath = Metadata.GuidString;
+        if (a.GetEntry(_basePath + "/") == null)
+          _basePath += ".jcf";
+      }
+
       Tracks = InitTracks();
       Beats = InitBeats();
       Sections = InitSections();
       _notationData = InitScoreNodes();
+
+
     }
 
     public sbyte[] GetWaveform()
     {
       using (var a = OpenZip())
-      using (var s = a.GetEntry($"{Metadata.GuidString}.jcf/music.waveform").Open())
+      using (var s = a.GetEntry($"{_basePath}/music.waveform").Open())
       using (var ms = new MemoryStream())
       {
         s.CopyTo(ms);
@@ -44,7 +55,7 @@ namespace Jammit.Model
     public Image GetCover()
     {
       using (var x = OpenZip())
-      using (var stream = x.GetEntry($"{Metadata.GuidString}.jcf/cover.jpg").Open())
+      using (var stream = x.GetEntry($"{_basePath}/cover.jpg").Open())
       {
         return Image.FromStream(stream);
       }
@@ -56,7 +67,7 @@ namespace Jammit.Model
       if (!t.HasNotation) return null;
       using (var arc = OpenZip())
         for (var i = 0; i < t.NotationPages; i++)
-          using (var img = arc.GetEntry($"{Metadata.GuidString}.jcf/{t.Id}_jcfn_{i:D2}").Open())
+          using (var img = arc.GetEntry($"{_basePath}/{t.Id}_jcfn_{i:D2}").Open())
             ret.Add(Image.FromStream(img));
 
       return ret;
@@ -68,7 +79,7 @@ namespace Jammit.Model
       if (!t.HasTablature) return null;
       using (var arc = OpenZip())
         for (var i = 0; i < t.NotationPages; i++)
-          using (var img = arc.GetEntry($"{Metadata.GuidString}.jcf/{t.Id}_jcft_{i:D2}").Open())
+          using (var img = arc.GetEntry($"{_basePath}/{t.Id}_jcft_{i:D2}").Open())
             ret.Add(Image.FromStream(img));
 
       return ret;
@@ -82,7 +93,7 @@ namespace Jammit.Model
     public Stream GetContentStream(string s)
     {
       var zip = OpenZip();
-      var stream = new OnDisposeStream(zip.GetEntry(Metadata.GuidString + ".jcf/" + s).Open());
+      var stream = new OnDisposeStream(zip.GetEntry(_basePath + "/" + s).Open());
       stream.OnDispose += () => zip.Dispose();
       return stream;
     }
@@ -90,7 +101,7 @@ namespace Jammit.Model
     public Stream GetSeekableContentStream(string s)
     {
       using (var x = OpenZip())
-      using (var file = x.GetEntry(Metadata.GuidString + ".jcf/" + s).Open())
+      using (var file = x.GetEntry(_basePath + "/" + s).Open())
       {
         var ms = new MemoryStream();
         file.CopyTo(ms);
@@ -105,10 +116,10 @@ namespace Jammit.Model
     private List<Track> InitTracks()
     {
       using (var x = OpenZip())
-      using (var s = x.GetEntry(Metadata.GuidString + ".jcf/tracks.plist").Open())
+      using (var s = x.GetEntry(_basePath + "/tracks.plist").Open())
       {
         var tracksArray = (NSArray)PropertyListParser.Parse(s);
-        return Track.FromNSArray(tracksArray, path => x.GetEntry($"{Metadata.GuidString}.jcf/" + path) != null);
+        return Track.FromNSArray(tracksArray, path => x.GetEntry($"{_basePath}/" + path) != null);
       }
     }
 
@@ -117,9 +128,9 @@ namespace Jammit.Model
       NSArray beatArray, ghostArray;
       using (var arc = OpenZip())
       {
-        using (var stream = arc.GetEntry($"{Metadata.GuidString}.jcf/beats.plist").Open())
+        using (var stream = arc.GetEntry($"{_basePath}/beats.plist").Open())
           beatArray = (NSArray)PropertyListParser.Parse(stream);
-        using (var stream = arc.GetEntry($"{Metadata.GuidString}.jcf/ghost.plist").Open())
+        using (var stream = arc.GetEntry($"{_basePath}/ghost.plist").Open())
           ghostArray = (NSArray) PropertyListParser.Parse(stream);
       }
       return Beat.FromNSArrays(beatArray, ghostArray);
@@ -129,7 +140,7 @@ namespace Jammit.Model
     {
       NSArray sectionArray;
       using (var arc = OpenZip())
-      using (var stream = arc.GetEntry($"{Metadata.GuidString}.jcf/sections.plist").Open())
+      using (var stream = arc.GetEntry($"{_basePath}/sections.plist").Open())
         sectionArray = (NSArray)PropertyListParser.Parse(stream);
       return sectionArray.GetArray().OfType<NSDictionary>().Select(dict => new Section
       {
