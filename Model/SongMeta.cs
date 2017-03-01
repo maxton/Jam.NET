@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Xml.Linq;
 using System.IO;
 using System.IO.Compression;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using System.Xml.XPath;
 
 namespace Jammit.Model
@@ -67,13 +68,17 @@ namespace Jammit.Model
       using (var a = ZipFile.OpenRead(zipFileName))
       {
         Guid id = Guid.Empty;
+        string entryPath = null;
         foreach (var e in a.Entries)
-          if (e.FullName.EndsWith(".jcf/"))
+        {
+          if (e.FullName.EndsWith(".jcf/") || Regex.IsMatch(e.FullName, @".*-.*-.*-.*/"))
           {
             id = Guid.Parse(e.FullName.Substring(0, 36));
+            entryPath = e.FullName;
             break;
           }
-        using (var reader = new StreamReader(a.GetEntry(id.ToString("D").ToUpper() + ".jcf/info.plist").Open()))
+        }
+        using (var reader = new StreamReader(a.GetEntry(entryPath + "info.plist").Open()))
         {
           return FromPlist(XDocument.Parse(reader.ReadToEnd()), id, "Zip", zipFileName);
         }
