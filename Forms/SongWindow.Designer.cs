@@ -48,13 +48,13 @@
       // 
       // button1
       // 
-      this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
       this.button1.BackColor = System.Drawing.Color.Transparent;
       this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
       this.button1.FlatAppearance.BorderSize = 0;
       this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.button1.ForeColor = System.Drawing.Color.White;
-      this.button1.Location = new System.Drawing.Point(537, 521);
+      this.button1.Location = new System.Drawing.Point(638, 524);
       this.button1.Margin = new System.Windows.Forms.Padding(0);
       this.button1.Name = "button1";
       this.button1.Size = new System.Drawing.Size(58, 28);
@@ -128,7 +128,7 @@
       this.score1.Name = "score1";
       this.score1.SamplePosition = ((long)(0));
       this.score1.Samples = ((long)(0));
-      this.score1.Size = new System.Drawing.Size(879, 303);
+      this.score1.Size = new System.Drawing.Size(879, 354);
       this.score1.TabIndex = 20;
       // 
       // waveform1
@@ -158,13 +158,13 @@
       // 
       // leftSeekBtn
       // 
-      this.leftSeekBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.leftSeekBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
       this.leftSeekBtn.BackColor = System.Drawing.Color.Transparent;
       this.leftSeekBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
       this.leftSeekBtn.FlatAppearance.BorderSize = 0;
       this.leftSeekBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.leftSeekBtn.ForeColor = System.Drawing.Color.White;
-      this.leftSeekBtn.Location = new System.Drawing.Point(503, 521);
+      this.leftSeekBtn.Location = new System.Drawing.Point(604, 524);
       this.leftSeekBtn.Margin = new System.Windows.Forms.Padding(0);
       this.leftSeekBtn.Name = "leftSeekBtn";
       this.leftSeekBtn.Size = new System.Drawing.Size(34, 28);
@@ -175,13 +175,13 @@
       // 
       // rightSeekBtn
       // 
-      this.rightSeekBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.rightSeekBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
       this.rightSeekBtn.BackColor = System.Drawing.Color.Transparent;
       this.rightSeekBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
       this.rightSeekBtn.FlatAppearance.BorderSize = 0;
       this.rightSeekBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.rightSeekBtn.ForeColor = System.Drawing.Color.White;
-      this.rightSeekBtn.Location = new System.Drawing.Point(595, 521);
+      this.rightSeekBtn.Location = new System.Drawing.Point(696, 524);
       this.rightSeekBtn.Margin = new System.Windows.Forms.Padding(0);
       this.rightSeekBtn.Name = "rightSeekBtn";
       this.rightSeekBtn.Size = new System.Drawing.Size(34, 28);
@@ -192,13 +192,13 @@
       // 
       // button2
       // 
-      this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
       this.button2.BackColor = System.Drawing.Color.Transparent;
       this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
       this.button2.FlatAppearance.BorderSize = 0;
       this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
       this.button2.ForeColor = System.Drawing.Color.White;
-      this.button2.Location = new System.Drawing.Point(813, 524);
+      this.button2.Location = new System.Drawing.Point(730, 524);
       this.button2.Margin = new System.Windows.Forms.Padding(0);
       this.button2.Name = "button2";
       this.button2.Size = new System.Drawing.Size(75, 28);
