@@ -134,9 +134,10 @@ namespace Jammit.Controls
 
         if (_imgs.Count > img)
         {
-          pe.Graphics.DrawImageUnscaled(_imgs[img], xOffset, -y + 1024*img);
-          if(_imgs.Count > img + 1)
-            pe.Graphics.DrawImageUnscaled(_imgs[img+1], xOffset, -y + _imgs[img].Height + 1024*img);
+          var rect = Rectangle.FromLTRB(xOffset, -y + 1024*img, xOffset+724, 1024 - y + 1024 * img);
+          pe.Graphics.DrawImage(_imgs[img], rect);
+          if (_imgs.Count > img + 1)
+            pe.Graphics.DrawImageUnscaled(_imgs[img + 1], Rectangle.FromLTRB(xOffset, 1024 - y + 1024*img, xOffset + 724, 2048 - y + 1024 * img));
         }
         pe.Graphics.DrawLine(_line, x, 0, x, _track.ScoreSystemHeight);
       }
