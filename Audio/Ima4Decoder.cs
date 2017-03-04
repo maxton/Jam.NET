@@ -105,6 +105,7 @@ namespace Jammit.Audio
         _sampleData[127] = 0;
         ReadTwoPackets(_currentPacket);
         _frameOffset = (int)(sample % 64);
+        CurrentSample = sample;
       }
     }
 
