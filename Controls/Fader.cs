@@ -23,11 +23,17 @@ namespace Jammit.Controls
       set { label1.Text = value; }
     }
 
+    public bool Mute
+    {
+      get { return muteButton.Checked; }
+      set { muteButton.Checked = value; }
+    }
+
     public Fader()
     {
       InitializeComponent();
-      trackBar1.Scroll += (sender, args) => OnFaderChange?.Invoke(muteButton.Checked ? 1 : trackBar1.Value);
-      muteButton.CheckedChanged += (sender, args) => OnFaderChange?.Invoke(muteButton.Checked ? 1 : trackBar1.Value);
+      trackBar1.Scroll += (sender, args) => OnFaderChange?.Invoke(muteButton.Checked ? 0 : trackBar1.Value);
+      muteButton.CheckedChanged += (sender, args) => OnFaderChange?.Invoke(muteButton.Checked ? 0 : trackBar1.Value);
     }
   }
 }

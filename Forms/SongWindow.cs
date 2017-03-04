@@ -42,7 +42,8 @@ namespace Jammit
     {
       var fader = new Fader();
       fader.Text = _player.GetChannelName(channel);
-      fader.OnFaderChange += value => _player.SetChannelVolume(channel, value / 100.0f);
+      fader.OnFaderChange += value => _player.SetChannelVolume(channel, value == 0 ? 0.00001f : value / 100.0f);
+      if (fader.Text == "Click") fader.Mute = true;
       mixerFlowPanel.Controls.Add(fader);
     }
 
