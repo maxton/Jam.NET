@@ -3,6 +3,8 @@ using System.IO;
 using System.Windows.Forms;
 using Jammit.Model;
 using Jammit.Properties;
+using Jammit.Forms;
+using System.Threading.Tasks;
 
 namespace Jammit
 {
@@ -41,15 +43,13 @@ namespace Jammit
     {
       if (new OptionsWindow().ShowDialog(this) == DialogResult.OK)
       {
-        Library.ResetCache();
-        UpdateListView();
+        ResetLibrary();
       }
     }
 
     private void rescanContentFilesToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Library.UpdateCache();
-      UpdateListView();
+      RescanLibrary();
     }
 
     private void LibraryWindow_Load(object sender, EventArgs e)
@@ -61,9 +61,10 @@ namespace Jammit
     {
       if (listView1.SelectedItems.Count == 1)
       {
+        var songMeta = listView1.SelectedItems[0].Tag as SongMeta;
         try
         {
-          var sw = new SongWindow(listView1.SelectedItems[0].Tag as SongMeta);
+          var sw = new SongWindow(songMeta);
           sw.Show();
         }
         catch (Exception ex)
@@ -80,8 +81,7 @@ namespace Jammit
 
     private void clearContentCacheToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Library.ResetCache();
-      UpdateListView();
+      ResetLibrary();
     }
 
     private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -92,6 +92,24 @@ namespace Jammit
     private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
     {
       ShowOptions();
+    }
+
+    private async void ResetLibrary()
+    {
+      var bt = new BackgroundTaskForm();
+      bt.Show(this);
+      await Task.Run(() => Library.ResetCache());
+      UpdateListView();
+      bt.Close();
+    }
+
+    private async void RescanLibrary()
+    {
+      var bt = new BackgroundTaskForm();
+      bt.Show(this);
+      await Task.Run(() => Library.UpdateCache());
+      UpdateListView();
+      bt.Close();
     }
   }
 }

@@ -85,6 +85,12 @@
     <Compile Include="Audio\JammitNAudioSongPlayer.cs" />
     <Compile Include="Audio\Ima4Decoder.cs" />
     <Compile Include="Audio\ImaWaveStream.cs" />
+    <Compile Include="Forms\BackgroundTaskForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BackgroundTaskForm.Designer.cs">
+      <DependentUpon>BackgroundTaskForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LibraryWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Fader.resx">
       <DependentUpon>Fader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BackgroundTaskForm.resx">
+      <DependentUpon>BackgroundTaskForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LibraryWindow.resx">
       <DependentUpon>LibraryWindow.cs</DependentUpon>

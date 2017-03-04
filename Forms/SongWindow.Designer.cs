@@ -167,7 +167,7 @@
       this.button2.TabIndex = 24;
       this.button2.Text = "Loop";
       this.button2.UseVisualStyleBackColor = false;
-      this.button2.Click += new System.EventHandler(this.button2_Click);
+      this.button2.Click += new System.EventHandler(this.loopBtn_Click);
       // 
       // score1
       // 
@@ -230,6 +230,7 @@
       this.ShowIcon = false;
       this.Text = "Score";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SongWindow_FormClosing);
+      this.Load += new System.EventHandler(this.SongWindow_Load);
       this.groupBox1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.albumArtwork)).EndInit();
       this.menuStrip1.ResumeLayout(false);
