@@ -83,7 +83,6 @@
     </Compile>
     <Compile Include="Audio\ISongPlayer.cs" />
     <Compile Include="Audio\JammitNAudioSongPlayer.cs" />
-    <Compile Include="Audio\Ima4Decoder.cs" />
     <Compile Include="Audio\ImaWaveStream.cs" />
     <Compile Include="Forms\LibraryWindow.cs">
       <SubType>Form</SubType>
@@ -119,7 +118,6 @@
     </Compile>
     <Compile Include="Util\OnDisposeStream.cs" />
     <Compile Include="Util\PlistExtensions.cs" />
-    <Compile Include="Util\StreamExtensions.cs" />
     <Compile Include="Util\UnionArray.cs" />
     <EmbeddedResource Include="Controls\Score.resx">
       <DependentUpon>Score.cs</DependentUpon>
@@ -174,6 +172,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\stick.raw" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Jam.NET.csproj">
+      <Project>{f0a28ae2-863f-46b2-ac14-27a83da0f596}</Project>
+      <Name>Jam.NET</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

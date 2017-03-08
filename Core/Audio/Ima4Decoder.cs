@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Jammit.Audio
 {
-  class Ima4Decoder
+  public class Ima4Decoder
   {
     // File variables
     private readonly Stream _stream;
