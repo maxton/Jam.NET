@@ -49,6 +49,9 @@
     <Compile Include="Model\Beat.cs" />
     <Compile Include="Model\ISynchronizable.cs" />
     <Compile Include="Model\Looper.cs" />
+    <Compile Include="Model\ScoreNodes.cs" />
+    <Compile Include="Model\Section.cs" />
+    <Compile Include="Model\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\OnDisposeStream.cs" />
     <Compile Include="Util\PlistExtensions.cs" />
