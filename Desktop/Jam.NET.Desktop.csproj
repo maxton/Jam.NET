@@ -116,9 +116,6 @@
     <Compile Include="Forms\SongWindow.Designer.cs">
       <DependentUpon>SongWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Util\OnDisposeStream.cs" />
-    <Compile Include="Util\PlistExtensions.cs" />
-    <Compile Include="Util\UnionArray.cs" />
     <EmbeddedResource Include="Controls\Score.resx">
       <DependentUpon>Score.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,6 +176,7 @@
       <Name>Jam.NET</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
