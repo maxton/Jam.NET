@@ -90,11 +90,8 @@
     <Compile Include="Forms\LibraryWindow.Designer.cs">
       <DependentUpon>LibraryWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Beat.cs" />
     <Compile Include="Model\FolderSong.cs" />
     <Compile Include="Model\ISong.cs" />
-    <Compile Include="Model\ISynchronizable.cs" />
-    <Compile Include="Model\Looper.cs" />
     <Compile Include="Model\ScoreNodes.cs" />
     <Compile Include="Model\Section.cs" />
     <Compile Include="Model\SongLoader.cs" />
