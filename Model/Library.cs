@@ -10,8 +10,8 @@ namespace Jammit.Model
   {
     private static readonly string CacheFileName = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "Jammit", // Must match root  namespace
-        "contentCache");
+        "Jam.NET", // Must match root  namespace
+        "contentCache.xml");
 
     private static Dictionary<Guid, SongMeta> _cache;
 
