@@ -81,6 +81,9 @@ namespace Jammit.Model
 
     public ISongPlayer GetSongPlayer()
     {
+      if (System.Type.GetType("Mono.Runtime") != null)
+        return new MockSongPlayer(this);
+
       return new JammitNAudioSongPlayer(this);
     }
 
