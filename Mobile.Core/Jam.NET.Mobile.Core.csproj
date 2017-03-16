@@ -35,8 +35,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Dummy.cs" />
+    <Compile Include="Audio\Ima4Decoder.cs" />
+    <Compile Include="Model\Beat.cs" />
+    <Compile Include="Model\ISynchronizable.cs" />
+    <Compile Include="Model\Library.cs" />
+    <Compile Include="Model\Looper.cs" />
+    <Compile Include="Model\ScoreNodes.cs" />
+    <Compile Include="Model\Section.cs" />
+    <Compile Include="Model\SongMeta.cs" />
+    <Compile Include="Model\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\OnDisposeStream.cs" />
+    <Compile Include="Util\PlistExtensions.cs" />
+    <Compile Include="Util\StreamExtensions.cs" />
+    <Compile Include="Util\UnionArray.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="NAudio, Version=1.5.4.0, Culture=neutral, processorArchitecture=MSIL">
