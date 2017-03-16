@@ -7,8 +7,8 @@
     <ProjectGuid>{17311CD3-DA86-4669-8153-9BD37636EB05}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jam.NET.Mobile.UWP</RootNamespace>
-    <AssemblyName>Jam.NET.Mobile.UWP</AssemblyName>
+    <RootNamespace>Jammit.UWP</RootNamespace>
+    <AssemblyName>Jam.NET.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>

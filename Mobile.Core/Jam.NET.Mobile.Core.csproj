@@ -65,45 +65,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="docs\ChangeLog.txt" />
-    <Content Include="docs\html\Claunia.PropertyList\ASCIIPropertyListParser.html" />
-    <Content Include="docs\html\Claunia.PropertyList\BinaryPropertyListParser.html" />
-    <Content Include="docs\html\Claunia.PropertyList\BinaryPropertyListWriter.html" />
-    <Content Include="docs\html\Claunia.PropertyList\index.html" />
-    <Content Include="docs\html\Claunia.PropertyList\NSArray.html" />
-    <Content Include="docs\html\Claunia.PropertyList\NSData.html" />
-    <Content Include="docs\html\Claunia.PropertyList\NSDate.html" />
-    <Content Include="docs\html\Claunia.PropertyList\NSDictionary.html" />
-    <Content Include="docs\html\Claunia.PropertyList\NSNumber.html" />
-    <Content Include="docs\html\Claunia.PropertyList\NSObject.html" />
-    <Content Include="docs\html\Claunia.PropertyList\NSSet.html" />
-    <Content Include="docs\html\Claunia.PropertyList\NSString.html" />
-    <Content Include="docs\html\Claunia.PropertyList\PropertyListFormatException.html" />
-    <Content Include="docs\html\Claunia.PropertyList\PropertyListParser.html" />
-    <Content Include="docs\html\Claunia.PropertyList\UID.html" />
-    <Content Include="docs\html\Claunia.PropertyList\XmlPropertyListParser.html" />
-    <Content Include="docs\html\index.html" />
-    <Content Include="docs\LICENSE.txt" />
-    <Content Include="docs\mono\Claunia.PropertyList\ASCIIPropertyListParser.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\BinaryPropertyListParser.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\BinaryPropertyListWriter.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\NSArray.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\NSData.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\NSDate.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\NSDictionary.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\NSNumber.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\NSObject.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\NSSet.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\NSString.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\PropertyListFormatException.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\PropertyListParser.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\UID.xml" />
-    <Content Include="docs\mono\Claunia.PropertyList\XmlPropertyListParser.xml" />
-    <Content Include="docs\mono\index.xml" />
-    <Content Include="docs\mono\ns-Claunia.PropertyList.xml" />
-    <Content Include="docs\README.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

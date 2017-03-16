@@ -8,7 +8,7 @@
     <ProjectGuid>{6E6FA900-0D6A-4D65-9A1C-6CD54E1CD80D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jam.NET.Mobile</RootNamespace>
+    <RootNamespace>Jammit</RootNamespace>
     <AssemblyName>Jam.NET.Mobile</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
