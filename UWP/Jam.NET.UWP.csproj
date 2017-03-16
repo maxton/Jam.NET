@@ -152,8 +152,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Jam.NET.Mobile\Jam.NET.Mobile.csproj">
-      <Project>{9d186a94-654c-486e-a0c3-62ff8bf88c69}</Project>
+    <ProjectReference Include="..\Mobile\Jam.NET.Mobile.csproj">
+      <Project>{6e6fa900-0d6a-4d65-9a1c-6cd54e1cd80d}</Project>
       <Name>Jam.NET.Mobile</Name>
     </ProjectReference>
   </ItemGroup>
