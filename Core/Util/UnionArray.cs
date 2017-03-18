@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace Jammit
 {
   [StructLayout(LayoutKind.Explicit)]
-  struct UnionArray
+  public struct UnionArray
   {
     [FieldOffset(0)] public byte[] Bytes;
 

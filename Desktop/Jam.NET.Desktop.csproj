@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Jammit</RootNamespace>
-    <AssemblyName>Jam.NET</AssemblyName>
+    <AssemblyName>Jam.NET.Desktop</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,12 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NAudio, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="plist-cil, Version=1.14.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\plist-cil.1.14\lib\plist-cil.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\plist-cil.1.14\lib\plist-cil.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -83,7 +81,6 @@
     </Compile>
     <Compile Include="Audio\ISongPlayer.cs" />
     <Compile Include="Audio\JammitNAudioSongPlayer.cs" />
-    <Compile Include="Audio\Ima4Decoder.cs" />
     <Compile Include="Audio\ImaWaveStream.cs" />
     <Compile Include="Forms\LibraryWindow.cs">
       <SubType>Form</SubType>
@@ -91,18 +88,12 @@
     <Compile Include="Forms\LibraryWindow.Designer.cs">
       <DependentUpon>LibraryWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Beat.cs" />
     <Compile Include="Model\FolderSong.cs" />
     <Compile Include="Model\ISong.cs" />
-    <Compile Include="Model\ISynchronizable.cs" />
-    <Compile Include="Model\Looper.cs" />
-    <Compile Include="Model\ScoreNodes.cs" />
-    <Compile Include="Model\Section.cs" />
     <Compile Include="Model\SongLoader.cs" />
     <Compile Include="Model\ZipSong.cs" />
     <Compile Include="Model\SongMeta.cs" />
     <Compile Include="Model\Library.cs" />
-    <Compile Include="Model\Track.cs" />
     <Compile Include="Forms\OptionsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,10 +108,6 @@
     <Compile Include="Forms\SongWindow.Designer.cs">
       <DependentUpon>SongWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Util\OnDisposeStream.cs" />
-    <Compile Include="Util\PlistExtensions.cs" />
-    <Compile Include="Util\StreamExtensions.cs" />
-    <Compile Include="Util\UnionArray.cs" />
     <EmbeddedResource Include="Controls\Score.resx">
       <DependentUpon>Score.cs</DependentUpon>
     </EmbeddedResource>
@@ -174,8 +161,52 @@
     <None Include="Resources\Licenses.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="docs\ChangeLog.txt" />
+    <Content Include="docs\html\Claunia.PropertyList\ASCIIPropertyListParser.html" />
+    <Content Include="docs\html\Claunia.PropertyList\BinaryPropertyListParser.html" />
+    <Content Include="docs\html\Claunia.PropertyList\BinaryPropertyListWriter.html" />
+    <Content Include="docs\html\Claunia.PropertyList\index.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSArray.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSData.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSDate.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSDictionary.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSNumber.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSObject.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSSet.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSString.html" />
+    <Content Include="docs\html\Claunia.PropertyList\PropertyListFormatException.html" />
+    <Content Include="docs\html\Claunia.PropertyList\PropertyListParser.html" />
+    <Content Include="docs\html\Claunia.PropertyList\UID.html" />
+    <Content Include="docs\html\Claunia.PropertyList\XmlPropertyListParser.html" />
+    <Content Include="docs\html\index.html" />
+    <Content Include="docs\LICENSE.txt" />
+    <Content Include="docs\mono\Claunia.PropertyList\ASCIIPropertyListParser.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\BinaryPropertyListParser.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\BinaryPropertyListWriter.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSArray.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSData.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSDate.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSDictionary.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSNumber.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSObject.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSSet.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSString.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\PropertyListFormatException.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\PropertyListParser.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\UID.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\XmlPropertyListParser.xml" />
+    <Content Include="docs\mono\index.xml" />
+    <Content Include="docs\mono\ns-Claunia.PropertyList.xml" />
+    <Content Include="docs\README.txt" />
     <Content Include="Resources\stick.raw" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Jam.NET.csproj">
+      <Project>{f0a28ae2-863f-46b2-ac14-27a83da0f596}</Project>
+      <Name>Jam.NET</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

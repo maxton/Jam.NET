@@ -7,7 +7,7 @@ using System.Text;
 using System.IO;
 namespace Jammit
 {
-  internal static class StreamExtensions
+  public static class StreamExtensions
   {
     /// <summary>
     /// Read a signed 8-bit integer from the stream.
