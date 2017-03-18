@@ -5,7 +5,7 @@ using System.Text;
 
 using Xamarin.Forms;
 
-namespace Jam.NET.Mobile
+namespace Jammit.Mobile
 {
   public partial class App : Application
   {
@@ -13,7 +13,7 @@ namespace Jam.NET.Mobile
     {
       InitializeComponent();
 
-      MainPage = new Jam.NET.Mobile.MainPage();
+      MainPage = new Jammit.Mobile.MainPage();
     }
 
     protected override void OnStart()

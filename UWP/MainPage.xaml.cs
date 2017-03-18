@@ -21,7 +21,7 @@ namespace Jam.NET.Mobile.UWP
     {
       this.InitializeComponent();
 
-      LoadApplication(new Jam.NET.Mobile.App());
+      LoadApplication(new Jammit.Mobile.App());
     }
   }
 }

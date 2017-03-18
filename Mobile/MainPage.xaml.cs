@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Jam.NET.Mobile
+namespace Jammit.Mobile
 {
   public partial class MainPage : ContentPage
   {
