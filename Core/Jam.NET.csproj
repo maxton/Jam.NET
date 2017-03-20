@@ -34,6 +34,12 @@
       <HintPath>..\packages\plist-cil.1.14\lib\plist-cil.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Plugin.Settings, Version=2.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Settings.2.5.4\lib\net45\Plugin.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Settings.Abstractions, Version=2.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Settings.2.5.4\lib\net45\Plugin.Settings.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -46,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\Ima4Decoder.cs" />
+    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Model\Beat.cs" />
     <Compile Include="Model\ISynchronizable.cs" />
     <Compile Include="Model\Looper.cs" />
