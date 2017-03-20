@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace Jam.NET.Mobile.iOS
+namespace Jammit.iOS
 {
   public class Application
   {
