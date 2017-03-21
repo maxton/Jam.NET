@@ -18,7 +18,7 @@ namespace Jammit.Helpers
       }
     }
 
-    private static string[] DUMMIES = { "Le", "pupu", "mato", "le", "guagua" };
+    private static string[] COLORS = { "FF0000", "00FF00", "0000FF" };
 
     #region Setting Constants
 
@@ -56,9 +56,9 @@ namespace Jammit.Helpers
       get
       {
         int index = AppSettings.GetValueOrDefault<int>(DummyIndexKey);
-        AppSettings.AddOrUpdateValue<int>(DummyIndexKey, (index + 1) % DUMMIES.Length);
+        AppSettings.AddOrUpdateValue<int>(DummyIndexKey, (index + 1) % COLORS.Length);
 
-        return DUMMIES[index];
+        return COLORS[index];
       }
     }
   }
