@@ -1,0 +1,28 @@
+version: 0.2.0.{build}
+
+image: Visual Studio 2015
+
+configuration: Release
+platform: Any CPU
+
+build:
+  project: Jam.NET.sln
+
+before_build:
+ - nuget restore
+
+after_build:
+ - >
+   7z a Jam.NET.Desktop-%APPVEYOR_BUILD_VERSION%.zip 
+   %APPVEYOR_BUILD_FOLDER%\Desktop\bin\Release\Jam.NET.Desktop.exe 
+   %APPVEYOR_BUILD_FOLDER%\Desktop\bin\Release\Jam.NET.Desktop.exe.config
+   %APPVEYOR_BUILD_FOLDER%\Desktop\bin\Release\Jam.NET.dll 
+   %APPVEYOR_BUILD_FOLDER%\Desktop\bin\Release\NAudio.dll
+   %APPVEYOR_BUILD_FOLDER%\Desktop\bin\Release\plist-cil.dll
+   %APPVEYOR_BUILD_FOLDER%\README.md
+   %APPVEYOR_BUILD_FOLDER%\COPYING
+
+
+
+artifacts:
+ - path: Jam.NET.Desktop-%APPVEYOR_BUILD_VERSION%.zip
