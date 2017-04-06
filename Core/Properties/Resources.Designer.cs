@@ -61,23 +61,12 @@ namespace Jammit.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jammit® is a registered trademark of Jammit, Inc.
-        ///
-        ///This software program uses the NAudio library, which is licensed under the Ms-PL:
-        ///
-        ///Microsoft Public License (Ms-PL)
-        ///
-        ///This license governs use of the accompanying software. If you use the software, you accept this license. If you do not accept the license, do not use the software.
-        ///
-        ///1. Definitions
-        ///
-        ///The terms &quot;reproduce,&quot; &quot;reproduction,&quot; &quot;derivative works,&quot; and &quot;distribution&quot; have the same meaning here as under U.S. copyright law.
-        ///
-        ///A &quot;contribution&quot; [rest of string was truncated]&quot;;.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static string Licenses {
+        internal static byte[] stick {
             get {
-                return ResourceManager.GetString("Licenses", resourceCulture);
+                object obj = ResourceManager.GetObject("stick", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }
