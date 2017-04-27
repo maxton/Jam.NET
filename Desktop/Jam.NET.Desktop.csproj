@@ -36,8 +36,8 @@
     <Reference Include="NAudio, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
     </Reference>
-    <Reference Include="plist-cil, Version=1.14.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\plist-cil.1.14\lib\plist-cil.dll</HintPath>
+    <Reference Include="plist-cil, Version=1.15.0.0, Culture=neutral, PublicKeyToken=ec2cb9e1a719933d, processorArchitecture=MSIL">
+      <HintPath>..\packages\plist-cil.1.15.0\lib\net40\plist-cil.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -54,7 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\ClickTrackStream.cs" />
     <Compile Include="Controls\SeekBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -79,9 +78,7 @@
     <Compile Include="Controls\Waveform.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Audio\ISongPlayer.cs" />
     <Compile Include="Audio\JammitNAudioSongPlayer.cs" />
-    <Compile Include="Audio\ImaWaveStream.cs" />
     <Compile Include="Forms\LibraryWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,10 +86,8 @@
       <DependentUpon>LibraryWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\FolderSong.cs" />
-    <Compile Include="Model\ISong.cs" />
     <Compile Include="Model\SongLoader.cs" />
     <Compile Include="Model\ZipSong.cs" />
-    <Compile Include="Model\SongMeta.cs" />
     <Compile Include="Model\Library.cs" />
     <Compile Include="Forms\OptionsWindow.cs">
       <SubType>Form</SubType>
@@ -150,7 +145,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Audio\MockSongPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -161,7 +155,43 @@
     <None Include="Resources\Licenses.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\stick.raw" />
+    <Content Include="docs\ChangeLog.txt" />
+    <Content Include="docs\html\Claunia.PropertyList\ASCIIPropertyListParser.html" />
+    <Content Include="docs\html\Claunia.PropertyList\BinaryPropertyListParser.html" />
+    <Content Include="docs\html\Claunia.PropertyList\BinaryPropertyListWriter.html" />
+    <Content Include="docs\html\Claunia.PropertyList\index.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSArray.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSData.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSDate.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSDictionary.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSNumber.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSObject.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSSet.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSString.html" />
+    <Content Include="docs\html\Claunia.PropertyList\PropertyListFormatException.html" />
+    <Content Include="docs\html\Claunia.PropertyList\PropertyListParser.html" />
+    <Content Include="docs\html\Claunia.PropertyList\UID.html" />
+    <Content Include="docs\html\Claunia.PropertyList\XmlPropertyListParser.html" />
+    <Content Include="docs\html\index.html" />
+    <Content Include="docs\LICENSE.txt" />
+    <Content Include="docs\mono\Claunia.PropertyList\ASCIIPropertyListParser.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\BinaryPropertyListParser.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\BinaryPropertyListWriter.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSArray.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSData.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSDate.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSDictionary.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSNumber.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSObject.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSSet.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSString.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\PropertyListFormatException.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\PropertyListParser.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\UID.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\XmlPropertyListParser.xml" />
+    <Content Include="docs\mono\index.xml" />
+    <Content Include="docs\mono\ns-Claunia.PropertyList.xml" />
+    <Content Include="docs\README.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Jam.NET.csproj">

@@ -4,7 +4,7 @@ using NAudio.Wave;
 
 namespace Jammit.Audio
 {
-  class ImaWaveStream : WaveStream
+  public class ImaWaveStream : WaveStream
   {
     private readonly Ima4Decoder _decoder;
 
