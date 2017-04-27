@@ -25,8 +25,6 @@ namespace Jammit.Model
     /// </summary>
     public string SongPath;
     public string GuidString => ContentGuid.ToString().ToUpper();
-    public string ZipFileName => "x.zip";// => Path.Combine(Properties.Settings.Default.TrackPath, GuidString + ".zip");
-    public string DirName;// => Path.Combine(Properties.Settings.Default.TrackPath, GuidString + ".jcf");
 
     private static string InstrumentCode(string code)
     {
@@ -48,6 +46,7 @@ namespace Jammit.Model
 
     public static SongMeta FromPlist(XDocument plist, Guid id, string type, string path)
     {
+
       return new SongMeta
       {
         //Name = plist.XPathSelectElement("/plist/dict/key[.=\'title\']/following-sibling::string[1]").Value,

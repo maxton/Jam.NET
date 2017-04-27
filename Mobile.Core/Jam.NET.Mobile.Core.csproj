@@ -43,7 +43,6 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Model\Beat.cs" />
     <Compile Include="Model\ISynchronizable.cs" />
-    <Compile Include="Model\Library.cs" />
     <Compile Include="Model\Looper.cs" />
     <Compile Include="Model\ScoreNodes.cs" />
     <Compile Include="Model\Section.cs" />
