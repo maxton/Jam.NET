@@ -21,7 +21,7 @@
   <!--See https://developer.xamarin.com/guides/xamarin-forms/xaml/xaml-basics/data_binding_basics/-->
   <ListView
     x:Name="LibraryView"
-    HorizontalOptions="Center"
+    HorizontalOptions="CenterAndExpand"
     VerticalOptions="Center"
     ItemsSource="{x:Static local:MainPage.Songs}">
     <ListView.Header>
