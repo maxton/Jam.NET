@@ -18,29 +18,32 @@ namespace Jammit.Model
 
     private static Dictionary<Guid, SongMeta> InitCache()
     {
-      var cache = new Dictionary<Guid, SongMeta>();
-      //if (!File.Exists(CacheFileName)) return cache;
-      return cache;
+      if (_cache != null && _cache.Count() > 0)
+        return _cache;
 
-      //try
-      //{
-      //  using (var stream = File.OpenRead(CacheFileName))
-      //  {
-      //    var doc = XDocument.Load(stream);
-      //    foreach (var t in doc.Element("songs").Elements())
-      //    {
-      //      var track = SongMeta.FromXml(t);
-      //      cache[track.ContentGuid] = track;
-      //    }
-      //  }
-      //}
-      //catch (Exception e)
-      //{
-      //  // Do nothing. We'll just rebuild the cache file if this fails.
-      //  Console.WriteLine(e.Message);
-      //  Console.WriteLine(e.StackTrace);
-      //}
-      //return cache;
+      _cache = new Dictionary<Guid, SongMeta>();
+      SongMeta[] songs =
+      {
+        new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 1", Instrument = "Instrument 1", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 1", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 1", Instrument = "Instrument 3", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 2", Instrument = "Instrument 1", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 2", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 2", Instrument = "Instrument 3", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 2" , Album = "Album 2", Name = "Song 1", Instrument = "Instrument 1", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 2" , Album = "Album 2", Name = "Song 1", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 2" , Album = "Album 2", Name = "Song 1", Instrument = "Instrument 3", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 2" , Album = "Album 2", Name = "Song 2", Instrument = "Instrument 1", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 2" , Album = "Album 2", Name = "Song 2", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 2" , Album = "Album 2", Name = "Song 2", Instrument = "Instrument 3", Type = "Type 1", ContentGuid = Guid.NewGuid() }
+      };
+
+      foreach (var song in songs)
+      {
+        _cache.Add(song.ContentGuid, song);
+      }
+
+      return _cache;
     }
 
     public static void ResetCache()

@@ -18,7 +18,7 @@ namespace Jammit.Helpers
       }
     }
 
-    private static string[] COLORS = { "FF0000", "00FF00", "0000FF" };
+    private static string[] COLORS = { "774444", "447744", "444477" };
 
     #region Setting Constants
 

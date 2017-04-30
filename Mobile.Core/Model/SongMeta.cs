@@ -10,10 +10,12 @@ namespace Jammit.Model
   /// </summary>
   public class SongMeta
   {
+    //TODO: Made this fields properties for Xaml binding. Reconcile with 'Desktop Core'.
     public string Name;
-    public string Artist;
-    public string Album;
-    public string Instrument;
+    public string Title => Name;
+    public string Artist { get; set; }
+    public string Album { get; set; }
+    public string Instrument { get; set; }
     public Guid ContentGuid;
 
     /// <summary>
