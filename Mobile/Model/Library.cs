@@ -13,35 +13,25 @@ namespace Jammit.Model
 
     private static Dictionary<Guid, SongMeta> _cache;
 
+    public static IFileSystem FileSystem;
+
     private static Dictionary<Guid, SongMeta> InitCache()
     {
-      _cache = new Dictionary<Guid, SongMeta>();
+      var cache = new Dictionary<Guid, SongMeta>();
 
       SongMeta[] songs =
       {
-        //new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 1", Instrument = "Instrument 1", Type = "Type 0", ContentGuid = Guid.NewGuid() },
-        //new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 1", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
-        //new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 1", Instrument = "Instrument 3", Type = "Type 2", ContentGuid = Guid.NewGuid() },
-        //new SongMeta { Artist = "Artist 1" , Album = "Album 2", Name = "Song 2", Instrument = "Instrument 1", Type = "Type 0", ContentGuid = Guid.NewGuid() },
-        //new SongMeta { Artist = "Artist 1" , Album = "Album 2", Name = "Song 2", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
-        //new SongMeta { Artist = "Artist 1" , Album = "Album 2", Name = "Song 2", Instrument = "Instrument 3", Type = "Type 2", ContentGuid = Guid.NewGuid() },
-        //new SongMeta { Artist = "Artist 2" , Album = "Album 3", Name = "Song 1", Instrument = "Instrument 1", Type = "Type 0", ContentGuid = Guid.NewGuid() },
-        //new SongMeta { Artist = "Artist 2" , Album = "Album 3", Name = "Song 1", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
-        //new SongMeta { Artist = "Artist 2" , Album = "Album 3", Name = "Song 1", Instrument = "Instrument 3", Type = "Type 2", ContentGuid = Guid.NewGuid() },
-        //new SongMeta { Artist = "Artist 2" , Album = "Album 4", Name = "Song 2", Instrument = "Instrument 1", Type = "Type 0", ContentGuid = Guid.NewGuid() },
-        //new SongMeta { Artist = "Artist 2" , Album = "Album 4", Name = "Song 2", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
+        new SongMeta { Artist = "Artist 2" , Album = "Album 4", Name = "Song 2", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
         new SongMeta { Artist = "Artist 2" , Album = "Album 4", Name = "Song 2", Instrument = "Instrument 3", Type = "Type 2", ContentGuid = Guid.NewGuid() }
       };
 
       foreach (var song in songs)
       {
-        _cache.Add(song.ContentGuid, song);
+        cache.Add(song.ContentGuid, song);
       }
 
-      return _cache;
+      return cache;
     }
-
-    public static IFileSystem FileSystem;
 
     public static void ResetCache()
     {
@@ -91,7 +81,11 @@ namespace Jammit.Model
     /// <returns></returns>
     public static List<SongMeta> GetSongs()
     {
-      if (_cache == null) _cache = InitCache();
+      if (_cache == null)
+      {
+        _cache = InitCache();
+        UpdateCache();
+      }
 
       return _cache.Values.ToList();
     }

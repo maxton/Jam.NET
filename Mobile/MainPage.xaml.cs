@@ -15,8 +15,8 @@ namespace Jammit.Mobile
     public MainPage()
     {
       InitializeComponent();
-
       UpdateListView();
+
       this.FilesPath.Text = Library.FileSystem.LocalStorage.Path;
     }
 
@@ -24,9 +24,7 @@ namespace Jammit.Mobile
 
     private void UpdateListView()
     {
-      Library.UpdateCache();
-      var tracks = Library.GetSongs();
-      tracks.Sort((t1, t2) => t1.Artist.CompareTo(t2.Artist) * 10 + t1.Name.CompareTo(t2.Name));
+      Songs.Sort((t1, t2) => t1.Artist.CompareTo(t2.Artist) * 10 + t1.Name.CompareTo(t2.Name));
     }
 
     private void LibraryView_ItemTapped(object sender, ItemTappedEventArgs e)
