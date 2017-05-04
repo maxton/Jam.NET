@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using PCLStorage;
+
 namespace Jam.NET.Mobile.UWP
 {
   public sealed partial class MainPage
@@ -21,7 +23,7 @@ namespace Jam.NET.Mobile.UWP
     {
       this.InitializeComponent();
 
-      LoadApplication(new Jammit.Mobile.App());
+      LoadApplication(new Jammit.Mobile.App(FileSystem.Current));
     }
   }
 }

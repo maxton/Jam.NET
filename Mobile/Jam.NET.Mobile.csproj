@@ -8,7 +8,7 @@
     <ProjectGuid>{6E6FA900-0D6A-4D65-9A1C-6CD54E1CD80D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jammit</RootNamespace>
+    <RootNamespace>Jammit.Mobile</RootNamespace>
     <AssemblyName>Jam.NET.Mobile</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -43,6 +43,9 @@
     </Compile>
     <Compile Include="Model\Library.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SongPage.xaml.cs">
+      <DependentUpon>SongPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">
@@ -55,17 +58,30 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="PCLStorage, Version=1.0.2.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>..\packages\PCLStorage.1.0.2\lib\portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac\PCLStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions, Version=1.0.2.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>..\packages\PCLStorage.1.0.2\lib\portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac\PCLStorage.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="plist-cil, Version=1.14.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\plist-cil.1.14\lib\plist-cil.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.XPath.SL4.2.0.5.0\lib\System.Xml.XPath.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xamarin.Forms.2.3.3.193\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xamarin.Forms.2.3.3.193\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Platform.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xamarin.Forms.2.3.3.193\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -74,12 +90,57 @@
       <Name>Jam.NET.Mobile.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SongPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="docs\ChangeLog.txt" />
+    <Content Include="docs\html\Claunia.PropertyList\ASCIIPropertyListParser.html" />
+    <Content Include="docs\html\Claunia.PropertyList\BinaryPropertyListParser.html" />
+    <Content Include="docs\html\Claunia.PropertyList\BinaryPropertyListWriter.html" />
+    <Content Include="docs\html\Claunia.PropertyList\index.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSArray.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSData.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSDate.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSDictionary.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSNumber.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSObject.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSSet.html" />
+    <Content Include="docs\html\Claunia.PropertyList\NSString.html" />
+    <Content Include="docs\html\Claunia.PropertyList\PropertyListFormatException.html" />
+    <Content Include="docs\html\Claunia.PropertyList\PropertyListParser.html" />
+    <Content Include="docs\html\Claunia.PropertyList\UID.html" />
+    <Content Include="docs\html\Claunia.PropertyList\XmlPropertyListParser.html" />
+    <Content Include="docs\html\index.html" />
+    <Content Include="docs\LICENSE.txt" />
+    <Content Include="docs\mono\Claunia.PropertyList\ASCIIPropertyListParser.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\BinaryPropertyListParser.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\BinaryPropertyListWriter.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSArray.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSData.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSDate.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSDictionary.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSNumber.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSObject.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSSet.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\NSString.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\PropertyListFormatException.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\PropertyListParser.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\UID.xml" />
+    <Content Include="docs\mono\Claunia.PropertyList\XmlPropertyListParser.xml" />
+    <Content Include="docs\mono\index.xml" />
+    <Content Include="docs\mono\ns-Claunia.PropertyList.xml" />
+    <Content Include="docs\README.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <Import Project="..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
+  <Import Project="..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets'))" />
   </Target>
 </Project>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Jammit.Mobile.SongPage">
+
+  <ContentPage.Title>Song Title</ContentPage.Title>
+
+  <StackLayout Orientation="Vertical">
+    <Label Text="TODO: Remove this padding." />
+    <StackLayout Orientation="Horizontal">
+      <Picker>
+        <Picker.Items>
+          <x:String>{Instrument} - Score</x:String>
+          <x:String>{Instrument} - Tablature</x:String>
+        </Picker.Items>
+      </Picker>
+      <Button Text="Close" Clicked="SongPage_Close" />
+    </StackLayout>
+    <Label Text="Score goes HERE" />
+    <StackLayout x:Name="Controls" Orientation="Horizontal" VerticalOptions="End">
+      <BoxView Color="Aqua" HorizontalOptions="Start" />
+      <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+        <Label Text="pad instrument" />
+        <Slider Rotation="270" Minimum="0" Maximum="100" Value="75" />
+        <Label Text="pad band" />
+        <Slider Rotation="270" Minimum="0" Maximum="100" Value="75" />
+        <Label Text="pad click" />
+        <Slider Rotation="270" Minimum="0" Maximum="100" Value="75" />
+      </StackLayout>
+      <StackLayout Orientation="Vertical" HorizontalOptions="End">
+        <Slider />
+        <Label Text="Timeline goes HERE" />
+        <StackLayout Orientation="Horizontal">
+          <Button Text="Loop" />
+          <Button Text="&lt;&lt;" />
+          <Button Text="Play" />
+          <Button Text="&gt;&gt;" />
+        </StackLayout>
+      </StackLayout>
+    </StackLayout>
+  </StackLayout>
+
+</ContentPage>

@@ -1,6 +1,7 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
+    "PCLStorage": "1.0.2",
     "Xam.Plugins.Settings": "2.5.4",
     "Xamarin.Forms": "2.3.3.193"
   },

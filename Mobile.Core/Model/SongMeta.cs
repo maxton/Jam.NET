@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
@@ -22,6 +24,7 @@ namespace Jammit.Model
     /// One of: Zip, Folder
     /// </summary>
     public string Type;
+
     /// <summary>
     /// Full path to Zip or Folder
     /// </summary>
@@ -48,17 +51,34 @@ namespace Jammit.Model
 
     public static SongMeta FromPlist(XDocument plist, Guid id, string type, string path)
     {
-
-      return new SongMeta
+      var dict =  (plist.Elements().First().FirstNode as XElement);
+      var keys = dict.Elements("key");
+      SongMeta track = new SongMeta
       {
-        //Name = plist.XPathSelectElement("/plist/dict/key[.=\'title\']/following-sibling::string[1]").Value,
-        //Artist = plist.XPathSelectElement("/plist/dict/key[.=\'artist\']/following-sibling::string[1]").Value,
-        //Album = plist.XPathSelectElement("/plist/dict/key[.=\'album\']/following-sibling::string[1]").Value,
-        //Instrument = InstrumentCode(plist.XPathSelectElement("/plist/dict/key[.=\'instrument\']/following-sibling::integer[1]").Value),
-        //ContentGuid = id,
-        //Type = type,
-        //SongPath = path
-      };
+        ContentGuid = id,
+        Type = type,
+        SongPath = path,
+        Instrument = InstrumentCode(dict.Element("dict").Element("integer").Value)
+    };
+
+      int attributeCount = 0;
+      foreach (var key in keys)
+      {
+        switch (key.Value)
+        {
+          case "title":
+            track.Name = (key.NextNode as XElement).Value; attributeCount++; break;
+          case "artist":
+            track.Artist = (key.NextNode as XElement).Value; attributeCount++; break;
+          case "album":
+            track.Album = (key.NextNode as XElement).Value; attributeCount++; break;
+
+          default:
+            break;
+        }
+      }
+
+      return track;
     }
 
     public static SongMeta FromZip(string zipFileName)

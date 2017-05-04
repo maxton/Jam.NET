@@ -4,15 +4,26 @@ using System.Linq;
 using System.Text;
 
 using Xamarin.Forms;
+using PCLStorage;
+using Jammit.Model;
 
 namespace Jammit.Mobile
 {
   public partial class App : Application
   {
+    //TODO: Deprecate, or research how to initialize resources (FileSystem, etc).
     public App()
     {
       InitializeComponent();
 
+      MainPage = new Jammit.Mobile.MainPage();
+    }
+
+    public App(IFileSystem fileSystem)
+    {
+      InitializeComponent();
+
+      Library.FileSystem = fileSystem;
       MainPage = new Jammit.Mobile.MainPage();
     }
 

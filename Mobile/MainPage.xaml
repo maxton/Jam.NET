@@ -4,46 +4,36 @@
              xmlns:local="clr-namespace:Jammit.Mobile"
              x:Class="Jammit.Mobile.MainPage">
 
-  <!--<ListView
-    VerticalOptions="Center"
-    HorizontalOptions="Center">
-    <ListView.ItemsSource>
-      <x:Array Type="{x:Type x:String}">
-        <x:String>Pata</x:String>
-        <x:String>Peta</x:String>
-        <x:String>Pita</x:String>
-        <x:String>Pota</x:String>
-        <x:String>Tu hermana</x:String>
-      </x:Array>
-    </ListView.ItemsSource>
-  </ListView>-->
-
   <!--See https://developer.xamarin.com/guides/xamarin-forms/xaml/xaml-basics/data_binding_basics/-->
-  <ListView
-    x:Name="LibraryView"
-    HorizontalOptions="CenterAndExpand"
-    VerticalOptions="Center"
-    ItemsSource="{x:Static local:MainPage.Songs}">
-    <ListView.Header>
-      <Grid>
-        <Label Grid.Column="0" FontAttributes="Bold" Text="Artist" />
-        <Label Grid.Column="1" FontAttributes="Bold" Text="Title" />
-        <Label Grid.Column="2" FontAttributes="Bold" Text="Instrument" />
-        <Label Grid.Column="3" FontAttributes="Bold" Text="Album" />
-      </Grid>
-    </ListView.Header>
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <Grid>
-            <Label Grid.Column="0" Text="{Binding Artist}" />
-            <Label Grid.Column="1" Text="{Binding Title}" />
-            <Label Grid.Column="2" Text="{Binding Instrument}" />
-            <Label Grid.Column="3" Text="{Binding Album}" />
-          </Grid>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-  </ListView>
+  <StackLayout>
+    <ListView
+      x:Name="LibraryView"
+      HorizontalOptions="CenterAndExpand"
+      VerticalOptions="Center"
+      ItemsSource="{x:Static local:MainPage.Songs}"
+      ItemTapped="LibraryView_ItemTapped">
+      <ListView.Header>
+        <Grid>
+          <Label Grid.Column="0" FontAttributes="Bold" Text="Artist" />
+          <Label Grid.Column="1" FontAttributes="Bold" Text="Title" />
+          <Label Grid.Column="2" FontAttributes="Bold" Text="Instrument" />
+          <Label Grid.Column="3" FontAttributes="Bold" Text="Album" />
+        </Grid>
+      </ListView.Header>
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Grid>
+              <Label Grid.Column="0" Text="{Binding Artist}" />
+              <Label Grid.Column="1" Text="{Binding Title}" />
+              <Label Grid.Column="2" Text="{Binding Instrument}" />
+              <Label Grid.Column="3" Text="{Binding Album}" />
+            </Grid>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+    <Label x:Name="FilesPath" />
+  </StackLayout>
 
 </ContentPage>

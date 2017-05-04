@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 
 using Jammit.Model;
+using PCLStorage;
 
 namespace Jammit.Mobile
 {
@@ -16,29 +17,21 @@ namespace Jammit.Mobile
       InitializeComponent();
 
       UpdateListView();
+      this.FilesPath.Text = Library.FileSystem.LocalStorage.Path;
     }
 
-    //public static List<SongMeta> Songs => Library.GetSongs();
-    public static SongMeta[] Songs =
-    {
-      new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 1", Instrument = "Instrument 1", Type = "Type 0", ContentGuid = Guid.NewGuid() },
-      new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 1", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
-      new SongMeta { Artist = "Artist 1" , Album = "Album 1", Name = "Song 1", Instrument = "Instrument 3", Type = "Type 2", ContentGuid = Guid.NewGuid() },
-      new SongMeta { Artist = "Artist 1" , Album = "Album 2", Name = "Song 2", Instrument = "Instrument 1", Type = "Type 0", ContentGuid = Guid.NewGuid() },
-      new SongMeta { Artist = "Artist 1" , Album = "Album 2", Name = "Song 2", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
-      new SongMeta { Artist = "Artist 1" , Album = "Album 2", Name = "Song 2", Instrument = "Instrument 3", Type = "Type 2", ContentGuid = Guid.NewGuid() },
-      new SongMeta { Artist = "Artist 2" , Album = "Album 3", Name = "Song 1", Instrument = "Instrument 1", Type = "Type 0", ContentGuid = Guid.NewGuid() },
-      new SongMeta { Artist = "Artist 2" , Album = "Album 3", Name = "Song 1", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
-      new SongMeta { Artist = "Artist 2" , Album = "Album 3", Name = "Song 1", Instrument = "Instrument 3", Type = "Type 2", ContentGuid = Guid.NewGuid() },
-      new SongMeta { Artist = "Artist 2" , Album = "Album 4", Name = "Song 2", Instrument = "Instrument 1", Type = "Type 0", ContentGuid = Guid.NewGuid() },
-      new SongMeta { Artist = "Artist 2" , Album = "Album 4", Name = "Song 2", Instrument = "Instrument 2", Type = "Type 1", ContentGuid = Guid.NewGuid() },
-      new SongMeta { Artist = "Artist 2" , Album = "Album 4", Name = "Song 2", Instrument = "Instrument 3", Type = "Type 2", ContentGuid = Guid.NewGuid() }
-    };
+    public static List<SongMeta> Songs => Library.GetSongs();
 
     private void UpdateListView()
     {
+      Library.UpdateCache();
       var tracks = Library.GetSongs();
       tracks.Sort((t1, t2) => t1.Artist.CompareTo(t2.Artist) * 10 + t1.Name.CompareTo(t2.Name));
+    }
+
+    private void LibraryView_ItemTapped(object sender, ItemTappedEventArgs e)
+    {
+      Navigation.PushModalAsync(new SongPage(e.Item as SongMeta));
     }
   }
 }
