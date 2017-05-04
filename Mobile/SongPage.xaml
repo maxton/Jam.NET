@@ -7,6 +7,7 @@
 
   <StackLayout Orientation="Vertical">
     <Label Text="TODO: Remove this padding." />
+    <Label Text="{Binding Song.Title}" />
     <StackLayout Orientation="Horizontal">
       <Picker>
         <Picker.Items>

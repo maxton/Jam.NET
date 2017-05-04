@@ -13,10 +13,19 @@ namespace Jammit.Mobile
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class SongPage : ContentPage
   {
-    private SongMeta _song;
+    public static readonly BindableProperty SongProperty =
+      BindableProperty.Create("Song", typeof(SongMeta), typeof(SongPage), new SongMeta { Name = "NULL" }, BindingMode.OneWayToSource);
+    public SongMeta Song
+    {
+      get { return GetValue(SongProperty) as SongMeta; }
+      set { SetValue(SongProperty, value); }
+    }
 
     public SongPage(SongMeta song)
     {
+      BindingContext = this; // Needed to actually bind local properties.
+      Song = song;
+
       InitializeComponent();
     }
 
