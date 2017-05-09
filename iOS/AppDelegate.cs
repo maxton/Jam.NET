@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using PCLStorage;
 using UIKit;
 
 namespace Jammit.Mobile.iOS
@@ -23,7 +24,7 @@ namespace Jammit.Mobile.iOS
     public override bool FinishedLaunching(UIApplication app, NSDictionary options)
     {
       global::Xamarin.Forms.Forms.Init();
-      LoadApplication(new App());
+      LoadApplication(new App(FileSystem.Current));
 
       return base.FinishedLaunching(app, options);
     }
