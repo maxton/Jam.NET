@@ -48,7 +48,9 @@ namespace Jammit.Model
       if (_cache == null) _cache = InitCache();
 
       var foundTracks = new Dictionary<Guid, SongMeta>();
-      var dirsTask = FileSystem.LocalStorage.GetFoldersAsync();
+
+      var tasksDir = FileSystem.LocalStorage.CreateFolderAsync("Tracks", CreationCollisionOption.OpenIfExists).Result;
+      var dirsTask = tasksDir.GetFoldersAsync();
       var dirs = dirsTask.Result;
       foreach (var dir in dirs)
       {
@@ -57,7 +59,8 @@ namespace Jammit.Model
           var guid = Guid.Parse(dir.Name);
           if (foundTracks.ContainsKey(guid))
             continue;
-          var plistTask = FileSystem.LocalStorage.GetFileAsync(Path.Combine(dir.Name, "info.plist"));
+
+          var plistTask = dir.GetFileAsync("info.plist");
           var plist = plistTask.Result;
           using (var reader = new StreamReader(plist.OpenAsync(FileAccess.Read).Result))
           {
@@ -72,7 +75,7 @@ namespace Jammit.Model
         {
           throw;
         }
-      }
+      } // for each dir
     }
 
     /// <summary>
