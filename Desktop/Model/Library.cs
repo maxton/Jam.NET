@@ -124,6 +124,10 @@ namespace Jammit.Model
         }
       }
 
+      string cacheDir = Path.GetDirectoryName(CacheFileName);
+      if (!Directory.Exists(cacheDir))
+        Directory.CreateDirectory(cacheDir);
+
       using (var s = File.OpenWrite(CacheFileName))
       {
         cacheDoc.Save(s);
