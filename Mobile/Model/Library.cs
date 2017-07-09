@@ -92,5 +92,10 @@ namespace Jammit.Model
 
       return _cache.Values.ToList();
     }
+
+    public static void RemoveSong(Guid id)
+    {
+      _cache.Remove(id);
+    }
   }
 }

@@ -29,6 +29,9 @@
               <Label Grid.Column="2" Text="{Binding Instrument}" />
               <Label Grid.Column="3" Text="{Binding Album}" />
             </Grid>
+            <ViewCell.ContextActions>
+              <MenuItem Text="Delete" IsDestructive="True" Clicked="LibraryItem_Delete" />
+            </ViewCell.ContextActions>
           </ViewCell>
         </DataTemplate>
       </ListView.ItemTemplate>

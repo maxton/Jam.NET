@@ -45,7 +45,6 @@ namespace Jammit.Mobile
 
     private void DownloadButton_Clicked(object sender, EventArgs e)
     {
-
     }
   }
 }
