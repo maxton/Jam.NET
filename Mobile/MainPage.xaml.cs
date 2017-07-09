@@ -20,6 +20,7 @@ namespace Jammit.Mobile
       this.FilesPath.Text = Library.FileSystem.LocalStorage.Path;
     }
 
+    // public static List<SongMeta> Songs => Library.GetSongs();
     public static List<SongMeta> Songs => Library.GetSongs();
 
     private void UpdateListView()
@@ -30,6 +31,11 @@ namespace Jammit.Mobile
     private void LibraryView_ItemTapped(object sender, ItemTappedEventArgs e)
     {
       Navigation.PushModalAsync(new SongPage(e.Item as SongMeta));
+    }
+
+    private void CatalogButton_Clicked(object sender, EventArgs e)
+    {
+      Navigation.PushModalAsync(new CatalogPage());
     }
   }
 }

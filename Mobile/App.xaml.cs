@@ -11,6 +11,8 @@ namespace Jammit.Mobile
 {
   public partial class App : Application
   {
+    private static Client.IClient client;
+
     //TODO: Deprecate, or research how to initialize resources (FileSystem, etc).
     public App()
     {
@@ -24,8 +26,15 @@ namespace Jammit.Mobile
       InitializeComponent();
 
       Library.FileSystem = fileSystem;
+      client = new Client.RestClient();
       MainPage = new Jammit.Mobile.MainPage();
     }
+
+    #region Properties
+
+    public static Client.IClient Client => client;
+
+    #endregion
 
     protected override void OnStart()
     {

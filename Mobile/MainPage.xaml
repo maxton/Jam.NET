@@ -8,8 +8,8 @@
   <StackLayout>
     <ListView
       x:Name="LibraryView"
-      HorizontalOptions="CenterAndExpand"
-      VerticalOptions="Center"
+      HorizontalOptions="Fill"
+      VerticalOptions="Start"
       ItemsSource="{x:Static local:MainPage.Songs}"
       ItemTapped="LibraryView_ItemTapped">
       <ListView.Header>
@@ -33,6 +33,7 @@
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
+    <Button x:Name="CatalogButton" Text="View Catalog" Clicked="CatalogButton_Clicked" />
     <Label x:Name="FilesPath" />
   </StackLayout>
 
