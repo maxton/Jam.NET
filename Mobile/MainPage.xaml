@@ -37,6 +37,7 @@
       </ListView.ItemTemplate>
     </ListView>
     <Button x:Name="CatalogButton" Text="View Catalog" Clicked="CatalogButton_Clicked" />
+    <Button x:Name="SettingsButton" Text="Settings" Clicked="SettingsButton_Clicked" />
     <Label x:Name="FilesPath" />
   </StackLayout>
 

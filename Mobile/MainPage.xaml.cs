@@ -43,5 +43,10 @@ namespace Jammit.Mobile
       Library.RemoveSong(track.ContentGuid);
       LibraryView.BeginRefresh();
     }
+
+    private void SettingsButton_Clicked(object sender, EventArgs e)
+    {
+      Navigation.PushModalAsync(new SettingsPage());
+    }
   }
 }

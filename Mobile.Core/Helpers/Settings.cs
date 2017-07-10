@@ -31,6 +31,9 @@ namespace Jammit.Helpers
     private const string DummyIndexKey = "dummyindex_key";
     private static readonly int DummyIndexDefault = 0;
 
+    private const string ServiceUriKey = "serviceuri_key";
+    private static readonly string ServiceUriDefault = string.Empty;
+
     #endregion
 
     public static string GeneralSettings
@@ -60,6 +63,12 @@ namespace Jammit.Helpers
 
         return COLORS[index];
       }
+    }
+
+    public static string ServiceUri
+    {
+      get { return AppSettings.GetValueOrDefault<string>(ServiceUriKey, ServiceUriDefault); }
+      set { AppSettings.AddOrUpdateValue<string>(ServiceUriKey, value); }
     }
   }
 }
