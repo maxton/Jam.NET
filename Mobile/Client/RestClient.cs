@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+using Jammit.Helpers;
 using Jammit.Model;
 using Newtonsoft.Json.Linq;
 
@@ -14,13 +15,13 @@ namespace Jammit.Mobile.Client
   {
     const string ENDPOINT = "http://localhost:8000/jammit";
 
-    public async Task<List<SongMeta>> LoadCatalog()
+    public async Task<List<SongMeta2>> LoadCatalog()
     {
-      var result = new List<SongMeta>();
+      var result = new List<SongMeta2>();
 
       using (var client = new HttpClient())
       {
-        client.BaseAddress = new Uri($"{ENDPOINT}/track");
+        client.BaseAddress = new Uri($"{Settings.ServiceUri}/track");
         client.DefaultRequestHeaders.Accept.Clear();
         client.DefaultRequestHeaders.Add("Accept", "application/json");
 
@@ -33,17 +34,16 @@ namespace Jammit.Mobile.Client
           var tracks = jsonObject["_embedded"]["track"] as JArray;
           foreach(var track in tracks)
           {
-            var x = track["id"].ToString();
-            result.Add(new SongMeta
-            {
-              ContentGuid = Guid.Parse(track["id"].ToString()),
-              Artist = track["artist"].ToString(),
-              Album = track["album"]?.ToString(),
-              Name = track["title"].ToString(),
-              Instrument = track["instrument"].ToString(),
-            });
+            result.Add(new SongMeta2(
+              Guid.Parse(track["id"].ToString()),
+              track["artist"].ToString(),
+              track["album"]?.ToString(), //TODO: Make mandatory
+              track["title"].ToString(),
+              track["instrument"].ToString(),
+              track["genre"]?.ToString()  //TODO: Make mandatory
+            ));
           }
-        }
+        } // if Succeeded response
       }
 
       return result;

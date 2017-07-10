@@ -7,6 +7,7 @@ using PCLStorage;
 
 namespace Jammit.Model
 {
+  //TODO: Deprecate in favor of ILibrary.
   public static class Library
   {
     private static readonly string CacheFileName = "contentCache.xml";

@@ -46,6 +46,7 @@
     <Compile Include="Model\Looper.cs" />
     <Compile Include="Model\ScoreNodes.cs" />
     <Compile Include="Model\Section.cs" />
+    <Compile Include="Model\SongMeta2.cs" />
     <Compile Include="Model\SongMeta.cs" />
     <Compile Include="Model\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

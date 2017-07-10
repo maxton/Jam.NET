@@ -20,11 +20,13 @@ namespace Jammit.Mobile
       this.FilesPath.Text = Library.FileSystem.LocalStorage.Path;
     }
 
-    public static List<SongMeta> Songs => Library.GetSongs();
+    //public static List<SongMeta> Songs => Library.GetSongs();
+    public static List<SongMeta2> Songs => App.Library.GetSongs();
 
     private void UpdateListView()
     {
-      Songs.Sort((t1, t2) => t1.Artist.CompareTo(t2.Artist) * 10 + t1.Name.CompareTo(t2.Name));
+      Songs.Sort((t1, t2) => t1.Artist.CompareTo(t2.Artist) * 10 + t1.Title.CompareTo(t2.Title));
+      //Songs.Sort((t1, t2) => t1.Artist.CompareTo(t2.Artist) * 10 + t1.Name.CompareTo(t2.Name));
     }
 
     private void LibraryView_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -39,8 +41,8 @@ namespace Jammit.Mobile
 
     private void LibraryItem_Delete(object sender, EventArgs e)
     {
-      var track = (sender as MenuItem).BindingContext as SongMeta;
-      Library.RemoveSong(track.ContentGuid);
+      var song = (sender as MenuItem).BindingContext as SongMeta2;
+      App.Library.RemoveSong(song.Id);
       LibraryView.BeginRefresh();
     }
 

@@ -14,7 +14,7 @@ namespace Jammit.Mobile
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class CatalogPage : ContentPage
   {
-    public static List<SongMeta> Catalog { get; private set; }
+    public static List<SongMeta2> Catalog { get; private set; }
 
     public CatalogPage()
     {
@@ -45,6 +45,8 @@ namespace Jammit.Mobile
 
     private void DownloadButton_Clicked(object sender, EventArgs e)
     {
+      if (null != CatalogView.SelectedItem)
+        App.Library.AddSong(CatalogView.SelectedItem as SongMeta2);
     }
   }
 }

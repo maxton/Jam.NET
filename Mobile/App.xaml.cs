@@ -13,6 +13,8 @@ namespace Jammit.Mobile
   {
     private static Client.IClient client;
 
+    private static ILibrary library;
+
     //TODO: Deprecate, or research how to initialize resources (FileSystem, etc).
     public App()
     {
@@ -25,14 +27,17 @@ namespace Jammit.Mobile
     {
       InitializeComponent();
 
-      Library.FileSystem = fileSystem;
+      Jammit.Model.Library.FileSystem = fileSystem;
       client = new Client.RestClient();
+      library = new DefaultLibrary(fileSystem);
       MainPage = new Jammit.Mobile.MainPage();
     }
 
     #region Properties
 
     public static Client.IClient Client => client;
+
+    public static ILibrary Library => library;
 
     #endregion
 
