@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -52,6 +53,19 @@ namespace Jammit.Mobile.Client
     public int Foo()
     {
       return 999;
+    }
+
+    public async Task<Stream> DownloadSong(Guid id)
+    {
+      using (var client = new HttpClient())
+      {
+        client.BaseAddress = new Uri($"{Settings.ServiceUri}/download?id={id}");
+        client.DefaultRequestHeaders.Accept.Clear();
+        //client.DefaultRequestHeaders.Add("Accept", "application/json");
+        //client.DefaultRequestHeaders.Add("Content-Type", "application/octet-stream");
+
+        return await client.GetStreamAsync(client.BaseAddress.AbsoluteUri);
+      }
     }
   }
 }

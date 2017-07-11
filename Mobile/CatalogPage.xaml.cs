@@ -45,8 +45,10 @@ namespace Jammit.Mobile
 
     private void DownloadButton_Clicked(object sender, EventArgs e)
     {
-      if (null != CatalogView.SelectedItem)
-        App.Library.AddSong(CatalogView.SelectedItem as SongMeta2);
+      if (null == CatalogView.SelectedItem)
+        return;
+
+      App.Library.AddSong(CatalogView.SelectedItem as SongMeta2);
     }
   }
 }

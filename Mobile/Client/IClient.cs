@@ -11,5 +11,7 @@ namespace Jammit.Mobile.Client
     int Foo();
 
     Task<List<Model.SongMeta2>> LoadCatalog();
+
+    Task<System.IO.Stream> DownloadSong(Guid id);
   }
 }

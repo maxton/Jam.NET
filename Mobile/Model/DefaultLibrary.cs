@@ -105,6 +105,18 @@ namespace Jammit.Model
 
     public void AddSong(SongMeta2 song)
     {
+      // Download the file.
+      //TODO: Uncomment once a way to unzip (PCL) is found.
+      //var downloadTask = Task.Run(async () => await Mobile.App.Client.DownloadSong(song.Id));
+      //downloadTask.Wait();
+
+      //var downloadsDir = storage.CreateFolderAsync("Downloads", CreationCollisionOption.OpenIfExists).Result;
+      //var fileTask = downloadsDir.CreateFileAsync($"{song.Id}.zip", CreationCollisionOption.ReplaceExisting);
+      //using (var stream = fileTask.Result.OpenAsync(FileAccess.ReadAndWrite).Result)
+      //{
+      //  downloadTask.Result.CopyTo(stream);
+      //}
+
       cache[song.Id] = song;
       Save();
     }
