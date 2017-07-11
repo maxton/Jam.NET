@@ -32,8 +32,8 @@ namespace Jammit.Model
         libraryFile = storage.CreateFileAsync(LibraryFilePath, CreationCollisionOption.FailIfExists).Result;
         using (var stream = libraryFile.OpenAsync(FileAccess.ReadAndWrite).Result)
         {
-          var doc = new XDocument(new XElement("songs"));
-          doc.Save(stream);
+          var xdoc = new XDocument(new XElement("songs"));
+          xdoc.Save(stream);
         }
       }
       else
@@ -83,19 +83,30 @@ namespace Jammit.Model
         new XElement("genre", song.Genre));
     }
 
+    private void Save()
+    {
+      libraryFile.WriteAllTextAsync("").Wait();
+      using (var stream = libraryFile.OpenAsync(FileAccess.ReadAndWrite).Result)
+      {
+        //Hack: clear file
+        //TODO: Remove
+        var xdoc = new XDocument(new XElement("songs"));
+        foreach (var item in cache)
+        {
+          var element = ToXml(item.Value);
+          xdoc.Element("songs").Add(element);
+        }
+
+        xdoc.Save(stream);
+      }
+    }
+
     #region ILibrary methods
 
     public void AddSong(SongMeta2 song)
     {
-      using (var stream = libraryFile.OpenAsync(FileAccess.ReadAndWrite).Result)
-      {
-        var xdoc = XDocument.Load(stream);
-        var element = ToXml(song);
-        xdoc.Element("songs").Add(element);
-        xdoc.Save(stream);
-      }
-
       cache[song.Id] = song;
+      Save();
     }
 
     public List<SongMeta2> GetSongs()
@@ -105,7 +116,8 @@ namespace Jammit.Model
 
     public void RemoveSong(Guid id)
     {
-      throw new NotImplementedException();
+      cache.Remove(id);
+      Save();
     }
 
     #endregion
