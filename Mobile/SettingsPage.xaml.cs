@@ -21,7 +21,7 @@ namespace Jammit.Mobile
     {
       //Hack: Manually flushing settings.
       //TODO: Replace with tow-way binding.
-      Helpers.Settings.ServiceUri = ServiceUriEntry.Text;
+      Util.Settings.ServiceUri = ServiceUriEntry.Text;
 
       Navigation.PopModalAsync();
     }

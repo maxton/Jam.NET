@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Jammit.Mobile"
-             xmlns:helpers="clr-namespace:Jammit.Helpers;assembly=Jam.NET.Mobile.Core"
+             xmlns:util="clr-namespace:Jammit.Util;assembly=Jam.NET.Mobile.Core"
              x:Class="Jammit.Mobile.SettingsPage">
 
   <ContentPage.Content>
@@ -14,7 +14,7 @@
           Grid.Column="1"
           Placeholder="Enter service URI path."
           x:Name="ServiceUriEntry"
-          Text="{Binding Mode=TwoWay, Source={x:Static helpers:Settings.ServiceUri}}" />
+          Text="{Binding Mode=TwoWay, Source={x:Static util:Settings.ServiceUri}}" />
       </Grid>
             <Button x:Name="CloseButton" Text="Close" Clicked="CloseButton_Clicked" />
     </StackLayout>
