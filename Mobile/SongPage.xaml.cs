@@ -14,14 +14,14 @@ namespace Jammit.Mobile
   public partial class SongPage : ContentPage
   {
     public static readonly BindableProperty SongProperty =
-      BindableProperty.Create("Song", typeof(SongMeta), typeof(SongPage), new SongMeta { Name = "NULL" }, BindingMode.OneWayToSource);
-    public SongMeta Song
+      BindableProperty.Create("Song", typeof(SongInfo), typeof(SongInfo), new SongInfo { Title = "NULL" }, BindingMode.OneWayToSource);
+    public SongInfo Song
     {
-      get { return GetValue(SongProperty) as SongMeta; }
+      get { return GetValue(SongProperty) as SongInfo; }
       set { SetValue(SongProperty, value); }
     }
 
-    public SongPage(SongMeta song)
+    public SongPage(SongInfo song)
     {
       BindingContext = this; // Needed to actually bind local properties.
       Song = song;

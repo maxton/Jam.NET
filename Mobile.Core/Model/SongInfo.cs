@@ -8,6 +8,8 @@ namespace Jammit.Model
 {
   public class SongInfo
   {
+    public SongInfo() { }
+
     public SongInfo(Guid id, string artist, string album, string title, string instrument, string genre)
     {
       Id = id;
@@ -18,11 +20,11 @@ namespace Jammit.Model
       Genre = genre;
     }
 
-    public Guid Id { get; private set; }
-    public string Artist { get; private set; }
-    public string Album { get; private set; }
-    public string Title { get; private set; }
-    public string Instrument { get; private set; }
-    public string Genre { get; private set; }
+    public Guid Id { get; set; }
+    public string Artist { get; set; }
+    public string Album { get; set; }
+    public string Title { get; set; }
+    public string Instrument { get; set; }
+    public string Genre { get; set; }
   }
 }

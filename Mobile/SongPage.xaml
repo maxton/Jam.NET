@@ -5,40 +5,101 @@
 
   <ContentPage.Title>Song Title</ContentPage.Title>
 
-  <StackLayout Orientation="Vertical">
-    <Label Text="TODO: Remove this padding." />
-    <Label Text="{Binding Song.Title}" />
-    <StackLayout Orientation="Horizontal">
-      <Picker>
+  <Grid>
+    <Grid.RowDefinitions>
+      <!--Title-->
+      <RowDefinition Height="Auto" />
+      <!--Score selection-->
+      <RowDefinition Height="Auto" />
+      <!--Score pane-->
+      <RowDefinition Height="400" />
+      <!--Controls-->
+      <RowDefinition Height="200" />
+      <!--Page actions-->
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Label Grid.Row="0" Text="{Binding Song.Title}" />
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="300" />
+      </Grid.ColumnDefinitions>
+      <Picker Grid.Column="0" SelectedIndex="0">
         <Picker.Items>
           <x:String>{Instrument} - Score</x:String>
           <x:String>{Instrument} - Tablature</x:String>
         </Picker.Items>
       </Picker>
-      <Button Text="Close" Clicked="SongPage_Close" />
-    </StackLayout>
-    <Label Text="Score goes HERE" />
-    <StackLayout x:Name="Controls" Orientation="Horizontal" VerticalOptions="End">
-      <BoxView Color="Aqua" HorizontalOptions="Start" />
-      <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-        <Label Text="pad instrument" />
-        <Slider Rotation="270" Minimum="0" Maximum="100" Value="75" />
-        <Label Text="pad band" />
-        <Slider Rotation="270" Minimum="0" Maximum="100" Value="75" />
-        <Label Text="pad click" />
-        <Slider Rotation="270" Minimum="0" Maximum="100" Value="75" />
-      </StackLayout>
-      <StackLayout Orientation="Vertical" HorizontalOptions="End">
-        <Slider />
-        <Label Text="Timeline goes HERE" />
-        <StackLayout Orientation="Horizontal">
-          <Button Text="Loop" />
-          <Button Text="&lt;&lt;" />
-          <Button Text="Play" />
-          <Button Text="&gt;&gt;" />
+    </Grid>
+    <Image x:Name="SocreImage" Grid.Row="2" BackgroundColor="Aqua" />
+    <!--Controls-->
+    <Grid Grid.Row="3">
+      <Grid.ColumnDefinitions>
+        <!--Album pic-->
+        <ColumnDefinition Width="200" />
+        <!--Mixer-->
+        <ColumnDefinition Width="240" />
+        <!--Timeline-->
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Image x:Name="AlbumImage" Grid.Column="0" BackgroundColor="Aqua" />
+      <Grid Grid.Column="1">
+        <Grid.RowDefinitions>
+          <!--Instrument labels-->
+          <RowDefinition Height="20" />
+          <!--Sliders-->
+          <RowDefinition Height="*" />
+          <!--Mute/Solo buttons-->
+          <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition Width="80" />
+        </Grid.ColumnDefinitions>
+        <Label HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" Text="Instrument" />
+        <Label HorizontalOptions="Center" Grid.Row="0" Grid.Column="1" Text="Band" />
+        <Label HorizontalOptions="Center" Grid.Row="0" Grid.Column="2" Text="Click" />
+        <!--Slider's VOpts instead of HOpts because of rotation (270°).-->
+        <Slider VerticalOptions="Center" Grid.Row="1" Grid.Column="0" Rotation="270" Minimum="0" Maximum="100" Value="75" />
+        <Slider VerticalOptions="Center" Grid.Row="1" Grid.Column="1" Rotation="270" Minimum="0" Maximum="100" Value="75" />
+        <Slider VerticalOptions="Center" Grid.Row="1" Grid.Column="2" Rotation="270" Minimum="0" Maximum="100" Value="75" />
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start" Grid.Row="2" Grid.Column="0">
+          <Button Text="M" />
+          <Button Text="S" />
         </StackLayout>
-      </StackLayout>
-    </StackLayout>
-  </StackLayout>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start" Grid.Row="2" Grid.Column="1">
+          <Button Text="M" />
+          <Button Text="S" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start" Grid.Row="2" Grid.Column="2">
+          <Button Text="M" />
+          <Button Text="S" />
+        </StackLayout>
+      </Grid>
+      <Grid Grid.Column="2" HorizontalOptions="Fill" VerticalOptions="Fill">
+        <StackLayout Orientation="Vertical">
+          <Slider Minimum="0" Maximum="100" Value="0" />
+          <Grid>
+            <Grid.RowDefinitions><RowDefinition Height="100" /></Grid.RowDefinitions>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Grid.Row="0" x:Name="TimelineImage" BackgroundColor="Aqua" />
+          </Grid>
+          <Grid HorizontalOptions="Center">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Text="Loop" />
+            <Button Grid.Column="1" Text="&lt;&lt;" />
+            <Button Grid.Column="2" Text="Play" />
+            <Button Grid.Column="3" Text="&gt;&gt;" />
+          </Grid>
+        </StackLayout>
+      </Grid>
+    </Grid>
+    <Button Grid.Row="4" Text="Close" Clicked="SongPage_Close" />
+  </Grid>
 
 </ContentPage>

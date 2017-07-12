@@ -30,7 +30,7 @@ namespace Jammit.Mobile
 
     private void LibraryView_ItemTapped(object sender, ItemTappedEventArgs e)
     {
-      Navigation.PushModalAsync(new SongPage(e.Item as SongMeta));
+      Navigation.PushModalAsync(new SongPage(e.Item as SongInfo));
     }
 
     private void CatalogButton_Clicked(object sender, EventArgs e)
