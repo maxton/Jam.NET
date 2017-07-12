@@ -8,17 +8,18 @@
   <Grid>
     <Grid.RowDefinitions>
       <!--Title-->
-      <RowDefinition Height="Auto" />
+      <RowDefinition Height="5*" />
       <!--Score selection-->
-      <RowDefinition Height="Auto" />
-      <!--Score pane-->
-      <RowDefinition Height="400" />
+      <RowDefinition Height="5*" />
+      <!--Score image-->
+      <RowDefinition Height="55*" />
       <!--Controls-->
-      <RowDefinition Height="200" />
+      <RowDefinition Height="30*" />
       <!--Page actions-->
-      <RowDefinition Height="Auto" />
+      <RowDefinition Height="5*" />
     </Grid.RowDefinitions>
     <Label Grid.Row="0" Text="{Binding Song.Title}" />
+    <!--Score selection-->
     <Grid Grid.Row="1">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="300" />
@@ -35,26 +36,26 @@
     <Grid Grid.Row="3">
       <Grid.ColumnDefinitions>
         <!--Album pic-->
-        <ColumnDefinition Width="200" />
+        <ColumnDefinition Width="20*" />
         <!--Mixer-->
-        <ColumnDefinition Width="240" />
+        <ColumnDefinition Width="40*" />
         <!--Timeline-->
-        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="40*" />
       </Grid.ColumnDefinitions>
       <Image x:Name="AlbumImage" Grid.Column="0" BackgroundColor="Aqua" />
       <Grid Grid.Column="1">
         <Grid.RowDefinitions>
           <!--Instrument labels-->
-          <RowDefinition Height="20" />
+          <RowDefinition Height="8*" />
           <!--Sliders-->
-          <RowDefinition Height="*" />
+          <RowDefinition Height="80*" />
           <!--Mute/Solo buttons-->
-          <RowDefinition Height="40" />
+          <RowDefinition Height="12*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="80" />
-          <ColumnDefinition Width="80" />
-          <ColumnDefinition Width="80" />
+          <ColumnDefinition Width="34*" />
+          <ColumnDefinition Width="33*" />
+          <ColumnDefinition Width="33*" />
         </Grid.ColumnDefinitions>
         <Label HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" Text="Instrument" />
         <Label HorizontalOptions="Center" Grid.Row="0" Grid.Column="1" Text="Band" />
@@ -77,10 +78,12 @@
         </StackLayout>
       </Grid>
       <Grid Grid.Column="2" HorizontalOptions="Fill" VerticalOptions="Fill">
+        <Grid.RowDefinitions><RowDefinition Height="*" /></Grid.RowDefinitions>
+        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
         <StackLayout Orientation="Vertical">
           <Slider Minimum="0" Maximum="100" Value="0" />
           <Grid>
-            <Grid.RowDefinitions><RowDefinition Height="100" /></Grid.RowDefinitions>
+            <Grid.RowDefinitions><RowDefinition Height="80*" /></Grid.RowDefinitions>
             <Grid.ColumnDefinitions><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
             <Image Grid.Column="0" Grid.Row="0" x:Name="TimelineImage" BackgroundColor="Aqua" />
           </Grid>
