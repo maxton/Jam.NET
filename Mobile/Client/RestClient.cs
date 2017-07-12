@@ -14,11 +14,9 @@ namespace Jammit.Mobile.Client
 {
   class RestClient : IClient
   {
-    const string ENDPOINT = "http://localhost:8000/jammit";
-
-    public async Task<List<SongMeta2>> LoadCatalog()
+    public async Task<List<SongInfo>> LoadCatalog()
     {
-      var result = new List<SongMeta2>();
+      var result = new List<SongInfo>();
 
       using (var client = new HttpClient())
       {
@@ -35,7 +33,7 @@ namespace Jammit.Mobile.Client
           var tracks = jsonObject["_embedded"]["track"] as JArray;
           foreach(var track in tracks)
           {
-            result.Add(new SongMeta2(
+            result.Add(new SongInfo(
               Guid.Parse(track["id"].ToString()),
               track["artist"].ToString(),
               track["album"]?.ToString(), //TODO: Make mandatory

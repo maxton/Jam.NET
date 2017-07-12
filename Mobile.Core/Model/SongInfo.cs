@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Jammit.Model
 {
-  public class SongMeta2
+  public class SongInfo
   {
-    public SongMeta2(Guid id, string artist, string album, string title, string instrument, string genre)
+    public SongInfo(Guid id, string artist, string album, string title, string instrument, string genre)
     {
       Id = id;
       Artist = artist;

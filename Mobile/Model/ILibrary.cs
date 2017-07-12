@@ -8,9 +8,9 @@ namespace Jammit.Model
 {
   public interface ILibrary
   {
-    List<SongMeta2> GetSongs();
+    List<SongInfo> GetSongs();
 
-    void AddSong(SongMeta2 song);
+    void AddSong(SongInfo song);
 
     void RemoveSong(Guid id);
   }

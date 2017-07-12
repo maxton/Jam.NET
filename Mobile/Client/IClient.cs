@@ -10,7 +10,7 @@ namespace Jammit.Mobile.Client
   {
     int Foo();
 
-    Task<List<Model.SongMeta2>> LoadCatalog();
+    Task<List<Model.SongInfo>> LoadCatalog();
 
     Task<System.IO.Stream> DownloadSong(Guid id);
   }

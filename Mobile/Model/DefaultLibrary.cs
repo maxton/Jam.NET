@@ -17,7 +17,7 @@ namespace Jammit.Model
 
     private IFile libraryFile;
 
-    private IDictionary<Guid, SongMeta2> cache;
+    private IDictionary<Guid, SongInfo> cache;
 
     public DefaultLibrary(IFileSystem fileSystem)
     {
@@ -46,7 +46,7 @@ namespace Jammit.Model
 
     private void InitCache()
     {
-      cache = new Dictionary<Guid, SongMeta2>();
+      cache = new Dictionary<Guid, SongInfo>();
 
       using (var libraryStream = libraryFile.OpenAsync(FileAccess.Read).Result)
       {
@@ -59,9 +59,9 @@ namespace Jammit.Model
       }
     }
 
-    private SongMeta2 FromXml(XElement e)
+    private SongInfo FromXml(XElement e)
     {
-      return new SongMeta2
+      return new SongInfo
       (
         Guid.Parse(e.Attribute("id").Value),
         e.Element("artist").Value,
@@ -72,7 +72,7 @@ namespace Jammit.Model
       );
     }
 
-    public XElement ToXml(SongMeta2 song)
+    public XElement ToXml(SongInfo song)
     {
       return new XElement("song",
         new XAttribute("id", song.Id.ToString().ToUpper()),
@@ -103,7 +103,7 @@ namespace Jammit.Model
 
     #region ILibrary methods
 
-    public void AddSong(SongMeta2 song)
+    public void AddSong(SongInfo song)
     {
       // Download the file.
       //TODO: Uncomment once a way to unzip (PCL) is found.
@@ -121,7 +121,7 @@ namespace Jammit.Model
       Save();
     }
 
-    public List<SongMeta2> GetSongs()
+    public List<SongInfo> GetSongs()
     {
       return cache.Values.ToList();
     }

@@ -19,7 +19,7 @@ namespace Jammit.Mobile
       this.FilesPath.Text = Library.FileSystem.LocalStorage.Path;
     }
 
-    public static List<SongMeta2> Songs => App.Library.GetSongs();
+    public static List<SongInfo> Songs => App.Library.GetSongs();
 
     private void UpdateListView()
     {
@@ -40,7 +40,7 @@ namespace Jammit.Mobile
 
     private void LibraryItem_Delete(object sender, EventArgs e)
     {
-      var song = (sender as MenuItem).BindingContext as SongMeta2;
+      var song = (sender as MenuItem).BindingContext as SongInfo;
       App.Library.RemoveSong(song.Id);
       UpdateListView();
     }
