@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Jammit.Model;
-using Jammit.Util;
 using Newtonsoft.Json.Linq;
 
 namespace Jammit.Mobile.Client

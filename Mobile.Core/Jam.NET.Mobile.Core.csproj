@@ -43,7 +43,6 @@
     <Compile Include="Audio\MockSongPlayer.cs" />
     <Compile Include="Audio\PlaybackStatus.cs" />
     <Compile Include="Model\ISong.cs" />
-    <Compile Include="Util\Settings.cs" />
     <Compile Include="Model\Beat.cs" />
     <Compile Include="Model\ISynchronizable.cs" />
     <Compile Include="Model\Looper.cs" />
@@ -65,12 +64,6 @@
     </Reference>
     <Reference Include="plist-cil, Version=1.14.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\plist-cil.1.14\lib\plist-cil.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.Settings, Version=2.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xam.Plugins.Settings.2.5.4\lib\portable-net45+wp80+win8+wpa81\Plugin.Settings.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.Settings.Abstractions, Version=2.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xam.Plugins.Settings.2.5.4\lib\portable-net45+wp80+win8+wpa81\Plugin.Settings.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>

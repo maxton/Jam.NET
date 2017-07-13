@@ -44,7 +44,7 @@ namespace Jammit.Mobile
     protected override void OnStart()
     {
       // Handle when your app starts
-      MainPage.BackgroundColor = Color.FromHex(Util.Settings.Dummy);
+      MainPage.BackgroundColor = Color.FromHex(Settings.Dummy);
     }
 
     protected override void OnSleep()
