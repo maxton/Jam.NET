@@ -39,7 +39,10 @@
     <Compile Include="Audio\Ima4Decoder.cs" />
     <Compile Include="Audio\ImaWaveStream.cs" />
     <Compile Include="Audio\ISongPlayer.cs" />
+    <Compile Include="Audio\ISongPlayer2.cs" />
     <Compile Include="Audio\MockSongPlayer.cs" />
+    <Compile Include="Audio\PlaybackStatus.cs" />
+    <Compile Include="Model\ISong.cs" />
     <Compile Include="Util\Settings.cs" />
     <Compile Include="Model\Beat.cs" />
     <Compile Include="Model\ISynchronizable.cs" />
@@ -68,6 +71,15 @@
     </Reference>
     <Reference Include="Plugin.Settings.Abstractions, Version=2.5.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xam.Plugins.Settings.2.5.4\lib\portable-net45+wp80+win8+wpa81\Plugin.Settings.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
