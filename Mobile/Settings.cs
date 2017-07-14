@@ -40,26 +40,26 @@ namespace Jammit.Mobile
     {
       get
       {
-        return AppSettings.GetValueOrDefault<string>(SettingsKey, SettingsDefault);
+        return AppSettings.GetValueOrDefault(SettingsKey, SettingsDefault);
       }
       set
       {
-        AppSettings.AddOrUpdateValue<string>(SettingsKey, value);
+        AppSettings.AddOrUpdateValue(SettingsKey, value);
       }
     }
 
     public static string TrackPath
     {
-      get { return AppSettings.GetValueOrDefault<string>(TrackPathKey, TrackPathDefault); }
-      set { AppSettings.AddOrUpdateValue<string>(TrackPathKey, value); }
+      get { return AppSettings.GetValueOrDefault(TrackPathKey, TrackPathDefault); }
+      set { AppSettings.AddOrUpdateValue(TrackPathKey, value); }
     }
 
     public static string Dummy
     {
       get
       {
-        int index = AppSettings.GetValueOrDefault<int>(DummyIndexKey);
-        AppSettings.AddOrUpdateValue<int>(DummyIndexKey, (index + 1) % COLORS.Length);
+        int index = AppSettings.GetValueOrDefault(DummyIndexKey, DummyIndexDefault);
+        AppSettings.AddOrUpdateValue(DummyIndexKey, (index + 1) % COLORS.Length);
 
         return COLORS[index];
       }
@@ -67,8 +67,8 @@ namespace Jammit.Mobile
 
     public static string ServiceUri
     {
-      get { return AppSettings.GetValueOrDefault<string>(ServiceUriKey, ServiceUriDefault); }
-      set { AppSettings.AddOrUpdateValue<string>(ServiceUriKey, value); }
+      get { return AppSettings.GetValueOrDefault(ServiceUriKey, ServiceUriDefault); }
+      set { AppSettings.AddOrUpdateValue(ServiceUriKey, value); }
     }
   }
 }
