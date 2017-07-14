@@ -16,9 +16,9 @@ namespace Jammit.Model
 
     IReadOnlyList<Track> Tracks { get; }
 
-    //TODO: Beats
+    IReadOnlyList<Beat> Beats { get; }
 
-    //TODO: Sections
+    IReadOnlyList<Section> Sections { get; }
 
     sbyte[] GetWaveForm();
 
@@ -28,7 +28,7 @@ namespace Jammit.Model
 
     List<Image> GetTablature(Track t);
 
-    // GetNotationData
+    ScoreNodes GetNotationData(string trackName, string notationType);
 
     Stream GetContentStream(string path);
 

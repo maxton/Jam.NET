@@ -15,6 +15,8 @@ namespace Jammit.Mobile
 
     private static ILibrary library;
 
+    private static IFileSystem fileSystem;
+
     //TODO: Deprecate, or research how to initialize resources (FileSystem, etc).
     public App()
     {
@@ -30,6 +32,7 @@ namespace Jammit.Mobile
       Jammit.Model.Library.FileSystem = fileSystem;
       client = new Client.RestClient();
       library = new DefaultLibrary(fileSystem);
+      App.fileSystem = fileSystem;
       MainPage = new Jammit.Mobile.MainPage();
     }
 
@@ -38,6 +41,8 @@ namespace Jammit.Mobile
     public static Client.IClient Client => client;
 
     public static ILibrary Library => library;
+
+    public static IFileSystem FileSystem => fileSystem;
 
     #endregion
 

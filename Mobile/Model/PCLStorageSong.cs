@@ -6,21 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Jammit.Audio;
+using PCLStorage;
 using Xamarin.Forms;
 
 namespace Jammit.Model
 {
   public class PCLStorageSong : ISong
   {
-    // list scorenodes notationData
+    private List<ScoreNodes> _notationData;
+    private IFolder _songDir;
 
     public PCLStorageSong(SongInfo metadata)
     {
       Metadata = metadata;
       Tracks = InitTracks();
-      // Beats
-      // Sections
-      // notationData
+      Beats = InitBeats();
+      Sections = InitSections();
+      _notationData = InitScoreNodes();
+      _songDir = Mobile.App.FileSystem.LocalStorage
+        .GetFolderAsync(Path.Combine("Tracks", $"{metadata.Id}.jcf")).Result;
     }
 
     private List<Track> InitTracks()
@@ -28,17 +32,30 @@ namespace Jammit.Model
       throw new NotImplementedException();
     }
 
-    //InitBeats
+    private List<Beat> InitBeats()
+    {
+      throw new NotImplementedException();
+    }
 
-    // InitSections
+    private List<Section> InitSections()
+    {
+      throw new NotImplementedException();
+    }
 
-    // InitScoreNodes
+    private List<ScoreNodes> InitScoreNodes()
+    {
+      throw new NotImplementedException();
+    }
 
     #region ISong members
 
     public SongInfo Metadata { get; }
 
     public IReadOnlyList<Track> Tracks { get; }
+
+    public IReadOnlyList<Beat> Beats { get; }
+
+    public IReadOnlyList<Section> Sections { get; }
 
     public Stream GetContentStream(string path)
     {
@@ -66,6 +83,11 @@ namespace Jammit.Model
     }
 
     public List<Image> GetTablature(Track t)
+    {
+      throw new NotImplementedException();
+    }
+
+    public ScoreNodes GetNotationData(string trackName, string notation)
     {
       throw new NotImplementedException();
     }
