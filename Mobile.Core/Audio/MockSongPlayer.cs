@@ -1,36 +1,29 @@
 ﻿using System;
-using Jammit.Model;
-using NAudio.Wave;
 
 namespace Jammit.Audio
 {
-  public class MockSongPlayer : ISongPlayer
+  public class MockSongPlayer : ISongPlayer2
   {
     private TimeSpan _position;
-    private PlaybackState _playbackState;
-    private readonly WaveMixerStream32 _mixer;
+    private PlaybackStatus _playbackState;
 
-    //public MockSongPlayer(ISong s)
-    //{
-    //  _mixer = new WaveMixerStream32();
-    //  _mixer.AddInputStream(new WaveChannel32(new ClickTrackStream(s.Beats)));
-    //}
+    public MockSongPlayer(Model.ISong song) { }
 
-    #region ISongPlayer members
+    #region ISongPlayer2 members
 
     public void Play()
     {
-      _playbackState = PlaybackState.Playing;
+      _playbackState = PlaybackStatus.Playing;
     }
 
     public void Pause()
     {
-      _playbackState = PlaybackState.Paused;
+      _playbackState = PlaybackStatus.Paused;
     }
 
     public void Stop()
     {
-      _playbackState = PlaybackState.Stopped;
+      _playbackState = PlaybackStatus.Stopped;
     }
 
     public long PositionSamples => _position.Ticks / 8;
@@ -41,9 +34,9 @@ namespace Jammit.Audio
       set { _position = value; }
     }
 
-    public TimeSpan Length => _mixer.TotalTime;
+    public TimeSpan Length => TimeSpan.Zero;
 
-    public PlaybackState State => _playbackState;
+    public PlaybackStatus State => _playbackState;
 
     public int Channels => 0;
 

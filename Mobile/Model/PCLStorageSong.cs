@@ -191,14 +191,17 @@ namespace Jammit.Model
 
     public IReadOnlyList<Section> Sections { get; }
 
-    public Stream GetContentStream(string path)
-    {
-      throw new NotImplementedException();
-    }
+    public Stream GetContentStream(string path) => GetSeekableContentStream(path);
 
     public Image GetCover()
     {
-      throw new NotImplementedException();
+      using (var stream = _songDir.GetFileAsync("cover.jpg").Result.OpenAsync(FileAccess.Read).Result)
+      {
+        return new Image
+        {
+          Source = ImageSource.FromStream(() => stream)
+        };
+      }
     }
 
     public List<Image> GetNotation(TrackInfo t)
@@ -208,12 +211,12 @@ namespace Jammit.Model
 
     public Stream GetSeekableContentStream(string path)
     {
-      throw new NotImplementedException();
+      return _songDir.GetFileAsync(path).Result.OpenAsync(FileAccess.Read).Result;
     }
 
     public ISongPlayer2 GetSongPlayer()
     {
-      throw new NotImplementedException();
+      return new MockSongPlayer(this);
     }
 
     public List<Image> GetTablature(TrackInfo t)
