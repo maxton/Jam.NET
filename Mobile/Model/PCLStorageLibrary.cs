@@ -9,7 +9,7 @@ using PCLStorage;
 
 namespace Jammit.Model
 {
-  class DefaultLibrary : ILibrary
+  class PCLStorageLibrary : ILibrary
   {
     private const string LibraryFilePath = "library.xml";
 
@@ -19,7 +19,7 @@ namespace Jammit.Model
 
     private IDictionary<Guid, SongInfo> cache;
 
-    public DefaultLibrary(IFileSystem fileSystem)
+    public PCLStorageLibrary(IFileSystem fileSystem)
     {
       storage = fileSystem.LocalStorage;
 
@@ -132,6 +132,6 @@ namespace Jammit.Model
       Save();
     }
 
-    #endregion
+    #endregion // ILibrary members
   }
 }

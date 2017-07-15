@@ -51,6 +51,7 @@ namespace Jammit.Model
 
     public static SongMeta FromPlist(XDocument plist, Guid id, string type, string path)
     {
+      // plist/dict
       var dict =  (plist.Elements().First().FirstNode as XElement);
       var keys = dict.Elements("key");
       SongMeta track = new SongMeta
@@ -59,7 +60,7 @@ namespace Jammit.Model
         Type = type,
         SongPath = path,
         Instrument = InstrumentCode(dict.Element("dict").Element("integer").Value)
-    };
+      };
 
       int attributeCount = 0;
       foreach (var key in keys)

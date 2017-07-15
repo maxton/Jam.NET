@@ -46,7 +46,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\DefaultLibrary.cs" />
+    <Compile Include="Model\PCLStorageLibrary.cs" />
     <Compile Include="Model\ILibrary.cs" />
     <Compile Include="Model\Library.cs" />
     <Compile Include="Model\PCLStorageSong.cs" />

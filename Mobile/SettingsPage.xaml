@@ -6,7 +6,6 @@
 
   <ContentPage.Content>
     <StackLayout>
-      <Label Text="PADDING" />
       <Grid>
         <Label Grid.Column="0" Text="Service URI" />
         <Entry

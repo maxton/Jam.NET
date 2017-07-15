@@ -31,7 +31,7 @@ namespace Jammit.Mobile
 
       Jammit.Model.Library.FileSystem = fileSystem;
       client = new Client.RestClient();
-      library = new DefaultLibrary(fileSystem);
+      library = new PCLStorageLibrary(fileSystem);
       App.fileSystem = fileSystem;
       MainPage = new Jammit.Mobile.MainPage();
     }
