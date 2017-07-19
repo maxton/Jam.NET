@@ -7,14 +7,20 @@
   <ContentPage.Content>
     <StackLayout>
       <Grid>
-        <Label Grid.Column="0" Text="Service URI" />
+        <Label Grid.Row="0" Grid.Column="0" Text="Service URI" />
         <Entry
+          Grid.Row="0"
           Grid.Column="1"
+          Grid.ColumnSpan="2"
           Placeholder="Enter service URI path."
           x:Name="ServiceUriEntry"
           Text="{Binding Mode=TwoWay, Source={x:Static local:Settings.ServiceUri}}" />
+
+        <Label Grid.Row="1" Grid.Column="0" Text="Authorization Status" />
+        <Entry Grid.Row="1" Grid.Column="1" IsEnabled="False" BindingContext="{x:Static local:App.Client}" Text="{Binding AuthStatus}" />
+        <Button Grid.Row="1" Grid.Column="2" x:Name="AuthorizeButton" Text="Request Authorization" Clicked="AuthorizeButton_Clicked" />
       </Grid>
-            <Button x:Name="CloseButton" Text="Close" Clicked="CloseButton_Clicked" />
+      <Button x:Name="CloseButton" Text="Close" Clicked="CloseButton_Clicked" />
     </StackLayout>
   </ContentPage.Content>
 

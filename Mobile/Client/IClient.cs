@@ -8,10 +8,16 @@ namespace Jammit.Mobile.Client
 {
   public interface IClient
   {
-    int Foo();
-
     Task<List<Model.SongInfo>> LoadCatalog();
 
     Task<System.IO.Stream> DownloadSong(Guid id);
+
+    Task RequestAuthorization();
+
+    #region Properties
+
+    AuthorizationStatus AuthStatus { get; }
+
+    #endregion
   }
 }

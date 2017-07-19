@@ -38,6 +38,8 @@
     </ListView>
     <Button x:Name="CatalogButton" Text="View Catalog" Clicked="CatalogButton_Clicked" />
     <Button x:Name="SettingsButton" Text="Settings" Clicked="SettingsButton_Clicked" />
+    <Label Text="{x:Static local:MainPage.DeviceId}" />
+    <Label Text="{x:Static local:MainPage.DevicePlatform}" />
     <Label x:Name="FilesPath" />
   </StackLayout>
 

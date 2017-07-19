@@ -21,6 +21,12 @@ namespace Jammit.Mobile
 
     public static List<SongInfo> Songs => App.Library.GetSongs();
 
+    [Obsolete]
+    public static string DeviceId => Plugin.DeviceInfo.CrossDeviceInfo.Current.Id;
+
+    [Obsolete]
+    public static string DevicePlatform => Plugin.DeviceInfo.CrossDeviceInfo.Current.Platform.ToString();
+
     private void UpdateListView()
     {
       LibraryView.ItemsSource = null;

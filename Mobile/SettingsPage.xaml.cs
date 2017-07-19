@@ -25,5 +25,10 @@ namespace Jammit.Mobile
 
       Navigation.PopModalAsync();
     }
+
+    private void AuthorizeButton_Clicked(object sender, EventArgs e)
+    {
+      App.Client.RequestAuthorization().Wait();
+    }
   }
 }
