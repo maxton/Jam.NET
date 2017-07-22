@@ -8,9 +8,9 @@ namespace Jammit.Mobile.Client
 {
   public enum AuthorizationStatus
   {
-    Requested = 0,
-    Rejected  = 1,
-    Approved  = 2,
-    Unknown   = 3
+    Unknown   = 0,
+    Requested = 1,
+    Rejected  = 2,
+    Approved  = 3
   }
 }
