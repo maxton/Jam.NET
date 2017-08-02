@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Management;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Jammit.Net;
@@ -18,6 +14,15 @@ namespace Jammit.Forms
     {
       InitializeComponent();
       api = new ClassicApiConnector(Properties.Settings.Default.Server);
+      textBox1.Text = getJammitDeviceId();
+    }
+
+    // TODO: Make this cross-platform
+    private string getJammitDeviceId()
+    {
+      ManagementObject managementObject = new ManagementObject("win32_logicaldisk.deviceid=\"C:\"");
+      managementObject.Get();
+      return managementObject["VolumeSerialNumber"].ToString(); ;
     }
 
     private async Task downloadSongs(List<Guid> songs)
