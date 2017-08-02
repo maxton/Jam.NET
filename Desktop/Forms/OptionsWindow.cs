@@ -16,6 +16,7 @@ namespace Jammit
     {
       InitializeComponent();
       contentFolderTextBox.Text = Properties.Settings.Default.TrackPath;
+      serverTextBox.Text = Properties.Settings.Default.Server;
     }
 
     private void cancelButton_Click(object sender, EventArgs e)
@@ -27,6 +28,7 @@ namespace Jammit
     private void saveButton_Click(object sender, EventArgs e)
     {
       Properties.Settings.Default.TrackPath = contentFolderTextBox.Text;
+      Properties.Settings.Default.Server = serverTextBox.Text;
       Properties.Settings.Default.Save();
       DialogResult = DialogResult.OK;
       Close();

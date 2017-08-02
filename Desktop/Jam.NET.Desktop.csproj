@@ -79,6 +79,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Audio\JammitNAudioSongPlayer.cs" />
+    <Compile Include="Forms\DownloadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DownloadForm.Designer.cs">
+      <DependentUpon>DownloadForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LibraryWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Fader.resx">
       <DependentUpon>Fader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DownloadForm.resx">
+      <DependentUpon>DownloadForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LibraryWindow.resx">
       <DependentUpon>LibraryWindow.cs</DependentUpon>

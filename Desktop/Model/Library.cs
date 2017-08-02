@@ -130,6 +130,7 @@ namespace Jammit.Model
 
       using (var s = File.OpenWrite(CacheFileName))
       {
+        s.SetLength(0);
         cacheDoc.Save(s);
       }
       _cache = foundTracks;
@@ -144,6 +145,12 @@ namespace Jammit.Model
       if (_cache == null) _cache = InitCache();
 
       return _cache.Values.ToList();
+    }
+
+    public static bool SongExists(Guid guid)
+    {
+      if (_cache == null) _cache = InitCache();
+      return _cache.ContainsKey(guid);
     }
   }
 }
