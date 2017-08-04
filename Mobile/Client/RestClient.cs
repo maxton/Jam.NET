@@ -90,13 +90,13 @@ namespace Jammit.Mobile.Client
         switch (authorization)
         {
           case "0":
-            AuthStatus = AuthorizationStatus.Requested; break;
-          case "1":
-            AuthStatus = AuthorizationStatus.Rejected; break;
-          case "2":
-            AuthStatus = AuthorizationStatus.Approved; break;
-          case "3":
             AuthStatus = AuthorizationStatus.Unknown; break;
+          case "1":
+            AuthStatus = AuthorizationStatus.Requested; break;
+          case "2":
+            AuthStatus = AuthorizationStatus.Rejected; break;
+          case "3":
+            AuthStatus = AuthorizationStatus.Approved; break;
           default:
             throw new Exception($"Unknown autorization status code [{authorization}].");
         }
