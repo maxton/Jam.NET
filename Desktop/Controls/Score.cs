@@ -110,6 +110,10 @@ namespace Jammit.Controls
           // 0.75 times the last beat width tends to be good enough without sliding off the score too often.
           var x = (int)(xDiff * timeFromBeat / timeDiff * 0.75);
           var y = -(int)(timeFromBeat / timeDiff * _track.ScoreSystemHeight);
+          if(_nodes[_beatNum].Row == 65535)
+          {
+            y = 0;
+          }
           return new Point(x, y);
         }
         else
