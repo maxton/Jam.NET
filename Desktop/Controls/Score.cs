@@ -81,22 +81,22 @@ namespace Jammit.Controls
 
     private void UpdateCurrentBeat()
     {
-      _beatNum = 0;
       for (int i = 0; i < _beats.Count - 1; i++)
       {
         if (_beats[i + 1].Time > SamplePosition/44100.0)
         {
           _beatNum = i;
-          break;
+          return;
         }
       }
+      _beatNum = _beats.Count - 1;
     }
 
     /// <summary>
     /// Return the x offset to draw.
     /// </summary>
     /// <returns></returns>
-    private int Interpolate()
+    private Point Interpolate()
     {
       if(_nodes.Count > _beatNum+1)
       {
@@ -108,7 +108,9 @@ namespace Jammit.Controls
           var timeFromBeat = SamplePosition / 44100.0 - _beats[_beatNum].Time;
           // What we do here is guess how "wide" the last beat is, because they don't include that in the data :(
           // 0.75 times the last beat width tends to be good enough without sliding off the score too often.
-          return (int)(xDiff * timeFromBeat / timeDiff * 0.75);
+          var x = (int)(xDiff * timeFromBeat / timeDiff * 0.75);
+          var y = -(int)(timeFromBeat / timeDiff * _track.ScoreSystemHeight);
+          return new Point(x, y);
         }
         else
         {
@@ -116,10 +118,10 @@ namespace Jammit.Controls
           var timeDiff = _beats[_beatNum + 1].Time - _beats[_beatNum].Time;
           var xDiff = _nodes[_beatNum + 1].X - _nodes[_beatNum].X;
           var timeFromBeat = SamplePosition/44100.0 - _beats[_beatNum].Time;
-          return (int) (xDiff*timeFromBeat/timeDiff);
+          return new Point((int) (xDiff*timeFromBeat/timeDiff), 0);
         }
       }
-      return 0;
+      return Point.Empty;
     }
 
     private void PaintScore(PaintEventArgs pe)
@@ -128,18 +130,30 @@ namespace Jammit.Controls
       {
         UpdateCurrentBeat();
         var xOffset = (Width - _imgs[0].Width)/2;
-        var x = _nodes[_beatNum].X + xOffset + Interpolate();
+        var interp = Interpolate();
+        var yOffset = (int)(pe.Graphics.ClipBounds.Height - _track.ScoreSystemHeight) / 2 + interp.Y;
+        var x = _nodes[_beatNum].X + xOffset + interp.X;
         var y = _nodes[_beatNum].Row == 65535 ? 0 : _track.ScoreSystemInterval * _nodes[_beatNum].Row;
         var img = _nodes[_beatNum].Row == 65535 ? 0 : y/_imgs[0].Height;
 
         if (_imgs.Count > img)
         {
-          var rect = Rectangle.FromLTRB(xOffset, -y + 1024*img, xOffset+724, 1024 - y + 1024 * img);
+          var rect = Rectangle.FromLTRB(0, -y + 1024*img, 724, 1024 - y + 1024 * img);
+          rect.Offset(xOffset, yOffset);
           pe.Graphics.DrawImage(_imgs[img], rect);
           if (_imgs.Count > img + 1)
-            pe.Graphics.DrawImage(_imgs[img + 1], Rectangle.FromLTRB(xOffset, 1024 - y + 1024*img, xOffset + 724, 2048 - y + 1024 * img));
+          {
+            rect.Offset(0, 1024);
+            pe.Graphics.DrawImage(_imgs[img + 1], rect);
+            rect.Offset(0, -1024);
+          }
+          if (img > 0)
+          {
+            rect.Offset(0, -1024);
+            pe.Graphics.DrawImage(_imgs[img - 1], rect);
+          }
         }
-        pe.Graphics.DrawLine(_line, x, 0, x, _track.ScoreSystemHeight);
+        pe.Graphics.DrawLine(_line, x, yOffset, x, yOffset+_track.ScoreSystemHeight);
       }
 
       base.OnPaint(pe);
