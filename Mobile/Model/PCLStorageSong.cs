@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -24,12 +25,14 @@ namespace Jammit.Model
     public PCLStorageSong(SongInfo metadata)
     {
       Metadata = metadata;
+
+      _songDir = Mobile.App.FileSystem.LocalStorage
+        .GetFolderAsync(Path.Combine("Tracks", $"{metadata.Id}.jcf")).Result;
+
       Tracks = InitTracks();
       Beats = InitBeats();
       Sections = InitSections();
       _notationData = InitScoreNodes();
-      _songDir = Mobile.App.FileSystem.LocalStorage
-        .GetFolderAsync(Path.Combine("Tracks", $"{metadata.Id}.jcf")).Result;
     }
 
     List<TrackInfo> LoadTracks(SongInfo song, XDocument xml)
@@ -46,21 +49,46 @@ namespace Jammit.Model
         foreach (var key in keys)
           map[key.Value] = (key.NextNode as XElement).Value;
 
+        //TODO: Define ITrackLoader?
         if (map.Count == 3)
-          result.Add(new TrackInfo
+          result.Add(new ConcreteTrackInfo
           {
             Class = map["class"],
             Identifier = Guid.Parse(map["identifier"]),
             Title = map["title"]
           });
         else if (map.Count == 5)
-          result.Add(new FileTrackInfo
+        {
+          var source = new FileTrackInfo
           {
             Identifier = Guid.Parse(map["identifier"]),
             Title = map["title"],
             ScoreSystemHeight = uint.Parse(map["scoreSystemHeight"]),
             ScoreSystemInterval = uint.Parse(map["scoreSystemInterval"])
-          });
+          };
+
+          uint notationPages = 0;
+          uint tablaturePages = 0;
+          var files = _songDir.GetFilesAsync().Result;
+          foreach (var file in files)
+          {
+            if (Regex.IsMatch(file.Name, $"{source.Identifier.ToString().ToUpper()}_jcfn_\\d\\d"))
+              notationPages++;
+            else if (Regex.IsMatch(file.Name, $"{source.Identifier.ToString().ToUpper()}_jcft_\\d\\d"))
+              tablaturePages++;
+          }
+
+          if (notationPages + tablaturePages > 0)
+            result.Add(new NotatedTrackInfo(source)
+            {
+              NotationPages = notationPages,
+              TablaturePages = tablaturePages
+            });
+          else //TODO:throw?
+            result.Add(source);
+        }
+        else if (map.Count == 2)
+          result.Add(new EmptyTrackInfo { Identifier = Guid.Parse(map["identifier"]) });
         else
           throw new Exception("Irregular number of track fields. Expected 3 or 5.");
       } // foreach dict
@@ -159,7 +187,7 @@ namespace Jammit.Model
       using (var ghostStream = ghostFile.OpenAsync(FileAccess.Read).Result)
       using (var ghostReader = new StreamReader(ghostStream))
       {
-        return LoadBeats(Metadata, XDocument.Parse(ghostReader.ReadToEnd()), XDocument.Parse(ghostReader.ReadToEnd()));
+        return LoadBeats(Metadata, XDocument.Parse(beatsReader.ReadToEnd()), XDocument.Parse(ghostReader.ReadToEnd()));
       }
     }
 
@@ -241,6 +269,5 @@ namespace Jammit.Model
     }
 
     #endregion
-
   }
 }

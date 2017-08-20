@@ -24,12 +24,7 @@
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="300" />
       </Grid.ColumnDefinitions>
-      <Picker Grid.Column="0" SelectedIndex="0">
-        <Picker.Items>
-          <x:String>{Instrument} - Score</x:String>
-          <x:String>{Instrument} - Tablature</x:String>
-        </Picker.Items>
-      </Picker>
+      <Picker Grid.Column="0" SelectedIndex="0" ItemsSource="{Binding ScoresInfo}" />
     </Grid>
     <Image x:Name="SocreImage" Grid.Row="2" BackgroundColor="Aqua" />
     <!--Controls-->
