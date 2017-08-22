@@ -267,9 +267,9 @@ namespace Jammit.Model
       return ret;
     }
 
-    public ScoreNodes GetNotationData(string trackName, string notation)
+    public ScoreNodes GetNotationData(string trackName, string notationType)
     {
-      throw new NotImplementedException();
+      return _notationData.FirstOrDefault(score => trackName == score.Title && notationType == score.Type);
     }
 
     public sbyte[] GetWaveForm()
