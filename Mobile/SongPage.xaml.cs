@@ -48,11 +48,11 @@ namespace Jammit.Mobile
       }
 
       InitializeComponent();
-
-      ScorePicker.SelectedIndex = 0;
-      //TODO: Set up in markup (XAML)?
+      
+      ScorePicker.SelectedIndex = 0;//TODO: Set up in markup (XAML)?
       var scoreInfo = (ScoreInfo)ScorePicker.SelectedItem;
       ScoreImage.Source = SongContents.GetNotation(scoreInfo.Track)[0];
+      AlbumImage.Source = SongContents.GetCover();
     }
 
     private void SongPage_Close(object sender, EventArgs e)

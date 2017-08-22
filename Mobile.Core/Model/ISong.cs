@@ -36,7 +36,7 @@ namespace Jammit.Model
     /// <summary>
     /// Returns the cover artwork for this song.
     /// </summary>
-    Image GetCover();
+    ImageSource GetCover();
 
     /// <summary>
     /// Returns the notation images for this song, in order.

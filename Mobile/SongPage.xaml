@@ -26,7 +26,7 @@
       </Grid.ColumnDefinitions>
       <Picker x:Name="ScorePicker" Grid.Column="0" ItemsSource="{Binding ScoresInfo}" SelectedIndex="0" SelectedIndexChanged="ScorePicker_SelectedIndexChanged" />
     </Grid>
-    <Image x:Name="ScoreImage" Grid.Row="2" BackgroundColor="Aqua" />
+    <Image x:Name="ScoreImage" Grid.Row="2" BackgroundColor="Aqua" Aspect="AspectFill" />
     <!--Controls-->
     <Grid Grid.Row="3">
       <Grid.ColumnDefinitions>
@@ -37,7 +37,7 @@
         <!--Timeline-->
         <ColumnDefinition Width="40*" />
       </Grid.ColumnDefinitions>
-      <Image x:Name="AlbumImage" Grid.Column="0" BackgroundColor="Aqua" />
+      <Image x:Name="AlbumImage" Grid.Column="0" BackgroundColor="Aqua" Aspect="AspectFill" />
       <Grid Grid.Column="1">
         <Grid.RowDefinitions>
           <!--Instrument labels-->

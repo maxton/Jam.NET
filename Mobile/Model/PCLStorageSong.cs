@@ -219,17 +219,6 @@ namespace Jammit.Model
 
     public IReadOnlyList<Section> Sections { get; }
 
-    public Image GetCover()
-    {
-      using (var stream = _songDir.GetFileAsync("cover.jpg").Result.OpenAsync(FileAccess.Read).Result)
-      {
-        return new Image
-        {
-          Source = ImageSource.FromStream(() => stream)
-        };
-      }
-    }
-
     public Stream GetContentStream(string path) => GetSeekableContentStream(path);
 
     public Stream GetSeekableContentStream(string path)
@@ -240,6 +229,12 @@ namespace Jammit.Model
     public ISongPlayer2 GetSongPlayer()
     {
       return new MockSongPlayer(this);
+    }
+
+    public ImageSource GetCover()
+    {
+      var stream = _songDir.GetFileAsync("cover.jpg").Result.OpenAsync(FileAccess.Read).Result;
+      return FileImageSource.FromStream(() => { return stream; });
     }
 
     public List<ImageSource> GetNotation(TrackInfo t)
