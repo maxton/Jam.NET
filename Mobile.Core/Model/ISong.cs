@@ -42,13 +42,13 @@ namespace Jammit.Model
     /// Returns the notation images for this song, in order.
     /// </summary>
     /// <param name="t">Track to get notation for.</param>
-    List<Image> GetNotation(TrackInfo t);
+    List<ImageSource> GetNotation(TrackInfo t);
 
     /// <summary>
     /// Returns the tablature images for this song, in order.
     /// </summary>
     /// <param name="t">Track to get tablature for.</param>
-    List<Image> GetTablature(TrackInfo t);
+    List<ImageSource> GetTablature(TrackInfo t);
 
     ScoreNodes GetNotationData(string trackName, string notationType);
 

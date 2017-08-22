@@ -21,7 +21,7 @@ namespace Jammit.Mobile
       public string TrackName;
       public string Type;
       public TrackInfo Track;
-      public override string ToString() => $"{TrackName} - {Type}";// TrackName + " - " + Type;
+      public override string ToString() => $"{TrackName} - {Type}";
     }
 
     public SongInfo Song { get; set; }
@@ -48,11 +48,25 @@ namespace Jammit.Mobile
       }
 
       InitializeComponent();
+
+      ScorePicker.SelectedIndex = 0;
+      //TODO: Set up in markup (XAML)?
+      var scoreInfo = (ScoreInfo)ScorePicker.SelectedItem;
+      ScoreImage.Source = SongContents.GetNotation(scoreInfo.Track)[0];
     }
 
     private void SongPage_Close(object sender, EventArgs e)
     {
       Navigation.PopModalAsync();
+    }
+
+    private void ScorePicker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      var scoreInfo = (ScoreInfo)ScorePicker.SelectedItem;
+      if (scoreInfo.Type == "Score")
+        ScoreImage.Source = SongContents.GetNotation(scoreInfo.Track)[0];
+      else // Tablature
+        ScoreImage.Source = SongContents.GetTablature(scoreInfo.Track)[0];
     }
   }
 }

@@ -24,9 +24,9 @@
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="300" />
       </Grid.ColumnDefinitions>
-      <Picker Grid.Column="0" SelectedIndex="0" ItemsSource="{Binding ScoresInfo}" />
+      <Picker x:Name="ScorePicker" Grid.Column="0" ItemsSource="{Binding ScoresInfo}" SelectedIndex="0" SelectedIndexChanged="ScorePicker_SelectedIndexChanged" />
     </Grid>
-    <Image x:Name="SocreImage" Grid.Row="2" BackgroundColor="Aqua" />
+    <Image x:Name="ScoreImage" Grid.Row="2" BackgroundColor="Aqua" />
     <!--Controls-->
     <Grid Grid.Row="3">
       <Grid.ColumnDefinitions>

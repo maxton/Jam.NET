@@ -219,8 +219,6 @@ namespace Jammit.Model
 
     public IReadOnlyList<Section> Sections { get; }
 
-    public Stream GetContentStream(string path) => GetSeekableContentStream(path);
-
     public Image GetCover()
     {
       using (var stream = _songDir.GetFileAsync("cover.jpg").Result.OpenAsync(FileAccess.Read).Result)
@@ -232,10 +230,7 @@ namespace Jammit.Model
       }
     }
 
-    public List<Image> GetNotation(TrackInfo t)
-    {
-      throw new NotImplementedException();
-    }
+    public Stream GetContentStream(string path) => GetSeekableContentStream(path);
 
     public Stream GetSeekableContentStream(string path)
     {
@@ -247,9 +242,34 @@ namespace Jammit.Model
       return new MockSongPlayer(this);
     }
 
-    public List<Image> GetTablature(TrackInfo t)
+    public List<ImageSource> GetNotation(TrackInfo t)
     {
-      throw new NotImplementedException();
+      var ret = new List<ImageSource>();
+      var notated = t as NotatedTrackInfo;
+
+      for (int i = 0; i < notated.NotationPages; i++)
+      {
+        var imageFile = _songDir.GetFileAsync($"{notated.Identifier}_jcfn_{i:D2}").Result;
+        var imageStream = imageFile.OpenAsync(FileAccess.Read);
+        ret.Add(ImageSource.FromStream(() => { return imageStream.Result; }));
+      }
+
+      return ret;
+    }
+
+    public List<ImageSource> GetTablature(TrackInfo t)
+    {
+      var ret = new List<ImageSource>();
+      var notated = t as NotatedTrackInfo;
+
+      for (int i = 0; i < notated.NotationPages; i++)
+      {
+        var imageFile = _songDir.GetFileAsync($"{notated.Identifier}_jcft_{i:D2}").Result;
+        var imageStream = imageFile.OpenAsync(FileAccess.Read);
+        ret.Add(ImageSource.FromStream(() => { return imageStream.Result; }));
+      }
+
+      return ret;
     }
 
     public ScoreNodes GetNotationData(string trackName, string notation)
