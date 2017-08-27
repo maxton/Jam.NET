@@ -5,5 +5,8 @@
     <Setting Name="TrackPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Server" Type="System.String" Scope="User">
+      <Value Profile="(Default)">jammit.com</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

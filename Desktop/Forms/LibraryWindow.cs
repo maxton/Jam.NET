@@ -46,6 +46,13 @@ namespace Jammit
       }
     }
 
+    private void ShowDownloadWindow()
+    {
+      new Forms.DownloadForm().ShowDialog(this);
+      Library.ResetCache();
+      UpdateListView();
+    }
+
     private void rescanContentFilesToolStripMenuItem_Click(object sender, EventArgs e)
     {
       Library.UpdateCache();
@@ -92,6 +99,11 @@ namespace Jammit
     private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
     {
       ShowOptions();
+    }
+
+    private void downloadSongsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      ShowDownloadWindow();
     }
   }
 }

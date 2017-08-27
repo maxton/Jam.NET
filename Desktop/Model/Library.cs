@@ -124,8 +124,13 @@ namespace Jammit.Model
         }
       }
 
+      string cacheDir = Path.GetDirectoryName(CacheFileName);
+      if (!Directory.Exists(cacheDir))
+        Directory.CreateDirectory(cacheDir);
+
       using (var s = File.OpenWrite(CacheFileName))
       {
+        s.SetLength(0);
         cacheDoc.Save(s);
       }
       _cache = foundTracks;
@@ -140,6 +145,12 @@ namespace Jammit.Model
       if (_cache == null) _cache = InitCache();
 
       return _cache.Values.ToList();
+    }
+
+    public static bool SongExists(Guid guid)
+    {
+      if (_cache == null) _cache = InitCache();
+      return _cache.ContainsKey(guid);
     }
   }
 }

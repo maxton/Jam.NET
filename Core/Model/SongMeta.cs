@@ -72,7 +72,7 @@ namespace Jammit.Model
           if (e.FullName.EndsWith(".jcf/") || Regex.IsMatch(e.FullName, @".*-.*-.*-.*/"))
           {
             id = Guid.Parse(e.FullName.Substring(0, 36));
-            entryPath = e.FullName;
+            entryPath = e.FullName.Substring(0, e.FullName.IndexOf('/') + 1);
             break;
           }
         }
