@@ -26,9 +26,15 @@
       </Grid.ColumnDefinitions>
       <Picker x:Name="ScorePicker" Grid.Column="0" ItemsSource="{Binding ScoresInfo}" SelectedIndex="0" SelectedIndexChanged="ScorePicker_SelectedIndexChanged" />
     </Grid>
-    <Image x:Name="ScoreImage" Grid.Row="2" BackgroundColor="Aqua" Aspect="AspectFill" />
+    <RelativeLayout Grid.Row="2" IsClippedToBounds="False">
+      <StackLayout Orientation="Vertical" HorizontalOptions="Center"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1}">
+          <Image x:Name="ScoreImage" BackgroundColor="Aqua" />
+      </StackLayout>
+    </RelativeLayout>
     <!--Controls-->
-    <Grid Grid.Row="3">
+    <Grid Grid.Row="3" BackgroundColor="DarkGray">
       <Grid.ColumnDefinitions>
         <!--Album pic-->
         <ColumnDefinition Width="20*" />
@@ -97,7 +103,7 @@
         </StackLayout>
       </Grid>
     </Grid>
-    <Button Grid.Row="4" Text="Close" Clicked="SongPage_Close" />
+    <Button Grid.Row="4" Text="Close" Clicked="SongPage_Close" BackgroundColor="LightGray" />
   </Grid>
 
 </ContentPage>
