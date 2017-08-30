@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Jammit</RootNamespace>
     <AssemblyName>Jam.NET.Desktop</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,11 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NAudio, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
+    <Reference Include="NAudio, Version=1.8.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.2\lib\net35\NAudio.dll</HintPath>
     </Reference>
-    <Reference Include="plist-cil, Version=1.15.0.0, Culture=neutral, PublicKeyToken=ec2cb9e1a719933d, processorArchitecture=MSIL">
-      <HintPath>..\packages\plist-cil.1.15.0\lib\net40\plist-cil.dll</HintPath>
+    <Reference Include="plist-cil, Version=1.16.0.0, Culture=neutral, PublicKeyToken=ec2cb9e1a719933d, processorArchitecture=MSIL">
+      <HintPath>..\packages\plist-cil.1.16.0\lib\net45\plist-cil.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,6 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio\ClickTrackStream.cs" />
+    <Compile Include="Audio\MockSongPlayer.cs" />
     <Compile Include="Controls\SeekBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -93,6 +96,7 @@
       <DependentUpon>LibraryWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\FolderSong.cs" />
+    <Compile Include="Model\ISong.cs" />
     <Compile Include="Model\SongLoader.cs" />
     <Compile Include="Model\ZipSong.cs" />
     <Compile Include="Model\Library.cs" />
@@ -209,7 +213,6 @@
       <Name>Jam.NET</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
