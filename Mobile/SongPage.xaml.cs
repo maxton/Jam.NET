@@ -24,6 +24,8 @@ namespace Jammit.Mobile
       public override string ToString() => $"{TrackName} - {Type}";
     }
 
+    Jammit.Audio.ISongPlayer2 Player;
+
     public SongInfo Song { get; set; }
 
     public ISong SongContents { get; set; }
@@ -53,6 +55,8 @@ namespace Jammit.Mobile
       var scoreInfo = (ScoreInfo)ScorePicker.SelectedItem;
       ScoreImage.Source = SongContents.GetNotation(scoreInfo.Track)[0];
       AlbumImage.Source = SongContents.GetCover();
+
+      Player = new Jammit.Audio.NAudioSongPlayer(SongContents);
     }
 
     private void SongPage_Close(object sender, EventArgs e)
@@ -67,6 +71,20 @@ namespace Jammit.Mobile
         ScoreImage.Source = SongContents.GetNotation(scoreInfo.Track)[0];
       else // Tablature
         ScoreImage.Source = SongContents.GetTablature(scoreInfo.Track)[0];
+    }
+
+    private void PlayButton_Clicked(object sender, EventArgs e)
+    {
+      if (Player.State == Audio.PlaybackStatus.Playing)
+      {
+        Player.Stop();
+        PlayButton.Text = "Play";
+      }
+      else
+      {
+        Player.Play();
+        PlayButton.Text = "Stop";
+      }
     }
   }
 }

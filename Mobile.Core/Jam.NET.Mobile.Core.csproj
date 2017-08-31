@@ -41,6 +41,7 @@
     <Compile Include="Audio\ISongPlayer.cs" />
     <Compile Include="Audio\ISongPlayer2.cs" />
     <Compile Include="Audio\MockSongPlayer.cs" />
+    <Compile Include="Audio\NAudioSongPlayer.cs" />
     <Compile Include="Audio\PlaybackStatus.cs" />
     <Compile Include="Model\ISong.cs" />
     <Compile Include="Model\Beat.cs" />

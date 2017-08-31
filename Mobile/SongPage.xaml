@@ -97,7 +97,7 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Text="Loop" />
             <Button Grid.Column="1" Text="&lt;&lt;" />
-            <Button Grid.Column="2" Text="Play" />
+            <Button Grid.Column="2" Text="Play" x:Name="PlayButton" Clicked="PlayButton_Clicked" />
             <Button Grid.Column="3" Text="&gt;&gt;" />
           </Grid>
         </StackLayout>
