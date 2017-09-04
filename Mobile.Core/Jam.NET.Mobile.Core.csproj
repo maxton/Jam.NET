@@ -56,9 +56,6 @@
     <Compile Include="Util\UnionArray.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="NAudio, Version=1.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.5\lib\NAudio.dll</HintPath>
-    </Reference>
     <Reference Include="plist-cil, Version=1.14.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\plist-cil.1.14\lib\plist-cil.dll</HintPath>
     </Reference>
