@@ -10,7 +10,7 @@ namespace Jammit.UWP.Model
 {
   class NAudioUniversalSongPlayerFactory : ISongPlayerFactory
   {
-    public ISongPlayer2 CreateSongPlayer(ISong song)
+    public ISongPlayer CreateSongPlayer(ISong song)
     {
       return new NAudioUniversalSongPlayer(song);
     }

@@ -24,7 +24,7 @@ namespace Jammit.Mobile
       public override string ToString() => $"{TrackName} - {Type}";
     }
 
-    Jammit.Audio.ISongPlayer2 Player;
+    Jammit.Audio.ISongPlayer Player;
 
     public SongInfo Song { get; set; }
 

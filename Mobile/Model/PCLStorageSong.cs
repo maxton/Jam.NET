@@ -226,7 +226,7 @@ namespace Jammit.Model
       return _songDir.GetFileAsync(path).Result.OpenAsync(FileAccess.Read).Result;
     }
 
-    public ISongPlayer2 GetSongPlayer()
+    public ISongPlayer GetSongPlayer()
     {
       return new MockSongPlayer(this);
     }

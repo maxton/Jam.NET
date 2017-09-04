@@ -2,7 +2,7 @@
 
 namespace Jammit.Audio
 {
-  public class MockSongPlayer : ISongPlayer2
+  public class MockSongPlayer : ISongPlayer
   {
     private TimeSpan _position;
     private PlaybackStatus _playbackState;

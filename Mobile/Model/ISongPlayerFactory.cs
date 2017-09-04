@@ -10,6 +10,6 @@ namespace Jammit.Model
 {
   public interface ISongPlayerFactory
   {
-    ISongPlayer2 CreateSongPlayer(ISong song);
+    ISongPlayer CreateSongPlayer(ISong song);
   }
 }

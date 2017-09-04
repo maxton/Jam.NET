@@ -11,7 +11,7 @@ using NAudio.Win8.Wave.WaveOutputs;
 
 namespace Jammit.Audio
 {
-  class NAudioUniversalSongPlayer : ISongPlayer2
+  class NAudioUniversalSongPlayer : ISongPlayer
   {
     private readonly List<WaveChannel32> _channels;
     private readonly WaveMixerStream32 _mixer;
@@ -54,7 +54,7 @@ namespace Jammit.Audio
       _waveOut.PlaybackStopped += (sender, args) => { Position = TimeSpan.Zero; };
       //_waveOut.DesiredLatency = 60;
       //_waveOut.NumberOfBuffers = 2;
-      _waveOut.Init(_mixer);
+      _waveOut.Init(() => { return _mixer; });
     }
 
     ~NAudioUniversalSongPlayer()

@@ -69,6 +69,6 @@ namespace Jammit.Model
     /// <summary>
     /// Returns a Song Player that can play back the audio for this song.
     /// </summary>
-    ISongPlayer2 GetSongPlayer();
+    ISongPlayer GetSongPlayer();
   }
 }

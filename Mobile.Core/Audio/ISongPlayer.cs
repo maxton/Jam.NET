@@ -2,7 +2,7 @@
 
 namespace Jammit.Audio
 {
-  public interface ISongPlayer2
+  public interface ISongPlayer
   {
     void Play();
     void Pause();

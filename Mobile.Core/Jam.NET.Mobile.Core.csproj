@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Audio\Ima4Decoder.cs" />
-    <Compile Include="Audio\ISongPlayer2.cs" />
+    <Compile Include="Audio\ISongPlayer.cs" />
     <Compile Include="Audio\MockSongPlayer.cs" />
     <Compile Include="Audio\PlaybackStatus.cs" />
     <Compile Include="Model\ISong.cs" />
