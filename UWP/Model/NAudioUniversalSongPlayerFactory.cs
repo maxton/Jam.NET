@@ -12,7 +12,7 @@ namespace Jammit.UWP.Model
   {
     public ISongPlayer2 CreateSongPlayer(ISong song)
     {
-      throw new NotImplementedException();
+      return new NAudioUniversalSongPlayer(song);
     }
   }
 }

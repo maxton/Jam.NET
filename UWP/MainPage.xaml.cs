@@ -23,7 +23,7 @@ namespace Jam.NET.Mobile.UWP
     {
       this.InitializeComponent();
 
-      LoadApplication(new Jammit.Mobile.App(FileSystem.Current));
+      LoadApplication(new Jammit.Mobile.App(FileSystem.Current, new Jammit.UWP.Model.NAudioUniversalSongPlayerFactory()));
     }
   }
 }

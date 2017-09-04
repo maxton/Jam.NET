@@ -6,60 +6,123 @@ using System.Threading.Tasks;
 
 using Jammit.Audio;
 using Jammit.Model;
+using NAudio.Wave;
+using NAudio.Win8.Wave.WaveOutputs;
 
-namespace Jammit.UWP.Audio
+namespace Jammit.Audio
 {
   class NAudioUniversalSongPlayer : ISongPlayer2
   {
+    private readonly List<WaveChannel32> _channels;
+    private readonly WaveMixerStream32 _mixer;
+    private readonly WasapiOutRT _waveOut;
+    private readonly List<string> _chanNames;
+
     /// <summary>
     /// Creates a song player for the given song using the NAudio backend.
     /// </summary>
     /// <param name="s">ISong to play.</param>
     internal NAudioUniversalSongPlayer(ISong s)
     {
-      throw new NotImplementedException();
+      _waveOut = new WasapiOutRT(NAudio.CoreAudioApi.AudioClientShareMode.Shared, 60);
+      _mixer = new WaveMixerStream32();
+      _channels = new List<WaveChannel32>();
+      _chanNames = new List<string>();
+
+      foreach (var t in s.Tracks)
+      {
+        if (t.Class == "JMFileTrack")
+        {
+          var stream = s.GetSeekableContentStream($"{t.Identifier}_jcfx");
+          _channels.Add(new WaveChannel32(new ImaWaveStream(stream)));
+          _chanNames.Add((t as ConcreteTrackInfo).Title);
+        }
+        else if (t.Class == "JMClickTrack")
+        {
+          //TODO: Fix exception throwing.
+          //_channels.Add(new WaveChannel32(new ClickTrackStream(s.Beats)));
+          //_chanNames.Add((t as ConcreteTrackInfo).Title);
+        }
+      }
+
+      foreach (var d in _channels)
+      {
+        _mixer.AddInputStream(d);
+        d.Volume = 0.75f;
+      }
+
+      _waveOut.PlaybackStopped += (sender, args) => { Position = TimeSpan.Zero; };
+      //_waveOut.DesiredLatency = 60;
+      //_waveOut.NumberOfBuffers = 2;
+      _waveOut.Init(_mixer);
     }
 
     ~NAudioUniversalSongPlayer()
     {
-      throw new NotImplementedException();
+      if (_waveOut.PlaybackState == PlaybackState.Playing)
+        _waveOut.Stop();
+
+      _waveOut.Dispose();
     }
+
+    #region ISongPlayer2
 
     public void Play()
     {
-      throw new NotImplementedException();
+      _waveOut.Play();
     }
 
     public void Stop()
     {
-      throw new NotImplementedException();
+      _waveOut.Stop();
     }
 
     public void Pause()
     {
-      throw new NotImplementedException();
+      _waveOut.Pause();
     }
 
-    public PlaybackStatus State => throw new NotImplementedException();
+    public PlaybackStatus State
+    {
+      get
+      {
+        switch (_waveOut.PlaybackState)
+        {
+          case PlaybackState.Stopped:
+            return PlaybackStatus.Stopped;
+          case PlaybackState.Playing:
+            return PlaybackStatus.Playing;
+          case PlaybackState.Paused:
+            return PlaybackStatus.Paused;
+
+          default:
+            throw new Exception("Unknown playback state: " + _waveOut.PlaybackState);
+        }
+      }
+    }
 
     public TimeSpan Position
     {
-      get { throw new NotImplementedException(); }
-      set { throw new NotImplementedException(); }
+      get { return _mixer.CurrentTime; }
+      set { _mixer.CurrentTime = value; }
     }
 
     // 32-bit samples, 2 channels = 8 bytes per sample frame
-    public long PositionSamples => throw new NotImplementedException();
+    public long PositionSamples => _mixer.Position / 8;
 
-    public TimeSpan Length => throw new NotImplementedException();
-    public int Channels => throw new NotImplementedException();
-    public string GetChannelName(int channel) => throw new NotImplementedException();
+    public TimeSpan Length => _mixer.TotalTime;
+
+    public int Channels => _channels.Count;
+
+    public string GetChannelName(int channel) => _chanNames[channel];
 
     public void SetChannelVolume(int channel, float volume)
     {
-      throw new NotImplementedException();
+      _channels[channel].Volume = volume;
     }
 
-    public float GetChannelVolume(int channel) => throw new NotImplementedException();
+    public float GetChannelVolume(int channel) => _channels[channel].Volume;
+
+    #endregion //ISongPlayer2 members
   }
 }

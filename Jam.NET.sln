@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jam.NET.Desktop", "Desktop\Jam.NET.Desktop.csproj", "{7E49A4EB-9AB9-4FE2-BCEC-A9C41A22B575}"
 EndProject
@@ -187,36 +187,36 @@ Global
 		{6E6FA900-0D6A-4D65-9A1C-6CD54E1CD80D}.Release|x64.Build.0 = Release|Any CPU
 		{6E6FA900-0D6A-4D65-9A1C-6CD54E1CD80D}.Release|x86.ActiveCfg = Release|Any CPU
 		{6E6FA900-0D6A-4D65-9A1C-6CD54E1CD80D}.Release|x86.Build.0 = Release|Any CPU
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|Any CPU.ActiveCfg = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|Any CPU.Build.0 = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|Any CPU.Deploy.0 = Release|x86
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|Any CPU.ActiveCfg = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|Any CPU.Build.0 = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|Any CPU.Deploy.0 = Release|ARM
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|ARM.ActiveCfg = Release|ARM
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|ARM.Build.0 = Release|ARM
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|ARM.Deploy.0 = Release|ARM
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhone.ActiveCfg = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhone.Build.0 = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhone.Deploy.0 = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhoneSimulator.Deploy.0 = Release|x86
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhone.ActiveCfg = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhone.Build.0 = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhone.Deploy.0 = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|iPhoneSimulator.Deploy.0 = Release|ARM
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|x64.ActiveCfg = Release|x64
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|x64.Build.0 = Release|x64
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|x64.Deploy.0 = Release|x64
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|x86.ActiveCfg = Release|x86
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|x86.Build.0 = Release|x86
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.Ad-Hoc|x86.Deploy.0 = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|Any CPU.ActiveCfg = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|Any CPU.Build.0 = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|Any CPU.Deploy.0 = Release|x86
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|Any CPU.ActiveCfg = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|Any CPU.Build.0 = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|Any CPU.Deploy.0 = Release|ARM
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|ARM.ActiveCfg = Release|ARM
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|ARM.Build.0 = Release|ARM
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|ARM.Deploy.0 = Release|ARM
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhone.ActiveCfg = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhone.Build.0 = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhone.Deploy.0 = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhoneSimulator.ActiveCfg = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhoneSimulator.Build.0 = Release|x86
-		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhoneSimulator.Deploy.0 = Release|x86
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhone.ActiveCfg = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhone.Build.0 = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhone.Deploy.0 = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhoneSimulator.ActiveCfg = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhoneSimulator.Build.0 = Release|ARM
+		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|iPhoneSimulator.Deploy.0 = Release|ARM
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|x64.ActiveCfg = Release|x64
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|x64.Build.0 = Release|x64
 		{17311CD3-DA86-4669-8153-9BD37636EB05}.AppStore|x64.Deploy.0 = Release|x64
@@ -330,6 +330,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69C0538F-205A-43CA-A7F7-9AEE0F17C743}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
