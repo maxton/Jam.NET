@@ -35,13 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Audio\ClickTrackStream.cs" />
     <Compile Include="Audio\Ima4Decoder.cs" />
-    <Compile Include="Audio\ImaWaveStream.cs" />
-    <Compile Include="Audio\ISongPlayer.cs" />
     <Compile Include="Audio\ISongPlayer2.cs" />
     <Compile Include="Audio\MockSongPlayer.cs" />
-    <Compile Include="Audio\NAudioSongPlayer.cs" />
     <Compile Include="Audio\PlaybackStatus.cs" />
     <Compile Include="Model\ISong.cs" />
     <Compile Include="Model\Beat.cs" />

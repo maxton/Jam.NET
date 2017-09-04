@@ -56,7 +56,7 @@ namespace Jammit.Mobile
       ScoreImage.Source = SongContents.GetNotation(scoreInfo.Track)[0];
       AlbumImage.Source = SongContents.GetCover();
 
-      Player = new Jammit.Audio.NAudioSongPlayer(SongContents);
+      Player = App.SongPlayerFactory.CreateSongPlayer(SongContents);
     }
 
     private void SongPage_Close(object sender, EventArgs e)

@@ -1,6 +1,7 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.4.0",
+    "NAudio": "1.8.2",
     "PCLStorage": "1.0.2",
     "Xam.Plugin.DeviceInfo": "3.0.1",
     "Xam.Plugins.Settings": "3.0.1",
