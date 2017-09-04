@@ -17,6 +17,8 @@ namespace Jammit.Mobile
 
     private static IFileSystem fileSystem;
 
+    private static ISongPlayerFactory playerFactory;
+
     //TODO: Deprecate, or research how to initialize resources (FileSystem, etc).
     public App()
     {
@@ -36,6 +38,11 @@ namespace Jammit.Mobile
       MainPage = new Jammit.Mobile.MainPage();
     }
 
+    public App(IFileSystem fileSystem, ISongPlayerFactory playerFactory) : this(fileSystem)
+    {
+      App.playerFactory = playerFactory;
+    }
+
     #region Properties
 
     public static Client.IClient Client => client;
@@ -43,6 +50,8 @@ namespace Jammit.Mobile
     public static ILibrary Library => library;
 
     public static IFileSystem FileSystem => fileSystem;
+
+    public static ISongPlayerFactory SongPlayerFactory => playerFactory;
 
     #endregion
 
