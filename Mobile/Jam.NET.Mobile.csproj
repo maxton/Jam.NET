@@ -59,6 +59,7 @@
     <Compile Include="SongPage.xaml.cs">
       <DependentUpon>SongPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\MockSongPlayerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">

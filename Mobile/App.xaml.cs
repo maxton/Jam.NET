@@ -27,7 +27,9 @@ namespace Jammit.Mobile
       MainPage = new Jammit.Mobile.MainPage();
     }
 
-    public App(IFileSystem fileSystem)
+    public App(IFileSystem fileSystem) : this(fileSystem, new MockSongPlayerFactory()) {}
+
+    public App(IFileSystem fileSystem, ISongPlayerFactory playerFactory)
     {
       InitializeComponent();
 
@@ -35,12 +37,9 @@ namespace Jammit.Mobile
       client = new Client.RestClient();
       library = new PCLStorageLibrary(fileSystem);
       App.fileSystem = fileSystem;
-      MainPage = new Jammit.Mobile.MainPage();
-    }
-
-    public App(IFileSystem fileSystem, ISongPlayerFactory playerFactory) : this(fileSystem)
-    {
       App.playerFactory = playerFactory;
+
+      MainPage = new Jammit.Mobile.MainPage();
     }
 
     #region Properties
