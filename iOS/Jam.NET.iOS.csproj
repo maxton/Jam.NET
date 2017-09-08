@@ -67,6 +67,8 @@
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork@2x" />
     <None Include="packages.config" />
+    <Compile Include="Audio\IOSSongPlayer.cs" />
+    <Compile Include="Model\IOSSongPlayerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -127,6 +129,14 @@
       <Project>{6e6fa900-0d6a-4d65-9a1c-6cd54e1cd80d}</Project>
       <Name>Jam.NET.Mobile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mobile.Core\Jam.NET.Mobile.Core.csproj">
+      <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
+      <Name>Jam.NET.Mobile.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Audio\" />
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

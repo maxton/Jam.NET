@@ -6,6 +6,8 @@ using Foundation;
 using PCLStorage;
 using UIKit;
 
+using Jammit.Model.iOS;
+
 namespace Jammit.Mobile.iOS
 {
   // The UIApplicationDelegate for the application. This class is responsible for launching the 
@@ -24,7 +26,7 @@ namespace Jammit.Mobile.iOS
     public override bool FinishedLaunching(UIApplication app, NSDictionary options)
     {
       global::Xamarin.Forms.Forms.Init();
-      LoadApplication(new App(FileSystem.Current));
+      LoadApplication(new App(FileSystem.Current, new IOSSongPlayerFactory()));
 
       return base.FinishedLaunching(app, options);
     }
