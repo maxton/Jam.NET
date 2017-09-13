@@ -9,6 +9,7 @@ build:
   project: Jam.NET.sln
 
 before_build:
+ - dotnet restore
  - nuget restore
 
 after_build:
