@@ -59,7 +59,7 @@ namespace Jammit.Mobile.Client
     {
       using (var cliente = new HttpClient())
       {
-        cliente.BaseAddress = new Uri($"{Settings.ServiceUri}/download?id={id}");
+        cliente.BaseAddress = new Uri($"{Settings.ServiceUri}/download?id={id.ToString().ToUpper()}");
         cliente.DefaultRequestHeaders.Clear();
 
         return await cliente.GetStreamAsync(cliente.BaseAddress.AbsoluteUri);

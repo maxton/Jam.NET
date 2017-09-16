@@ -31,6 +31,9 @@ namespace Jammit.Mobile
     private const string DummyIndexKey = "dummyindex_key";
     private static readonly int DummyIndexDefault = 0;
 
+    private const string SkipDownloadKey = "skipdownload_key";
+    private static readonly bool SkipDownloadDefault = false;
+
     private const string ServiceUriKey = "serviceuri_key";
     private static readonly string ServiceUriDefault = string.Empty;
 
@@ -63,6 +66,12 @@ namespace Jammit.Mobile
 
         return COLORS[index];
       }
+    }
+
+    public static bool SkipDownload
+    {
+      get { return AppSettings.GetValueOrDefault(SkipDownloadKey, SkipDownloadDefault); }
+      set { AppSettings.AddOrUpdateValue(SkipDownloadKey, value); }
     }
 
     public static string ServiceUri
