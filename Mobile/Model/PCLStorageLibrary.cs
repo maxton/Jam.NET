@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,15 +114,42 @@ namespace Jammit.Model
       else
       {
         // Download the file.
-        //TODO: Uncomment once a way to unzip (PCL) is found.
         var downloadTask = Task.Run(async () => await Mobile.App.Client.DownloadSong(song.Id));
         downloadTask.Wait();
 
+        // Make sure Tracks and Downloads dirs exists.
+        var tracksDir = storage.CreateFolderAsync("Tracks", CreationCollisionOption.OpenIfExists).Result;
         var downloadsDir = storage.CreateFolderAsync("Downloads", CreationCollisionOption.OpenIfExists).Result;
-        var fileTask = downloadsDir.CreateFileAsync($"{song.Id}.zip", CreationCollisionOption.ReplaceExisting);
-        using (var stream = fileTask.Result.OpenAsync(FileAccess.ReadAndWrite).Result)
+
+        var zipFileTask = downloadsDir.CreateFileAsync($"{song.Id}.zip", CreationCollisionOption.ReplaceExisting);
+        using (var stream = zipFileTask.Result.OpenAsync(FileAccess.ReadAndWrite).Result)
         {
           downloadTask.Result.CopyTo(stream);
+
+          var archive = new ZipArchive(stream, ZipArchiveMode.Read);
+          IFolder trackDir = null;
+          foreach (var entry in archive.Entries)
+          {
+            // Skip if not part of the {Guid}.jcf/ hierarchy.
+            if (36 /*{Guid}*/ + 5 /*.jcf/*/ > entry.FullName.Length || ".jcf/" != entry.FullName.Substring(36, 5))
+              continue;
+
+            // From this point on, all entries are assumed to start with {Guid}.jcf/
+            if (entry.FullName.EndsWith("/"))
+            {
+              trackDir = tracksDir.CreateFolderAsync(entry.FullName, CreationCollisionOption.OpenIfExists).Result;
+            }
+            else
+            {
+              var entryFileTask = trackDir.CreateFileAsync(entry.Name, CreationCollisionOption.FailIfExists);
+              var entryFileOpenTask = entryFileTask.Result.OpenAsync(FileAccess.ReadAndWrite);
+
+              var entryStream = entry.Open();
+              var entryFileStream = entryFileOpenTask.Result;
+              //TODO: Fix 0-length for some extracted files (i.e. cover.jpg).
+              entryStream.CopyTo(entryFileStream);
+            }
+          }
         }
       }
     }
