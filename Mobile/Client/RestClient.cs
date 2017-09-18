@@ -57,7 +57,8 @@ namespace Jammit.Mobile.Client
 
     public async Task<Stream> DownloadSong(Guid id)
     {
-      using (var cliente = new HttpClient())
+      // https://stackoverflow.com/questions/36698677
+      using (var cliente = new HttpClient(new HttpClientHandler(), false))
       {
         cliente.BaseAddress = new Uri($"{Settings.ServiceUri}/download?id={id.ToString().ToUpper()}");
         cliente.DefaultRequestHeaders.Clear();
