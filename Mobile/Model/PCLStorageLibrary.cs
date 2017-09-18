@@ -106,12 +106,7 @@ namespace Jammit.Model
 
     public void AddSong(SongInfo song)
     {
-      if (Mobile.Settings.SkipDownload)
-      {
-        cache[song.Id] = song;
-        Save();
-      }
-      else
+      if (!Mobile.Settings.SkipDownload)
       {
         // Download the file.
         var downloadTask = Task.Run(async () => await Mobile.App.Client.DownloadSong(song.Id));
@@ -121,6 +116,7 @@ namespace Jammit.Model
         var tracksDir = storage.CreateFolderAsync("Tracks", CreationCollisionOption.OpenIfExists).Result;
         var downloadsDir = storage.CreateFolderAsync("Downloads", CreationCollisionOption.OpenIfExists).Result;
 
+        // Extract downloaded ZIP contents.
         var zipFileTask = downloadsDir.CreateFileAsync($"{song.Id}.zip", CreationCollisionOption.ReplaceExisting);
         using (var stream = zipFileTask.Result.OpenAsync(FileAccess.ReadAndWrite).Result)
         {
@@ -141,16 +137,18 @@ namespace Jammit.Model
             }
             else
             {
-              var entryFileTask = trackDir.CreateFileAsync(entry.Name, CreationCollisionOption.FailIfExists);
-              var entryFileOpenTask = entryFileTask.Result.OpenAsync(FileAccess.ReadAndWrite);
-
+              var fileCreateTask = trackDir.CreateFileAsync(entry.Name, CreationCollisionOption.ReplaceExisting);
+              var fileOpenTask = fileCreateTask.Result.OpenAsync(FileAccess.ReadAndWrite);
               var entryStream = entry.Open();
-              var entryFileStream = entryFileOpenTask.Result;
-              //TODO: Fix 0-length for some extracted files (i.e. cover.jpg).
-              entryStream.CopyTo(entryFileStream);
+              var fileStream = fileOpenTask.Result;
+              entryStream.CopyTo(fileStream);
+              fileStream.Flush();
             }
-          }
-        }
+          }// foreach entry in archive
+        }// using zipFileTask.Result
+
+        cache[song.Id] = song;
+        Save();
       }
     }
 
