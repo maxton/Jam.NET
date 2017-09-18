@@ -149,6 +149,12 @@ namespace Jammit.Model
 
         cache[song.Id] = song;
         Save();
+
+        // Cleanup.
+        if (!Mobile.Settings.SkipDownload)
+        {
+          downloadsDir.GetFileAsync($"{song.Id}.zip").Result.DeleteAsync();
+        }
       }
     }
 
