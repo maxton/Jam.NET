@@ -165,6 +165,15 @@ namespace Jammit.Model
 
     public void RemoveSong(Guid id)
     {
+      try
+      {
+        var tracksDir = storage.GetFolderAsync("Tracks").Result;
+        var trackDir = tracksDir.GetFolderAsync($"{id}.jcf").Result;
+        trackDir.DeleteAsync();
+      }
+      catch (Exception)
+      {
+      }
       cache.Remove(id);
       Save();
     }
