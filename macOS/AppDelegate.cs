@@ -5,7 +5,9 @@ using PCLStorage;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.MacOS;
 
-namespace Jam.NET.macOS
+using Jammit.Model.macOS;
+
+namespace Jammit.macOS
 {
   [Register("AppDelegate")]
   public class AppDelegate : FormsApplicationDelegate
@@ -33,7 +35,7 @@ namespace Jam.NET.macOS
     public override void DidFinishLaunching(NSNotification notification)
     {
       Forms.Init();
-      LoadApplication(new Jammit.Mobile.App(FileSystem.Current, null));
+      LoadApplication(new Jammit.Mobile.App(FileSystem.Current, new MacOSSongPlayerFactory()));
       base.DidFinishLaunching(notification);
     }
 

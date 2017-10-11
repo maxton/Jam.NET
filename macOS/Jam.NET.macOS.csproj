@@ -7,7 +7,7 @@
     <ProjectGuid>{D8D3D97A-E679-48F4-A9FC-8BDDAD0778D2}</ProjectGuid>
     <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Jam.NET.macOS</RootNamespace>
+    <RootNamespace>Jammit</RootNamespace>
     <AssemblyName>Unjammit!</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
@@ -100,6 +100,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Audio\" />
+    <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -114,6 +116,8 @@
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Audio\MacOSSongPlayer.cs" />
+    <Compile Include="Model\MacOSSongPlayerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mobile\Jam.NET.Mobile.csproj">

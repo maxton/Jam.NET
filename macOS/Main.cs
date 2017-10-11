@@ -1,6 +1,6 @@
 ﻿using AppKit;
 
-namespace Jam.NET.macOS
+namespace Jammit.macOS
 {
   static class MainClass
   {
