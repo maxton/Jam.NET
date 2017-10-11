@@ -30,6 +30,7 @@ namespace Jammit.Model
 
       if (ExistenceCheckResult.FileExists != fileExistsTask.Result)
       {
+        //TODO: Fix/review for macOS: "/Users/<username>/../Library"
         libraryFile = storage.CreateFileAsync(LibraryFilePath, CreationCollisionOption.FailIfExists).Result;
         using (var stream = libraryFile.OpenAsync(FileAccess.ReadAndWrite).Result)
         {
