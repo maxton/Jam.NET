@@ -83,6 +83,15 @@
     <Reference Include="Plugin.Settings">
       <HintPath>..\packages\Xam.Plugins.Settings.3.0.1\lib\Xamarin.Mac20\Plugin.Settings.dll</HintPath>
     </Reference>
+    <Reference Include="plist-cil">
+      <HintPath>..\packages\plist-cil.1.16.0\lib\netstandard1.6\plist-cil.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -120,13 +129,13 @@
     <Compile Include="Model\MacOSSongPlayerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mobile\Jam.NET.Mobile.csproj">
-      <Project>{6E6FA900-0D6A-4D65-9A1C-6CD54E1CD80D}</Project>
-      <Name>Jam.NET.Mobile</Name>
+    <ProjectReference Include="..\Core.Standard\Jam.NET.Core.csproj">
+      <Project>{C99DB4A0-9987-45E2-9F9E-D27D09F743CF}</Project>
+      <Name>Jam.NET.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mobile.Core\Jam.NET.Mobile.Core.csproj">
-      <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
-      <Name>Jam.NET.Mobile.Core</Name>
+    <ProjectReference Include="..\Portable\Jam.NET.Portable.csproj">
+      <Project>{33FE7079-B3CF-49B3-89C1-165EF78457B4}</Project>
+      <Name>Jam.NET.Portable</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
