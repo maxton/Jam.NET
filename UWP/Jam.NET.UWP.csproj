@@ -113,19 +113,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mobile.Core\Jam.NET.Mobile.Core.csproj">
-      <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
-      <Name>Jam.NET.Mobile.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mobile\Jam.NET.Mobile.csproj">
-      <Project>{6e6fa900-0d6a-4d65-9a1c-6cd54e1cd80d}</Project>
-      <Name>Jam.NET.Mobile</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl.Build">
-      <Version>1.0.21</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.1</Version>
     </PackageReference>
@@ -147,6 +134,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Jam.NET.UWP_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Standard\Jam.NET.Core.csproj">
+      <Project>{c99db4a0-9987-45e2-9f9e-d27d09f743cf}</Project>
+      <Name>Jam.NET.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portable\Jam.NET.Portable.csproj">
+      <Project>{33fe7079-b3cf-49b3-89c1-165ef78457b4}</Project>
+      <Name>Jam.NET.Portable</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

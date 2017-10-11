@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Jammit.Mobile"
+             x:Class="Jammit.Mobile.SettingsPage">
+
+  <ContentPage.Content>
+    <StackLayout>
+      <Grid>
+        <Label Grid.Row="0" Grid.Column="0" Text="Service URI" />
+        <Entry
+          Grid.Row="0"
+          Grid.Column="1"
+          Grid.ColumnSpan="2"
+          Placeholder="Enter service URI path."
+          x:Name="ServiceUriEntry"
+          Text="{Binding Mode=TwoWay, Source={x:Static local:Settings.ServiceUri}}" />
+
+        <Label Grid.Row="1" Grid.Column="0" Text="Authorization Status" />
+        <Entry Grid.Row="1" Grid.Column="1" IsEnabled="False" BindingContext="{x:Static local:App.Client}" Text="{Binding AuthStatus}" />
+        <Button Grid.Row="1" Grid.Column="2" x:Name="AuthorizeButton" Text="Request Authorization" Clicked="AuthorizeButton_Clicked" />
+
+        <Label Grid.Row="2" Grid.Column="0" Text="Download song metadata only" />
+        <Switch Grid.Row="2" Grid.Column="1" x:Name="SkipDownloadSwitch" IsToggled="{Binding Mode=TwoWay, Source={x:Static local:Settings.SkipDownload}}" Toggled="SkipDownloadSwitch_Toggled" />
+      </Grid>
+      <Button x:Name="CloseButton" Text="Close" Clicked="CloseButton_Clicked" />
+    </StackLayout>
+  </ContentPage.Content>
+
+</ContentPage>
