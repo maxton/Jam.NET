@@ -9,7 +9,7 @@ namespace Jammit.Audio
 
     public MockSongPlayer(Model.ISong song) { }
 
-    #region ISongPlayer2 members
+    #region ISongPlayer members
 
     public void Play()
     {
