@@ -8,7 +8,7 @@ using Xamarin.Forms;
 using Jammit.Model;
 using PCLStorage;
 
-namespace Jammit.Mobile
+namespace Jammit.Portable
 {
   public partial class MainPage : ContentPage
   {

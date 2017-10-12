@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Navigation;
 
 using PCLStorage;
 
-namespace Jam.NET.Mobile.UWP
+namespace Jammit.UWP
 {
   public sealed partial class MainPage
   {
@@ -23,7 +23,7 @@ namespace Jam.NET.Mobile.UWP
     {
       this.InitializeComponent();
 
-      LoadApplication(new Jammit.Mobile.App(FileSystem.Current, new Jammit.UWP.Model.NAudioUniversalSongPlayerFactory()));
+      LoadApplication(new Jammit.Portable.App(FileSystem.Current, new Jammit.UWP.Model.NAudioUniversalSongPlayerFactory()));
     }
   }
 }

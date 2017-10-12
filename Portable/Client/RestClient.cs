@@ -12,7 +12,7 @@ using Plugin.DeviceInfo;
 
 using Xamarin.Forms;
 
-namespace Jammit.Mobile.Client
+namespace Jammit.Portable.Client
 {
   class RestClient : BindableObject, IClient
   {

@@ -9,9 +9,9 @@
     <ProjectGuid>{41182BA1-FEE1-4FF3-AC8D-5A234DDF8664}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Jam.NET.Mobile.iOS</RootNamespace>
+    <RootNamespace>Jammit.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Jam.NET.Mobile.iOS</AssemblyName>
+    <AssemblyName>Jam.NET.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <MtouchSdkVersion>

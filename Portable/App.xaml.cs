@@ -7,7 +7,7 @@ using Xamarin.Forms;
 using PCLStorage;
 using Jammit.Model;
 
-namespace Jammit.Mobile
+namespace Jammit.Portable
 {
   public partial class App : Application
   {
@@ -24,7 +24,7 @@ namespace Jammit.Mobile
     {
       InitializeComponent();
 
-      MainPage = new Jammit.Mobile.MainPage();
+      MainPage = new Jammit.Portable.MainPage();
     }
 
     public App(IFileSystem fileSystem) : this(fileSystem, new MockSongPlayerFactory()) {}
@@ -39,7 +39,7 @@ namespace Jammit.Mobile
       App.fileSystem = fileSystem;
       App.playerFactory = playerFactory;
 
-      MainPage = new Jammit.Mobile.MainPage();
+      MainPage = new Jammit.Portable.MainPage();
     }
 
     #region Properties

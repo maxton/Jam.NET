@@ -107,10 +107,10 @@ namespace Jammit.Model
 
     public void AddSong(SongInfo song)
     {
-      if (!Mobile.Settings.SkipDownload)
+      if (!Portable.Settings.SkipDownload)
       {
         // Download the file.
-        var downloadTask = Task.Run(async () => await Mobile.App.Client.DownloadSong(song.Id));
+        var downloadTask = Task.Run(async () => await Portable.App.Client.DownloadSong(song.Id));
         downloadTask.Wait();
 
         // Make sure Tracks and Downloads dirs exists.
@@ -152,7 +152,7 @@ namespace Jammit.Model
         Save();
 
         // Cleanup.
-        if (!Mobile.Settings.SkipDownload)
+        if (!Portable.Settings.SkipDownload)
         {
           downloadsDir.GetFileAsync($"{song.Id}.zip").Result.DeleteAsync();
         }

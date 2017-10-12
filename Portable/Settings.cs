@@ -1,7 +1,7 @@
 ﻿using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 
-namespace Jammit.Mobile
+namespace Jammit.Portable
 {
   /// <summary>
   /// This is the Settings static class that can be used in your Core solution or in any

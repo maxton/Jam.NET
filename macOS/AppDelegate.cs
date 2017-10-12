@@ -35,7 +35,7 @@ namespace Jammit.macOS
     public override void DidFinishLaunching(NSNotification notification)
     {
       Forms.Init();
-      LoadApplication(new Jammit.Mobile.App(FileSystem.Current, new MacOSSongPlayerFactory()));
+      LoadApplication(new Jammit.Portable.App(FileSystem.Current, new MacOSSongPlayerFactory()));
       base.DidFinishLaunching(notification);
     }
 

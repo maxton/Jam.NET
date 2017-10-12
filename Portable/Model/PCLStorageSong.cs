@@ -26,7 +26,7 @@ namespace Jammit.Model
     {
       Metadata = metadata;
 
-      _songDir = Mobile.App.FileSystem.LocalStorage
+      _songDir = Portable.App.FileSystem.LocalStorage
         .GetFolderAsync(Path.Combine("Tracks", $"{metadata.Id}.jcf")).Result;
 
       Tracks = InitTracks();
