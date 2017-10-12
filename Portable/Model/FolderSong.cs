@@ -42,9 +42,6 @@ namespace Jammit.Model
         Guid id = Guid.Parse(dict.String("identifier"));
         string classs = dict.String("class");
 
-        /// Search from concrete to abstract types.
-
-
         switch (classs)
         {
           case "JMEmptyTrack":
@@ -62,8 +59,8 @@ namespace Jammit.Model
               ScoreSystemHeight = (uint)dict.Int("scoreSystemHeight"),
               ScoreSystemInterval = (uint)dict.Int("scoreSystemInterval")
             };
-            var notationPages = Directory.GetFiles(_songPath, "*_jfcn_??").Length;
-            var tablaturePages = Directory.GetFiles(_songPath, "*_jfct_??").Length;
+            var notationPages = Directory.GetFiles(_songPath, "*_jcfn_??").Length;
+            var tablaturePages = Directory.GetFiles(_songPath, "*_jcft_??").Length;
             if (notationPages + tablaturePages > 0)
             {
               result.Add(new NotatedTrackInfo(source)
