@@ -36,7 +36,7 @@ namespace Jammit.Portable
     {
       BindingContext = this; // Needed to actually bind local properties.
       Song = song;
-      SongContents = new FolderSong(song);
+      SongContents = new PCLStorageSong(song);
 
       ScoresInfo = new List<ScoreInfo>();
       var tracks = SongContents.Tracks.Where(t => t is NotatedTrackInfo);

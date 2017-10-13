@@ -35,7 +35,8 @@ namespace Jammit.Portable
 
       Jammit.Model.Library.FileSystem = fileSystem;
       client = new Client.RestClient();
-      library = new PCLStorageLibrary(fileSystem);
+      //library = new PCLStorageLibrary(fileSystem);
+      library = new FolderLibrary(fileSystem.LocalStorage.Path);
       App.fileSystem = fileSystem;
       App.playerFactory = playerFactory;
 
