@@ -25,7 +25,7 @@ namespace Jammit.Model
       Metadata = metadata;
 
       _songDir = Portable.App.FileSystem.LocalStorage
-        .GetFolderAsync(Path.Combine("Tracks", $"{metadata.Id}.jcf")).Result;
+        .GetFolderAsync(Path.Combine("Tracks", $"{metadata.Id.ToString().ToUpper()}.jcf")).Result;
 
       Tracks = InitTracks();
       Beats = InitBeats();
@@ -82,8 +82,8 @@ namespace Jammit.Model
               NotationPages = notationPages,
               TablaturePages = tablaturePages
             });
-          else //TODO:throw?
-            result.Add(source);
+          else
+            result.Add(source); // Band track, likely
         }
         else if (map.Count == 2)
           result.Add(new EmptyTrackInfo { Identifier = Guid.Parse(map["identifier"]) });
@@ -242,7 +242,7 @@ namespace Jammit.Model
 
       for (int i = 0; i < notated.NotationPages; i++)
       {
-        var imageFile = _songDir.GetFileAsync($"{notated.Identifier}_jcfn_{i:D2}").Result;
+        var imageFile = _songDir.GetFileAsync($"{notated.Identifier.ToString().ToUpper()}_jcfn_{i:D2}").Result;
         var imageStream = imageFile.OpenAsync(PCLStorage.FileAccess.Read);
         ret.Add(ImageSource.FromStream(() => { return imageStream.Result; }));
       }
@@ -257,7 +257,7 @@ namespace Jammit.Model
 
       for (int i = 0; i < notated.NotationPages; i++)
       {
-        var imageFile = _songDir.GetFileAsync($"{notated.Identifier}_jcft_{i:D2}").Result;
+        var imageFile = _songDir.GetFileAsync($"{notated.Identifier.ToString().ToUpper()}_jcft_{i:D2}").Result;
         var imageStream = imageFile.OpenAsync(PCLStorage.FileAccess.Read);
         ret.Add(ImageSource.FromStream(() => { return imageStream.Result; }));
       }

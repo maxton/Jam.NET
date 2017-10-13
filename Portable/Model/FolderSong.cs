@@ -21,15 +21,15 @@ namespace Jammit.Model
     {
       Metadata = metadata;
 
-      _songPath = Path.Combine(_tracksPath, $"{metadata.Id}.jcf");
+      _songPath = Path.Combine(_tracksPath, $"{metadata.Id.ToString().ToUpper()}.jcf");
 
-      Tracks = InitTracks(metadata);
-      Beats = InitBeats(metadata);
+      Tracks = InitTracks();
+      Beats = InitBeats();
       Sections = InitSections();
       _notationData = InitScoreNodes();
     }
 
-    private List<TrackInfo> InitTracks(SongInfo song)
+    private List<TrackInfo> InitTracks()
     {
       var result = new List<TrackInfo>();
       var tracksArray = PropertyListParser.Parse(Path.Combine(_songPath, "tracks.plist")) as NSArray;
@@ -38,7 +38,7 @@ namespace Jammit.Model
         var dict = track as NSDictionary;
         if (dict == null)
           continue;
-
+       
         Guid id = Guid.Parse(dict.String("identifier"));
         string classs = dict.String("class");
 
@@ -59,8 +59,8 @@ namespace Jammit.Model
               ScoreSystemHeight = (uint)dict.Int("scoreSystemHeight"),
               ScoreSystemInterval = (uint)dict.Int("scoreSystemInterval")
             };
-            var notationPages = Directory.GetFiles(_songPath, "*_jcfn_??").Length;
-            var tablaturePages = Directory.GetFiles(_songPath, "*_jcft_??").Length;
+            var notationPages = Directory.GetFiles(_songPath, $"{id.ToString().ToUpper()}_jcfn_??").Length;
+            var tablaturePages = Directory.GetFiles(_songPath, $"{id.ToString().ToUpper()}_jcft_??").Length;
             if (notationPages + tablaturePages > 0)
             {
               result.Add(new NotatedTrackInfo(source)
@@ -76,12 +76,18 @@ namespace Jammit.Model
             break;
 
           default:
-            result.Add(new ConcreteTrackInfo()
-            {
-              Class = classs,
-              Identifier = id,
-              Title = dict.String("title")
-            });
+            if (dict.Count == 3)
+              result.Add(new ConcreteTrackInfo()
+              {
+                Class = classs,
+                Identifier = id,
+                Title = dict.String("title")
+              });
+            else if (dict.Count == 2)
+              result.Add(new EmptyTrackInfo
+              {
+                Identifier = id
+              });
             break;
         }
       }
@@ -89,7 +95,7 @@ namespace Jammit.Model
       return result;
     }
 
-    private List<Beat> InitBeats(SongInfo song)
+    private List<Beat> InitBeats()
     {
       var result = new List<Beat>();
       var ghostArray = PropertyListParser.Parse(Path.Combine(_songPath, "ghost.plist")) as NSArray;
@@ -153,10 +159,10 @@ namespace Jammit.Model
 
     public ImageSource GetCover()
     {
-      using (var stream = File.OpenRead(Path.Combine(_songPath, "cover.jpg")))
+      return ImageSource.FromStream(() =>
       {
-        return FileImageSource.FromStream(() => { return stream; });
-      }
+        return File.OpenRead(Path.Combine(_songPath, "cover.jpg"));
+      });
     }
 
     public List<ImageSource> GetNotation(TrackInfo t)
@@ -164,7 +170,7 @@ namespace Jammit.Model
       var result = new List<ImageSource>();
       var notated = t as NotatedTrackInfo;
 
-      foreach (var file in Directory.GetFiles(_songPath, "*_jcfn_??"))
+      foreach (var file in Directory.GetFiles(_songPath, $"{t.Identifier.ToString().ToUpper()}_jcfn_??"))
       {
         result.Add(ImageSource.FromStream(() => { return File.OpenRead(file); }));
       }
@@ -177,7 +183,7 @@ namespace Jammit.Model
       var result = new List<ImageSource>();
       var notated = t as TrackInfo;
 
-      foreach (var file in Directory.GetFiles(_songPath, "*_jcft_??"))
+      foreach (var file in Directory.GetFiles(_songPath, $"{t.Identifier.ToString().ToUpper()}_jcft_??"))
       {
         result.Add(ImageSource.FromStream(() => { return File.OpenRead(file); }));
       }

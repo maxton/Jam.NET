@@ -25,7 +25,7 @@ namespace Jammit.Audio.iOS
       {
         if (t.Class == "JMFileTrack")
         {
-          trackPath = $"{t.Identifier}_jcfx";
+          trackPath = $"{t.Identifier.ToString().ToUpper()}_jcfx";
 
           break; //TODO: Add all file channel tracks.
         }
