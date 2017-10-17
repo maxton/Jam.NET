@@ -53,8 +53,8 @@ namespace Jammit.Portable
 
       ScorePicker.SelectedIndex = 0;//TODO: Set up in markup (XAML)?
       var scoreInfo = (ScoreInfo)ScorePicker.SelectedItem;
-      ScoreImage.Source = SongContents.GetNotation(scoreInfo.Track)[0];
-      AlbumImage.Source = SongContents.GetCover();
+      ScoreImage.Source = ImageSource.FromStream(() => { return SongContents.GetNotation(scoreInfo.Track)[0]; });
+      AlbumImage.Source = ImageSource.FromStream(() => { return SongContents.GetCover(); });
 
       Player = App.SongPlayerFactory.CreateSongPlayer(SongContents);
     }
@@ -68,9 +68,9 @@ namespace Jammit.Portable
     {
       var scoreInfo = (ScoreInfo)ScorePicker.SelectedItem;
       if (scoreInfo.Type == "Score")
-        ScoreImage.Source = SongContents.GetNotation(scoreInfo.Track)[0];
+        ScoreImage.Source = ImageSource.FromStream(() => { return SongContents.GetNotation(scoreInfo.Track)[0]; });
       else // Tablature
-        ScoreImage.Source = SongContents.GetTablature(scoreInfo.Track)[0];
+        ScoreImage.Source = ImageSource.FromStream(() => { return SongContents.GetTablature(scoreInfo.Track)[0]; });
     }
 
     private void PlayButton_Clicked(object sender, EventArgs e)

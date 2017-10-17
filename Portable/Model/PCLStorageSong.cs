@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 using PCLStorage;
-using Xamarin.Forms;
 
 using Jammit.Audio;
 
@@ -229,40 +228,38 @@ namespace Jammit.Model
       return new MockSongPlayer(this);
     }
 
-    public ImageSource GetCover()
+    public Stream GetCover()
     {
-      var stream = _songDir.GetFileAsync("cover.jpg").Result.OpenAsync(PCLStorage.FileAccess.Read).Result;
-      return FileImageSource.FromStream(() => { return stream; });
+      return _songDir.GetFileAsync("cover.jpg").Result.OpenAsync(PCLStorage.FileAccess.Read).Result;
     }
 
-    public List<ImageSource> GetNotation(TrackInfo t)
+    public List<Stream> GetNotation(TrackInfo t)
     {
-      var ret = new List<ImageSource>();
+      var result = new List<Stream>();
       var notated = t as NotatedTrackInfo;
-
       for (int i = 0; i < notated.NotationPages; i++)
       {
         var imageFile = _songDir.GetFileAsync($"{notated.Identifier.ToString().ToUpper()}_jcfn_{i:D2}").Result;
         var imageStream = imageFile.OpenAsync(PCLStorage.FileAccess.Read);
-        ret.Add(ImageSource.FromStream(() => { return imageStream.Result; }));
+        result.Add(imageStream.Result);
       }
 
-      return ret;
+      return result;
     }
 
-    public List<ImageSource> GetTablature(TrackInfo t)
+    public List<Stream> GetTablature(TrackInfo t)
     {
-      var ret = new List<ImageSource>();
+      var result = new List<Stream>();
       var notated = t as NotatedTrackInfo;
 
       for (int i = 0; i < notated.NotationPages; i++)
       {
         var imageFile = _songDir.GetFileAsync($"{notated.Identifier.ToString().ToUpper()}_jcft_{i:D2}").Result;
         var imageStream = imageFile.OpenAsync(PCLStorage.FileAccess.Read);
-        ret.Add(ImageSource.FromStream(() => { return imageStream.Result; }));
+        result.Add(imageFile.OpenAsync(PCLStorage.FileAccess.Read).Result);
       }
 
-      return ret;
+      return result;
     }
 
     public ScoreNodes GetNotationData(string trackName, string notationType)

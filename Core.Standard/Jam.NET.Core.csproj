@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="plist-cil" Version="1.16.0" />
-    <PackageReference Include="Xamarin.Forms" Version="2.4.0.282" />
   </ItemGroup>
 
 </Project>

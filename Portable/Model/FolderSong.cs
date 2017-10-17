@@ -5,7 +5,6 @@ using System.Linq;
 using System.Xml.Linq;
 
 using Claunia.PropertyList;
-using Xamarin.Forms;
 
 using Jammit.Audio;
 
@@ -157,35 +156,32 @@ namespace Jammit.Model
       return new MockSongPlayer(this);
     }
 
-    public ImageSource GetCover()
+    public Stream GetCover()
     {
-      return ImageSource.FromStream(() =>
-      {
-        return File.OpenRead(Path.Combine(_songPath, "cover.jpg"));
-      });
+      return File.OpenRead(Path.Combine(_songPath, "cover.jpg"));
     }
 
-    public List<ImageSource> GetNotation(TrackInfo t)
+    public List<Stream> GetNotation(TrackInfo t)
     {
-      var result = new List<ImageSource>();
+      var result = new List<Stream>();
       var notated = t as NotatedTrackInfo;
 
       foreach (var file in Directory.GetFiles(_songPath, $"{t.Identifier.ToString().ToUpper()}_jcfn_??"))
       {
-        result.Add(ImageSource.FromStream(() => { return File.OpenRead(file); }));
+        result.Add(File.OpenRead(file));
       }
 
       return result;
     }
 
-    public List<ImageSource> GetTablature(TrackInfo t)
+    public List<Stream> GetTablature(TrackInfo t)
     {
-      var result = new List<ImageSource>();
+      var result = new List<Stream>();
       var notated = t as TrackInfo;
 
       foreach (var file in Directory.GetFiles(_songPath, $"{t.Identifier.ToString().ToUpper()}_jcft_??"))
       {
-        result.Add(ImageSource.FromStream(() => { return File.OpenRead(file); }));
+        result.Add(File.OpenRead(file));
       }
 
       return result;

@@ -2,7 +2,6 @@
 using System.IO;
 
 using Jammit.Audio;
-using Xamarin.Forms;
 
 namespace Jammit.Model
 {
@@ -34,21 +33,21 @@ namespace Jammit.Model
     sbyte[] GetWaveForm();
 
     /// <summary>
-    /// Returns the cover artwork for this song.
+    /// Returns the cover artwork stream for this song.
     /// </summary>
-    ImageSource GetCover();
+    Stream GetCover();
 
     /// <summary>
-    /// Returns the notation images for this song, in order.
+    /// Returns the notation image streams for this song, in order.
     /// </summary>
     /// <param name="t">Track to get notation for.</param>
-    List<ImageSource> GetNotation(TrackInfo t);
+    List<Stream> GetNotation(TrackInfo t);
 
     /// <summary>
-    /// Returns the tablature images for this song, in order.
+    /// Returns the tablature image streams for this song, in order.
     /// </summary>
     /// <param name="t">Track to get tablature for.</param>
-    List<ImageSource> GetTablature(TrackInfo t);
+    List<Stream> GetTablature(TrackInfo t);
 
     ScoreNodes GetNotationData(string trackName, string notationType);
 
