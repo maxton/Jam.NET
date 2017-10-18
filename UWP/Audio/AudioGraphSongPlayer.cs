@@ -39,16 +39,16 @@ namespace Jammit.Audio
         }
       }
 
-      var devices = Task.Run(async () => await DeviceInformation.FindAllAsync(DeviceClass.AudioRender)).Result;
+      //var devices = Task.Run(async () => await DeviceInformation.FindAllAsync(DeviceClass.AudioRender)).Result;
       //foreach (var device in devices)
       //{
-
       //}
-      selectedDevice = devices.FirstOrDefault(d => d.IsDefault);
+      //selectedDevice = devices.FirstOrDefault(d => d.IsDefault);
+      //selectedDevice = Task.Run(async () => await DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioRenderId(Windows.Media.Devices.AudioDeviceRole.Default))).Result;
 
       // Init graph
       var settings = new AudioGraphSettings(AudioRenderCategory.Media);
-      settings.PrimaryRenderDevice = selectedDevice;
+      //settings.PrimaryRenderDevice = selectedDevice;
       var createResult = Task.Run(async () => await AudioGraph.CreateAsync(settings)).Result;
       if (AudioGraphCreationStatus.Success != createResult.Status)
         return;
@@ -68,8 +68,8 @@ namespace Jammit.Audio
         return;
 
       var fileInputNode = createInput.FileInputNode;
-      fileInputNode.LoopCount = null;
-      fileInputNode.OutgoingGain = 1;
+      //fileInputNode.LoopCount = null;
+      //fileInputNode.OutgoingGain = 1;
       fileInputNode.AddOutgoingConnection(deviceOutputNode);
     }
 
