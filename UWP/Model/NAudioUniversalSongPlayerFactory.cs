@@ -12,7 +12,8 @@ namespace Jammit.UWP.Model
   {
     public ISongPlayer CreateSongPlayer(ISong song)
     {
-      return new NAudioUniversalSongPlayer(song);
+      //return new NAudioUniversalSongPlayer(song);
+      return new AudioGraphSongPlayer(song);
     }
   }
 }

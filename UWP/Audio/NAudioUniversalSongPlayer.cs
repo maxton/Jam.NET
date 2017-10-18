@@ -65,7 +65,7 @@ namespace Jammit.Audio
       _waveOut.Dispose();
     }
 
-    #region ISongPlayer2
+    #region ISongPlayer
 
     public void Play()
     {

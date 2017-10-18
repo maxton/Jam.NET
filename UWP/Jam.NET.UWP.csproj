@@ -53,6 +53,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Audio\AudioGraphSongPlayer.cs" />
     <Compile Include="Audio\ClickTrackStream.cs" />
     <Compile Include="Audio\ImaWaveStream.cs" />
     <Compile Include="Audio\NAudioUniversalSongPlayer.cs" />
