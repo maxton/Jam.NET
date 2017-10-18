@@ -29,9 +29,7 @@ namespace Jammit.Portable
 
     private void UpdateListView()
     {
-      LibraryView.ItemsSource = null;
       Songs.Sort((t1, t2) => t1.Artist.CompareTo(t2.Artist) * 10 + t1.Title.CompareTo(t2.Title));
-      LibraryView.ItemsSource = Songs;
     }
 
     private void LibraryView_ItemTapped(object sender, ItemTappedEventArgs e)
