@@ -56,7 +56,7 @@ namespace Jammit.Portable
       ScoreImage.Source = ImageSource.FromStream(() => { return SongContents.GetNotation(scoreInfo.Track)[0]; });
       AlbumImage.Source = ImageSource.FromStream(() => { return SongContents.GetCover(); });
 
-      Player = App.SongPlayerFactory.CreateSongPlayer(SongContents);
+      Player = App.SongPlayerFactory(SongContents);
     }
 
     private void SongPage_Close(object sender, EventArgs e)

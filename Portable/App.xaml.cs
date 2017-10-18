@@ -5,6 +5,7 @@ using System.Text;
 
 using Xamarin.Forms;
 using PCLStorage;
+using Jammit.Audio;
 using Jammit.Model;
 
 namespace Jammit.Portable
@@ -27,7 +28,19 @@ namespace Jammit.Portable
       MainPage = new Jammit.Portable.MainPage();
     }
 
-    public App(IFileSystem fileSystem) : this(fileSystem, new MockSongPlayerFactory()) {}
+    public App(IFileSystem fileSystem, Func<ISong, ISongPlayer> songPlayerFactory)
+    {
+      InitializeComponent();
+
+      client = new Client.RestClient();
+      library = new FolderLibrary(fileSystem.LocalStorage.Path);
+      App.fileSystem = fileSystem;
+      App.SongPlayerFactory = songPlayerFactory;
+
+      MainPage = new Jammit.Portable.MainPage();
+    }
+
+    public App(IFileSystem fileSystem) : this(fileSystem, (s) => { return new MockSongPlayer(s); }) {}
 
     public App(IFileSystem fileSystem, ISongPlayerFactory playerFactory)
     {
@@ -49,7 +62,7 @@ namespace Jammit.Portable
 
     public static IFileSystem FileSystem => fileSystem;
 
-    public static ISongPlayerFactory SongPlayerFactory => playerFactory;
+    public static Func<ISong, ISongPlayer> SongPlayerFactory { get; private set; }
 
     #endregion
 
