@@ -12,7 +12,7 @@ namespace Jammit.Model
 {
   public class FolderSong : ISong
   {
-    private string _tracksPath = Path.Combine(Library.FileSystem.LocalStorage.Path, "Tracks");
+    private readonly string _tracksPath = Path.Combine(Portable.App.FileSystem.LocalStorage.Path, "Tracks");
     private string _songPath;
     private List<ScoreNodes> _notationData;
 

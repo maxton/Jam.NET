@@ -16,7 +16,7 @@ namespace Jammit.Portable
     {
       InitializeComponent();
 
-      this.FilesPath.Text = Library.FileSystem.LocalStorage.Path;
+      this.FilesPath.Text = App.FileSystem.LocalStorage.Path;
     }
 
     public static List<SongInfo> Songs => App.Library.GetSongs();
