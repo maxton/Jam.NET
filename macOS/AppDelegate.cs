@@ -5,7 +5,7 @@ using PCLStorage;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.MacOS;
 
-using Jammit.Model.macOS;
+using Jammit.Audio.macOS;
 
 namespace Jammit.macOS
 {
@@ -35,7 +35,7 @@ namespace Jammit.macOS
     public override void DidFinishLaunching(NSNotification notification)
     {
       Forms.Init();
-      LoadApplication(new Jammit.Portable.App(FileSystem.Current, new MacOSSongPlayerFactory()));
+      LoadApplication(new Jammit.Portable.App(FileSystem.Current, (s) => { return new MacOSSongPlayer(s); }));
       base.DidFinishLaunching(notification);
     }
 

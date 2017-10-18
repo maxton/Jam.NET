@@ -6,7 +6,7 @@ using Foundation;
 using PCLStorage;
 using UIKit;
 
-using Jammit.Model.iOS;
+using Jammit.Audio.iOS;
 
 namespace Jammit.iOS
 {
@@ -26,7 +26,7 @@ namespace Jammit.iOS
     public override bool FinishedLaunching(UIApplication app, NSDictionary options)
     {
       global::Xamarin.Forms.Forms.Init();
-      LoadApplication(new Jammit.Portable.App(FileSystem.Current, new IOSSongPlayerFactory()));
+      LoadApplication(new Jammit.Portable.App(FileSystem.Current, (s) => { return new IOSSongPlayer(s); }));
 
       return base.FinishedLaunching(app, options);
     }

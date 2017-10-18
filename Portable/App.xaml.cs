@@ -12,29 +12,13 @@ namespace Jammit.Portable
 {
   public partial class App : Application
   {
-    private static Client.IClient client;
-
-    private static ILibrary library;
-
-    private static IFileSystem fileSystem;
-
-    private static ISongPlayerFactory playerFactory;
-
-    //TODO: Deprecate, or research how to initialize resources (FileSystem, etc).
-    public App()
-    {
-      InitializeComponent();
-
-      MainPage = new Jammit.Portable.MainPage();
-    }
-
     public App(IFileSystem fileSystem, Func<ISong, ISongPlayer> songPlayerFactory)
     {
       InitializeComponent();
 
-      client = new Client.RestClient();
-      library = new FolderLibrary(fileSystem.LocalStorage.Path);
-      App.fileSystem = fileSystem;
+      App.Client = new Client.RestClient();
+      App.Library = new FolderLibrary(fileSystem.LocalStorage.Path);
+      App.FileSystem = fileSystem;
       App.SongPlayerFactory = songPlayerFactory;
 
       MainPage = new Jammit.Portable.MainPage();
@@ -42,25 +26,13 @@ namespace Jammit.Portable
 
     public App(IFileSystem fileSystem) : this(fileSystem, (s) => { return new MockSongPlayer(s); }) {}
 
-    public App(IFileSystem fileSystem, ISongPlayerFactory playerFactory)
-    {
-      InitializeComponent();
-
-      client = new Client.RestClient();
-      library = new FolderLibrary(fileSystem.LocalStorage.Path);
-      App.fileSystem = fileSystem;
-      App.playerFactory = playerFactory;
-
-      MainPage = new Jammit.Portable.MainPage();
-    }
-
     #region Properties
 
-    public static Client.IClient Client => client;
+    public static Client.IClient Client { get; private set; }
 
-    public static ILibrary Library => library;
+    public static ILibrary Library { get; private set; }
 
-    public static IFileSystem FileSystem => fileSystem;
+    public static IFileSystem FileSystem { get; private set; }
 
     public static Func<ISong, ISongPlayer> SongPlayerFactory { get; private set; }
 

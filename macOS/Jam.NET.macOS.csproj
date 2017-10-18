@@ -85,12 +85,6 @@
     <Reference Include="PCLStorage">
       <HintPath>..\packages\PCLStorage.1.0.2\lib\portable-Xamarin.iOS+Xamarin.Mac\PCLStorage.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.Settings.Abstractions">
-      <HintPath>..\packages\Xam.Plugins.Settings.3.0.1\lib\Xamarin.Mac20\Plugin.Settings.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.Settings">
-      <HintPath>..\packages\Xam.Plugins.Settings.3.0.1\lib\Xamarin.Mac20\Plugin.Settings.dll</HintPath>
-    </Reference>
     <Reference Include="plist-cil">
       <HintPath>..\packages\plist-cil.1.16.0\lib\netstandard1.6\plist-cil.dll</HintPath>
     </Reference>
@@ -99,6 +93,12 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Settings.Abstractions">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.1.1\lib\Xamarin.Mac20\Plugin.Settings.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Settings">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.1.1\lib\Xamarin.Mac20\Plugin.Settings.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -130,9 +130,7 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Audio\MacOSSongPlayer.cs" />
-    <Compile Include="Model\MacOSSongPlayerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Standard\Jam.NET.Core.csproj">
