@@ -55,7 +55,7 @@ namespace Jammit.Model
         }
       }
 
-      SetValue(SongsProperty, _cache.Values.ToList());
+      Songs = _cache.Values.ToList();
     }
 
     private SongInfo FromXml(XElement xe)
@@ -122,7 +122,7 @@ namespace Jammit.Model
         ZipFile.ExtractToDirectory(zipPath, tracksDir.FullName);
 
         _cache[song.Id] = song;
-        SetValue(SongsProperty, _cache.Values.ToList());
+        Songs = _cache.Values.ToList();
 
         Save();
 
@@ -133,7 +133,7 @@ namespace Jammit.Model
       else
       {
         _cache[song.Id] = song;
-        SetValue(SongsProperty, _cache.Values.ToList());
+        Songs = _cache.Values.ToList();
 
         Save();
       }
@@ -149,6 +149,12 @@ namespace Jammit.Model
       get
       {
         return (List<SongInfo>)GetValue(SongsProperty);
+      }
+
+      private set
+      {
+        value.Sort( (s1, s2) => s1.Artist.CompareTo(s2.Artist) * 10 + s1.Title.CompareTo(s2.Title) );
+        SetValue(SongsProperty, value);
       }
     }
 
@@ -168,7 +174,7 @@ namespace Jammit.Model
       }
 
       _cache.Remove(id);
-      SetValue(SongsProperty, _cache.Values.ToList());
+      Songs = _cache.Values.ToList();
 
       Save();
     }

@@ -8,6 +8,7 @@ namespace Jammit.Model
 {
   public interface ILibrary
   {
+    [Obsolete]
     List<SongInfo> GetSongs();
 
     List<SongInfo> Songs { get; }
