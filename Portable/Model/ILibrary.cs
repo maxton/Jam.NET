@@ -10,6 +10,8 @@ namespace Jammit.Model
   {
     List<SongInfo> GetSongs();
 
+    List<SongInfo> Songs { get; }
+
     void AddSong(SongInfo song);
 
     void RemoveSong(Guid id);

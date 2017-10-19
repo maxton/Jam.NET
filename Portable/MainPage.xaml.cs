@@ -17,9 +17,8 @@ namespace Jammit.Portable
       InitializeComponent();
 
       this.FilesPath.Text = App.FileSystem.LocalStorage.Path;
+      this.LibraryView.ItemsSource = App.Library.Songs;
     }
-
-    public static List<SongInfo> Songs => App.Library.GetSongs();
 
     [Obsolete]
     public static string DeviceId => Plugin.DeviceInfo.CrossDeviceInfo.Current.Id;
@@ -29,7 +28,7 @@ namespace Jammit.Portable
 
     private void UpdateListView()
     {
-      Songs.Sort((t1, t2) => t1.Artist.CompareTo(t2.Artist) * 10 + t1.Title.CompareTo(t2.Title));
+      //Songs.Sort((t1, t2) => t1.Artist.CompareTo(t2.Artist) * 10 + t1.Title.CompareTo(t2.Title));
     }
 
     private void LibraryView_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -58,6 +57,7 @@ namespace Jammit.Portable
 
     protected override void OnAppearing()
     {
+      base.OnAppearing();
       UpdateListView();
     }
 

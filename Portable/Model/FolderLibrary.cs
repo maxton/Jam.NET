@@ -7,11 +7,22 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 using PCLStorage;
+using Xamarin.Forms;
 
 namespace Jammit.Model
 {
-  class FolderLibrary : ILibrary
+  class FolderLibrary : BindableObject, ILibrary, System.ComponentModel.INotifyPropertyChanged
   {
+    
+    public static readonly BindableProperty SongsProperty =
+      BindableProperty.Create(
+        "Songs",
+        typeof(List<SongInfo>),
+        typeof(List<SongInfo>),
+        new List<SongInfo>() {
+          new SongInfo() { Album = "Album1", Artist = "Artist1", Instrument = "Instrument1", Title = "Title1" } },
+        BindingMode.TwoWay);
+
     private const string LibraryFileName = "library.xml";
 
     private string _storagePath;
@@ -43,6 +54,8 @@ namespace Jammit.Model
           _cache[song.Id] = song;
         }
       }
+
+      SetValue(SongsProperty, _cache.Values.ToList());
     }
 
     private SongInfo FromXml(XElement xe)
@@ -109,17 +122,34 @@ namespace Jammit.Model
         ZipFile.ExtractToDirectory(zipPath, tracksDir.FullName);
 
         _cache[song.Id] = song;
+        SetValue(SongsProperty, _cache.Values.ToList());
+
         Save();
 
         // Cleanup
         if (!Portable.Settings.SkipDownload)
           File.Delete(zipPath);
       }
+      else
+      {
+        _cache[song.Id] = song;
+        SetValue(SongsProperty, _cache.Values.ToList());
+
+        Save();
+      }
     }
 
     public List<SongInfo> GetSongs()
     {
       return _cache.Values.ToList();
+    }
+
+    public List<SongInfo> Songs
+    {
+      get
+      {
+        return (List<SongInfo>)GetValue(SongsProperty);
+      }
     }
 
     public void RemoveSong(Guid id)
@@ -138,6 +168,8 @@ namespace Jammit.Model
       }
 
       _cache.Remove(id);
+      SetValue(SongsProperty, _cache.Values.ToList());
+
       Save();
     }
 
