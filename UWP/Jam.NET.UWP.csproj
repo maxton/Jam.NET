@@ -114,7 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.1</Version>
+      <Version>6.0.2</Version>
     </PackageReference>
     <PackageReference Include="NAudio">
       <Version>1.8.3</Version>
@@ -129,7 +129,7 @@
       <Version>3.1.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>2.4.0.74863</Version>
+      <Version>2.5.0.91635</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@
     <PackageReference Include="plist-cil" Version="1.16.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="3.0.2" />
-    <PackageReference Include="Xamarin.Forms" Version="2.4.0.74863" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.91635" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
   </ItemGroup>
 
