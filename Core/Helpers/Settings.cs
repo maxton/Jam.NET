@@ -37,26 +37,26 @@ namespace Jammit.Helpers
     {
       get
       {
-        return AppSettings.GetValueOrDefault<string>(SettingsKey, SettingsDefault);
+        return AppSettings.GetValueOrDefault(SettingsKey, SettingsDefault);
       }
       set
       {
-        AppSettings.AddOrUpdateValue<string>(SettingsKey, value);
+        AppSettings.AddOrUpdateValue(SettingsKey, value);
       }
     }
 
     public static string TrackPath
     {
-      get { return AppSettings.GetValueOrDefault<string>(TrackPathKey, TrackPathDefault); }
-      set { AppSettings.AddOrUpdateValue<string>(TrackPathKey, value); }
+      get { return AppSettings.GetValueOrDefault(TrackPathKey, TrackPathDefault); }
+      set { AppSettings.AddOrUpdateValue(TrackPathKey, value); }
     }
 
     public static string Dummy
     {
       get
       {
-        int index = AppSettings.GetValueOrDefault<int>(DummyIndexKey);
-        AppSettings.AddOrUpdateValue<int>(DummyIndexKey, (index + 1) % DUMMIES.Length);
+        int index = AppSettings.GetValueOrDefault(DummyIndexKey, DummyIndexDefault);
+        AppSettings.AddOrUpdateValue(DummyIndexKey, (index + 1) % DUMMIES.Length);
 
         return DUMMIES[index];
       }
