@@ -6,7 +6,7 @@
     <OutputPath>$(SolutionDir)Target\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NAudio" Version="1.8.3" />
+    <PackageReference Include="NAudio" Version="1.8.4" />
     <PackageReference Include="plist-cil" Version="1.16.0" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
   </ItemGroup>
