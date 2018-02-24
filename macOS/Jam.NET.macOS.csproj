@@ -133,7 +133,7 @@
     <Compile Include="Audio\MacOSSongPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Standard\Jam.NET.Core.csproj">
+    <ProjectReference Include="..\Core\Jam.NET.Core.csproj">
       <Project>{C99DB4A0-9987-45E2-9F9E-D27D09F743CF}</Project>
       <Name>Jam.NET.Core</Name>
     </ProjectReference>

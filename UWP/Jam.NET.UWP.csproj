@@ -137,7 +137,7 @@
     <None Include="Jam.NET.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Standard\Jam.NET.Core.csproj">
+    <ProjectReference Include="..\Core\Jam.NET.Core.csproj">
       <Project>{c99db4a0-9987-45e2-9f9e-d27d09f743cf}</Project>
       <Name>Jam.NET.Core</Name>
     </ProjectReference>
