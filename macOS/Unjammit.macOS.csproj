@@ -135,11 +135,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Unjammit.Core.csproj">
       <Project>{C99DB4A0-9987-45E2-9F9E-D27D09F743CF}</Project>
-      <Name>Jam.NET.Core</Name>
+      <Name>Unjammit.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Portable\Jam.NET.Portable.csproj">
+    <ProjectReference Include="..\Portable\Unjammit.Portable.csproj">
       <Project>{33FE7079-B3CF-49B3-89C1-165EF78457B4}</Project>
-      <Name>Jam.NET.Portable</Name>
+      <Name>Unjammit.Portable</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />

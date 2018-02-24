@@ -8,7 +8,7 @@
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Jammit.UWP</RootNamespace>
-    <AssemblyName>Jam.NET.UWP</AssemblyName>
+    <AssemblyName>Unjammit.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
@@ -17,7 +17,7 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>Jam.NET.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>Unjammit.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
     <PackageCertificateThumbprint>441585466EBE7F12517CEDD535180D3A300418E9</PackageCertificateThumbprint>
     <IntermediateOutputPath>$(SolutionDir)Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
@@ -134,16 +134,16 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Jam.NET.UWP_TemporaryKey.pfx" />
+    <None Include="Unjammit.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Unjammit.Core.csproj">
       <Project>{c99db4a0-9987-45e2-9f9e-d27d09f743cf}</Project>
-      <Name>Jam.NET.Core</Name>
+      <Name>Unjammit.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Portable\Jam.NET.Portable.csproj">
+    <ProjectReference Include="..\Portable\Unjammit.Portable.csproj">
       <Project>{33fe7079-b3cf-49b3-89c1-165ef78457b4}</Project>
-      <Name>Jam.NET.Portable</Name>
+      <Name>Unjammit.Portable</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0' ">
