@@ -11,97 +11,32 @@ using Windows.System.Profile;
 
 namespace Jammit.Audio
 {
-  class VlcControl : Windows.UI.Xaml.Controls.Control
-  {
-    public Windows.UI.Xaml.Controls.SwapChainPanel SwapChainPanel { get; private set; }
-
-    protected override void OnApplyTemplate()
-    {
-      base.OnApplyTemplate();
-
-      var swapChainPannel = (Windows.UI.Xaml.Controls.SwapChainPanel)this.GetTemplateChild("SwapChainPanel");
-      SwapChainPanel = swapChainPannel;
-      swapChainPannel.CompositionScaleChanged += (sender, e) => { };
-      swapChainPannel.SizeChanged += (sender, e) => { };
-    }
-  }
-
   public class VlcSongPlayer : ISongPlayer
   {
     #region private members
 
-    VlcControl swapChainProvider;
-    MediaPlayer player;
-    string audioDeviceId;
-
-    #region VLC Dialog handlers
-
-    void OnError(string title, string text)
-    {
-
-    }
-
-    void OnLogin(Dialog dialog, string title, string text, string defaultUserName, bool askToStore)
-    {
-
-    }
-
-    void OnQuestion(Dialog dialog, string title, string text, Question qType, string cancel, string action1, string action2)
-    {
-
-    }
-
-    void OnDisplayProgress(Dialog dialog, string title, string text, bool intermediate, float position, string cancel)
-    {
-
-    }
-
-    void OnCancel(Dialog dialog)
-    {
-
-    }
-
-    void OnUpdateProgress(Dialog dialog, float position, string text)
-    {
-
-    }
-
-    #endregion // VLC Dialog handlers
+    VLC.MediaElement mediaElement;
 
     #endregion // private members
 
-    public VlcSongPlayer(ISong s)
+    public VlcSongPlayer(ISong s, VLC.MediaElement mediaElement)
     {
-      // VLC setup
-      // Initialize SwapChainPanel
-      swapChainProvider = new VlcControl();
-      swapChainProvider.ApplyTemplate();
-      Instance instance = new Instance
-      (
-        new List<string>
-        {
-          "-I",
-          "dummy",
-          "--no-osd",
-          //"--verbose=3",
-          "--no-stats",
-          "--avcodec-fast",
-          "--subsdec-encoding",
-          string.Empty,
-          AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile" ? "--deinterlace-mode=bob" : string.Empty,
-          "--aout=winstore"
-          //,$"--keystore-file={System.IO.Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "VLC_MediaElement_KeyStore")}"
-        },
-        swapChainProvider.SwapChainPanel
-      );
-      instance.setDialogHandlers(OnError, OnLogin, OnQuestion, OnDisplayProgress, OnCancel, OnUpdateProgress);
-
-      audioDeviceId = MediaDevice.GetDefaultAudioRenderId(AudioDeviceRole.Default);
-      MediaDevice.DefaultAudioCaptureDeviceChanged += (sender, e) =>
+      string trackPath = "";
+      foreach (var t in s.Tracks)
       {
-        if (AudioDeviceRole.Default == e.Role)
-          audioDeviceId = e.Id;
-      };
+        if (t.Class == "JMFileTrack")
+        {
+          trackPath = $"{t.Identifier}_jcfx";
+        }
+        else
+        {
+          //TODO: Click track
+        }
+      }
+      var uri = $"ms-appdata:///local/Tracks/{s.Metadata.Id}.jcf/{trackPath}";
+
+      this.mediaElement = mediaElement;
+      this.mediaElement.MediaSource = VLC.MediaSource.CreateFromUri(uri);
     }
 
     #region ISongPlayer methods
@@ -112,7 +47,7 @@ namespace Jammit.Audio
 
     public TimeSpan Length => throw new NotImplementedException();
 
-    public PlaybackStatus State => throw new NotImplementedException();
+    public PlaybackStatus State { get; private set; }
 
     public int Channels => throw new NotImplementedException();
 
@@ -128,12 +63,14 @@ namespace Jammit.Audio
 
     public void Pause()
     {
-      throw new NotImplementedException();
+      this.mediaElement.Pause();
+      this.State = PlaybackStatus.Paused;
     }
 
     public void Play()
     {
-      throw new NotImplementedException();
+      this.mediaElement.Play();
+      this.State = PlaybackStatus.Playing;
     }
 
     public void SetChannelVolume(int channel, float volume)
@@ -143,7 +80,8 @@ namespace Jammit.Audio
 
     public void Stop()
     {
-      throw new NotImplementedException();
+      this.mediaElement.Stop();
+      this.State = PlaybackStatus.Stopped;
     }
 
     #endregion

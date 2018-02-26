@@ -6,10 +6,12 @@
     xmlns:local="using:Jammit.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vlc="using:VLC"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+  <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <vlc:MediaElement x:Name="MediaElement" AreTransportControlsEnabled="False">
+    </vlc:MediaElement>
+  </Grid>
 </forms:WindowsPage>
