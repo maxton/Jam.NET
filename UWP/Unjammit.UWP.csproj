@@ -58,6 +58,7 @@
     <Compile Include="Audio\ClickTrackStream.cs" />
     <Compile Include="Audio\ImaWaveStream.cs" />
     <Compile Include="Audio\NAudioUniversalSongPlayer.cs" />
+    <Compile Include="Audio\VlcSongPlayer.cs" />
     <Compile Include="Audio\WaveMixerStream32.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -114,6 +115,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="libVLCX">
+      <Version>3.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.7</Version>
     </PackageReference>
@@ -122,6 +126,9 @@
     </PackageReference>
     <PackageReference Include="PCLStorage">
       <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="VLC.MediaElement.ClassLibrary">
+      <Version>3.0.1.1</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.DeviceInfo">
       <Version>3.1.0</Version>

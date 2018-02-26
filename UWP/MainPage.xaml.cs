@@ -23,7 +23,7 @@ namespace Jammit.UWP
     {
       this.InitializeComponent();
 
-      LoadApplication(new Jammit.Portable.App(FileSystem.Current, (s) => { return new Audio.AudioGraphSongPlayer(s); }));
+      LoadApplication(new Jammit.Portable.App(FileSystem.Current, (s) => { return new Audio.VlcSongPlayer(s); }));
     }
   }
 }
