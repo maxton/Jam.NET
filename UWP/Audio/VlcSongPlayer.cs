@@ -11,12 +11,30 @@ using Windows.System.Profile;
 
 namespace Jammit.Audio
 {
+  class VlcControl : Windows.UI.Xaml.Controls.Control
+  {
+    public Windows.UI.Xaml.Controls.SwapChainPanel SwapChainPanel { get; private set; }
+
+    protected override void OnApplyTemplate()
+    {
+      base.OnApplyTemplate();
+
+      var swapChainPannel = (Windows.UI.Xaml.Controls.SwapChainPanel)this.GetTemplateChild("SwapChainPanel");
+      SwapChainPanel = swapChainPannel;
+      swapChainPannel.CompositionScaleChanged += (sender, e) => { };
+      swapChainPannel.SizeChanged += (sender, e) => { };
+    }
+  }
+
   public class VlcSongPlayer : ISongPlayer
   {
     #region private members
 
+    VlcControl swapChainProvider;
     MediaPlayer player;
     string audioDeviceId;
+
+    #region VLC Dialog handlers
 
     void OnError(string title, string text)
     {
@@ -48,11 +66,16 @@ namespace Jammit.Audio
 
     }
 
-    #endregion
+    #endregion // VLC Dialog handlers
+
+    #endregion // private members
 
     public VlcSongPlayer(ISong s)
     {
       // VLC setup
+      // Initialize SwapChainPanel
+      swapChainProvider = new VlcControl();
+      swapChainProvider.ApplyTemplate();
       Instance instance = new Instance
       (
         new List<string>
@@ -60,7 +83,7 @@ namespace Jammit.Audio
           "-I",
           "dummy",
           "--no-osd",
-          "--verbose=3",
+          //"--verbose=3",
           "--no-stats",
           "--avcodec-fast",
           "--subsdec-encoding",
@@ -69,7 +92,7 @@ namespace Jammit.Audio
           "--aout=winstore"
           //,$"--keystore-file={System.IO.Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "VLC_MediaElement_KeyStore")}"
         },
-        new Windows.UI.Xaml.Controls.SwapChainPanel()
+        swapChainProvider.SwapChainPanel
       );
       instance.setDialogHandlers(OnError, OnLogin, OnQuestion, OnDisplayProgress, OnCancel, OnUpdateProgress);
 
