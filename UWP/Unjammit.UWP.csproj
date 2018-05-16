@@ -116,10 +116,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="libVLCX">
-      <Version>3.0.1</Version>
+      <Version>3.0.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.8</Version>
+      <Version>6.1.4</Version>
     </PackageReference>
     <PackageReference Include="NAudio">
       <Version>1.8.4</Version>
@@ -128,7 +128,7 @@
       <Version>1.0.2</Version>
     </PackageReference>
     <PackageReference Include="VLC.MediaElement.ClassLibrary">
-      <Version>3.0.1.1</Version>
+      <Version>3.0.1.2</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.DeviceInfo">
       <Version>4.0.0.5</Version>
@@ -137,7 +137,7 @@
       <Version>4.0.0.7</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.0.0.446417</Version>
+      <Version>3.0.0.482510</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
