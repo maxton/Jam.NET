@@ -10,8 +10,11 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-  <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <vlc:MediaElement x:Name="MediaElement" AreTransportControlsEnabled="False">
+  <Grid>
+    <vlc:MediaElement Name="MediaElement"
+                      AreTransportControlsEnabled="True"
+                      HardwareAcceleration="False"
+                      AutoPlay="False">
     </vlc:MediaElement>
   </Grid>
 </forms:WindowsPage>

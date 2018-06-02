@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using libVLCX;
 using Jammit.Model;
 using Windows.Media.Devices;
+using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.System.Profile;
 
 namespace Jammit.Audio
@@ -16,27 +18,38 @@ namespace Jammit.Audio
     #region private members
 
     VLC.MediaElement mediaElement;
+    string token;
 
     #endregion // private members
 
     public VlcSongPlayer(ISong s, VLC.MediaElement mediaElement)
     {
-      string trackPath = "";
+      string trackFile = "";
       foreach (var t in s.Tracks)
       {
         if (t.Class == "JMFileTrack")
         {
-          trackPath = $"{t.Identifier}_jcfx";
+          trackFile = $"{t.Identifier}_jcfx.aifc";//TODO: REMOVE AIFC EXTENSION!
+          token = "{" + t.Identifier.ToString().ToUpper() + "}";
+
+          string trackPath = $"Tracks\\{s.Metadata.Id}.jcf\\{trackFile}";
+          var fileTask = Task.Run(async() => await ApplicationData.Current.LocalFolder.GetFileAsync(trackPath));
+          fileTask.Wait();
+         StorageApplicationPermissions.FutureAccessList.AddOrReplace(token, fileTask.Result);
+
+          break;//UNDO.
         }
         else
         {
           //TODO: Click track
         }
       }
-      var uri = $"ms-appdata:///local/Tracks/{s.Metadata.Id}.jcf/{trackPath}";
+      //var uri = $"ms-appdata:///local/Tracks/{s.Metadata.Id}.jcf/{trackPath}";
+      var uri = $"winrt://{token}";
 
       this.mediaElement = mediaElement;
-      this.mediaElement.MediaSource = VLC.MediaSource.CreateFromUri(uri);
+      //this.mediaElement.MediaSource = VLC.MediaSource.CreateFromUri(uri);
+      this.mediaElement.Source = uri;
     }
 
     #region ISongPlayer methods
@@ -69,6 +82,7 @@ namespace Jammit.Audio
 
     public void Play()
     {
+      var player = mediaElement.MediaPlayer;
       this.mediaElement.Play();
       this.State = PlaybackStatus.Playing;
     }
