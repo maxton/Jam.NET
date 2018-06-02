@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
+
 using Jammit.Audio;
 
 namespace Jammit.Model
@@ -10,12 +10,12 @@ namespace Jammit.Model
     /// <summary>
     /// The metadata for this song.
     /// </summary>
-    SongMeta Metadata { get; }
+    SongInfo Metadata { get; }
 
     /// <summary>
     /// A list of all the tracks in this song.
     /// </summary>
-    IReadOnlyList<Track> Tracks { get; }
+    IReadOnlyList<TrackInfo> Tracks { get; }
 
     /// <summary>
     /// A list of the beats in this song, in order.
@@ -30,24 +30,24 @@ namespace Jammit.Model
     /// <summary>
     /// Returns the waveform data for this song.
     /// </summary>
-    sbyte[] GetWaveform();
+    sbyte[] GetWaveForm();
 
     /// <summary>
-    /// Returns the cover artwork for this song.
+    /// Returns the cover artwork stream for this song.
     /// </summary>
-    Image GetCover();
+    Stream GetCover();
 
     /// <summary>
-    /// Returns the notation images for this song, in order.
+    /// Returns the notation image streams for this song, in order.
     /// </summary>
     /// <param name="t">Track to get notation for.</param>
-    List<Image> GetNotation(Track t);
+    List<Stream> GetNotation(TrackInfo t);
 
     /// <summary>
-    /// Returns the tablature images for this song, in order.
+    /// Returns the tablature image streams for this song, in order.
     /// </summary>
     /// <param name="t">Track to get tablature for.</param>
-    List<Image> GetTablature(Track t);
+    List<Stream> GetTablature(TrackInfo t);
 
     ScoreNodes GetNotationData(string trackName, string notationType);
 

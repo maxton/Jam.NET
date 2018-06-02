@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Jammit.Portable"
+             x:Class="Jammit.Portable.MainPage">
+
+  <!--See https://developer.xamarin.com/guides/xamarin-forms/xaml/xaml-basics/data_binding_basics/-->
+  <StackLayout>
+    <!--ItemsSource="{x:Static local:MainPage.Songs}"-->
+    <ListView
+      x:Name="LibraryView"
+      HorizontalOptions="Fill"
+      VerticalOptions="Start"
+      ItemTapped="LibraryView_ItemTapped">
+      <ListView.Header>
+        <Grid>
+          <Label Grid.Column="0" FontAttributes="Bold" Text="Artist" />
+          <Label Grid.Column="1" FontAttributes="Bold" Text="Title" />
+          <Label Grid.Column="2" FontAttributes="Bold" Text="Instrument" />
+          <Label Grid.Column="3" FontAttributes="Bold" Text="Album" />
+        </Grid>
+      </ListView.Header>
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Grid>
+              <Label Grid.Column="0" Text="{Binding Artist}" />
+              <Label Grid.Column="1" Text="{Binding Title}" />
+              <Label Grid.Column="2" Text="{Binding Instrument}" />
+              <Label Grid.Column="3" Text="{Binding Album}" />
+            </Grid>
+            <ViewCell.ContextActions>
+              <MenuItem Text="Delete" IsDestructive="True" Clicked="LibraryItem_Delete" />
+            </ViewCell.ContextActions>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+    <Button x:Name="CatalogButton" Text="View Catalog" Clicked="CatalogButton_Clicked" />
+    <Button x:Name="SettingsButton" Text="Settings" Clicked="SettingsButton_Clicked" />
+    <Label Text="{x:Static local:MainPage.DeviceId}" />
+    <Label Text="{x:Static local:MainPage.DevicePlatform}" />
+    <Label x:Name="FilesPath" />
+  </StackLayout>
+
+</ContentPage>

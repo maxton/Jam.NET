@@ -9,7 +9,7 @@ namespace Jammit.Model
     public readonly bool IsDownBeat;
     public readonly bool IsGhostBeat;
 
-    private Beat(double time, bool isDb, bool isGb)
+    public Beat(double time, bool isDb, bool isGb)
     {
       Time = time;
       IsDownBeat = isDb;

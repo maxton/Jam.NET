@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using System.Xml.XPath;
 
 namespace Jammit.Model
 {
@@ -12,16 +12,19 @@ namespace Jammit.Model
   /// </summary>
   public class SongMeta
   {
+    //TODO: Made this fields properties for Xaml binding. Reconcile with 'Desktop Core'.
     public string Name;
-    public string Artist;
-    public string Album;
-    public string Instrument;
+    public string Title => Name;
+    public string Artist { get; set; }
+    public string Album { get; set; }
+    public string Instrument { get; set; }
     public Guid ContentGuid;
 
     /// <summary>
     /// One of: Zip, Folder
     /// </summary>
     public string Type;
+
     /// <summary>
     /// Full path to Zip or Folder
     /// </summary>
@@ -48,39 +51,58 @@ namespace Jammit.Model
 
     public static SongMeta FromPlist(XDocument plist, Guid id, string type, string path)
     {
-
-      return new SongMeta
+      // plist/dict
+      var dict =  (plist.Elements().First().FirstNode as XElement);
+      var keys = dict.Elements("key");
+      SongMeta track = new SongMeta
       {
-        Name = plist.XPathSelectElement("/plist/dict/key[.=\'title\']/following-sibling::string[1]").Value,
-        Artist = plist.XPathSelectElement("/plist/dict/key[.=\'artist\']/following-sibling::string[1]").Value,
-        Album = plist.XPathSelectElement("/plist/dict/key[.=\'album\']/following-sibling::string[1]").Value,
-        Instrument = InstrumentCode(plist.XPathSelectElement("/plist/dict/key[.=\'instrument\']/following-sibling::integer[1]").Value),
         ContentGuid = id,
         Type = type,
-        SongPath = path
+        SongPath = path,
+        Instrument = InstrumentCode(dict.Element("dict").Element("integer").Value)
       };
+
+      int attributeCount = 0;
+      foreach (var key in keys)
+      {
+        switch (key.Value)
+        {
+          case "title":
+            track.Name = (key.NextNode as XElement).Value; attributeCount++; break;
+          case "artist":
+            track.Artist = (key.NextNode as XElement).Value; attributeCount++; break;
+          case "album":
+            track.Album = (key.NextNode as XElement).Value; attributeCount++; break;
+
+          default:
+            break;
+        }
+      }
+
+      return track;
     }
 
     public static SongMeta FromZip(string zipFileName)
     {
-      using (var a = ZipFile.OpenRead(zipFileName))
-      {
-        Guid id = Guid.Empty;
-        string entryPath = null;
-        foreach (var e in a.Entries)
-        {
-          if (e.FullName.EndsWith(".jcf/") || Regex.IsMatch(e.FullName, @".*-.*-.*-.*/"))
-          {
-            id = Guid.Parse(e.FullName.Substring(0, 36));
-            entryPath = e.FullName.Substring(0, e.FullName.IndexOf('/') + 1);
-            break;
-          }
-        }
-        using (var reader = new StreamReader(a.GetEntry(entryPath + "info.plist").Open()))
-        {
-          return FromPlist(XDocument.Parse(reader.ReadToEnd()), id, "Zip", zipFileName);
-        }
-      }
+      //using (var a = ZipFile.OpenRead(zipFileName))
+      //{
+      //  Guid id = Guid.Empty;
+      //  string entryPath = null;
+      //  foreach (var e in a.Entries)
+      //  {
+      //    if (e.FullName.EndsWith(".jcf/") || Regex.IsMatch(e.FullName, @".*-.*-.*-.*/"))
+      //    {
+      //      id = Guid.Parse(e.FullName.Substring(0, 36));
+      //      entryPath = e.FullName;
+      //      break;
+      //    }
+      //  }
+      //  using (var reader = new StreamReader(a.GetEntry(entryPath + "info.plist").Open()))
+      //  {
+      //    return FromPlist(XDocument.Parse(reader.ReadToEnd()), id, "Zip", zipFileName);
+      //  }
+      //}
+      return default(SongMeta);
     }
 
     public static SongMeta FromXml(XElement n)

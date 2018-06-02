@@ -1,6 +1,6 @@
 version: 0.3.0.{build}
 
-image: Visual Studio 2015
+image: Visual Studio 2017
 
 configuration: Release
 platform: Any CPU
@@ -9,6 +9,7 @@ build:
   project: Jam.NET.sln
 
 before_build:
+ - dotnet restore
  - nuget restore
 
 after_build:

@@ -359,7 +359,8 @@ namespace Jammit
       int length = s.ReadInt32LE();
       byte[] chars = new byte[length];
       s.Read(chars, 0, length);
-      return e.GetString(chars);
+      //return e.GetString(chars);// Different APIs on .NET portable.
+      return e.GetString(chars, 0, length);
     }
 
     /// <summary>

@@ -1,0 +1,10 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- TODO: These properties need to be set per-project (for now). -->
+    <!-- <BaseIntermediateOutputPath>$(SolutionDir)Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)Target\$(Platform)\$(Configuration)\$(BaseOutputPath)$(MSBuildProjectName)\</OutputPath> -->
+  </PropertyGroup>
+
+</Project>
