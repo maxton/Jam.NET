@@ -10,11 +10,12 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-  <Grid>
+  <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
     <vlc:MediaElement Name="MediaElement"
                       AreTransportControlsEnabled="True"
                       HardwareAcceleration="False"
-                      AutoPlay="False">
+                      AutoPlay="False"
+>
     </vlc:MediaElement>
-  </Grid>
+  </StackPanel>
 </forms:WindowsPage>
