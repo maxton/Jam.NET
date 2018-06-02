@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using libVLCX;
 using Jammit.Model;
-using Windows.Media.Devices;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
-using Windows.System.Profile;
 
 namespace Jammit.Audio
 {
@@ -18,47 +15,62 @@ namespace Jammit.Audio
     #region private members
 
     VLC.MediaElement mediaElement;
-    string token;
 
     #endregion // private members
 
     public VlcSongPlayer(ISong s, VLC.MediaElement mediaElement)
     {
-      string trackFile = "";
+      string token = "";
       foreach (var t in s.Tracks)
       {
         if (t.Class == "JMFileTrack")
         {
-          trackFile = $"{t.Identifier}_jcfx.aifc";//TODO: REMOVE AIFC EXTENSION!
           token = "{" + t.Identifier.ToString().ToUpper() + "}";
 
-          string trackPath = $"Tracks\\{s.Metadata.Id}.jcf\\{trackFile}";
+          // Store track file reference in storage cache (winrt://).
+          string trackPath = $"Tracks\\{s.Metadata.Id}.jcf\\{t.Identifier}_jcfx";
           var fileTask = Task.Run(async() => await ApplicationData.Current.LocalFolder.GetFileAsync(trackPath));
           fileTask.Wait();
-         StorageApplicationPermissions.FutureAccessList.AddOrReplace(token, fileTask.Result);
-
-          break;//UNDO.
+          StorageApplicationPermissions.FutureAccessList.AddOrReplace(token, fileTask.Result);
         }
         else
         {
           //TODO: Click track
         }
       }
-      //var uri = $"ms-appdata:///local/Tracks/{s.Metadata.Id}.jcf/{trackPath}";
-      var uri = $"winrt://{token}";
 
       this.mediaElement = mediaElement;
-      //this.mediaElement.MediaSource = VLC.MediaSource.CreateFromUri(uri);
-      this.mediaElement.Source = uri;
+      this.mediaElement.Source = $"winrt://{token}";
     }
 
-    #region ISongPlayer methods
+    #region ISongPlayer members
 
     public long PositionSamples => throw new NotImplementedException();
 
-    public TimeSpan Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public TimeSpan Position
+    {
+      get
+      {
+        return this.mediaElement.Position;
+      }
 
-    public TimeSpan Length => throw new NotImplementedException();
+      set
+      {
+        this.mediaElement.Position = value;
+      }
+    }
+
+    public TimeSpan Length
+    {
+      get
+      {
+        long length = this.mediaElement.MediaPlayer.length();
+        if (length < 0)
+          return TimeSpan.Zero;
+
+        return TimeSpan.FromMilliseconds(length);
+      }
+    }
 
     public PlaybackStatus State { get; private set; }
 
@@ -71,7 +83,7 @@ namespace Jammit.Audio
 
     public float GetChannelVolume(int channel)
     {
-      throw new NotImplementedException();
+      return this.mediaElement.Volume;
     }
 
     public void Pause()
@@ -82,14 +94,13 @@ namespace Jammit.Audio
 
     public void Play()
     {
-      var player = mediaElement.MediaPlayer;
       this.mediaElement.Play();
       this.State = PlaybackStatus.Playing;
     }
 
     public void SetChannelVolume(int channel, float volume)
     {
-      throw new NotImplementedException();
+      this.mediaElement.Volume = (int)volume;
     }
 
     public void Stop()
@@ -98,6 +109,6 @@ namespace Jammit.Audio
       this.State = PlaybackStatus.Stopped;
     }
 
-    #endregion
+    #endregion // ISongPlayer members
   }
 }
